@@ -71,12 +71,37 @@ module ietf-restconf-client {
      "RFC XXXX: RESTCONF Client and Server Models";
   }
 
+  // Features
+
+  feature tls-initiate {
+    description
+     "The tls-initiate feature indicates that the RESTCONF client 
+      supports initiating TLS connections to RESTCONF servers.";
+    reference
+     "RFC YYYY: RESTCONF Protocol";
+  }
+
+  feature tls-listen {
+    description
+     "The tls-listen feature indicates that the RESTCONF client 
+      supports opening a port to listen for incoming RESTCONF
+      server call-home TLS connections.";
+    reference
+     "RFC AAAA: NETCONF Call Home and RESTCONF Call Home";
+  }
+
   container restconf-client {
     description
       "Top-level container for RESTCONF client configuration.";
-    leaf TBD {
-      type string;
-      description "FIXME";
+    container initiate {
+      if-feature tls-initiate;
+      description
+        "Configures client intiating underlying TCP connections.";
+    }
+    container listen {
+      if-feature tls-listen;
+      description
+        "Configures client accepting call-home TCP connections.";
     }
   }
 
