@@ -347,7 +347,7 @@ I removed all the NACM statements in the new modules
         &rfc6991;
         &rfc7407;
 
-        <reference anchor='draft-ietf-netconf-system-keychain' target="https://tools.ietf.org/html/draft-ieft-netconf-system-keychain">
+        <reference anchor='draft-ietf-netconf-system-keychain' target="https://datatracker.ietf.org/html/draft-ieft-netconf-system-keychain">
           <front>
             <title>System Keychain Model</title>
             <author initials='K.W.' surname='Watsen' fullname='Kent Watsen'>
@@ -358,7 +358,7 @@ I removed all the NACM statements in the new modules
           <seriesInfo name='Internet-Draft' value='draft-ieft-netconf-system-keychain-00'/>
         </reference>
 
-        <reference anchor='draft-ietf-netconf-tls-client-server' target="https://tools.ietf.org/html/draft-ieft-netconf-tls-client-server">
+        <reference anchor='draft-ietf-netconf-tls-client-server' target="https://datatracker.ietf.org/html/draft-ieft-netconf-tls-client-server">
           <front>
             <title>TLS Client and Server Models</title>
             <author initials='K.W.' surname='Watsen' fullname='Kent Watsen'>
@@ -370,7 +370,7 @@ I removed all the NACM statements in the new modules
                        value='draft-ieft-netconf-tls-client-server-00'/>
         </reference>
 
-        <reference anchor='draft-ietf-netconf-restconf' target="https://tools.ietf.org/html/draft-ieft-netconf-restconf">
+        <reference anchor='draft-ietf-netconf-restconf' target="https://datatracker.ietf.org/html/draft-ieft-netconf-restconf">
           <front>
             <title>RESTCONF Protocol</title>
             <author initials='A.B.' surname='Bierman' fullname='Andy Bierman'>
@@ -393,7 +393,7 @@ I removed all the NACM statements in the new modules
         &rfc3688;
         &rfc5246;
 
-        <reference anchor='draft-ietf-netconf-call-home' target="https://tools.ietf.org/html/draft-ieft-netconf-call-home-17">
+        <reference anchor='draft-ietf-netconf-call-home' target="https://datatracker.ietf.org/html/draft-ieft-netconf-call-home-17">
           <front>
             <title>
               NETCONF Call Home and RESTCONF Call Home
