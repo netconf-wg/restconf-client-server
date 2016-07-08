@@ -44,10 +44,11 @@
         <area>Operations</area>
         <workgroup>NETCONF Working Group</workgroup>
         <abstract>
-            <t>This document defines two YANG modules, one
-            to configure a RESTCONF client and the other to configure a
-            RESTCONF server.  Both modules support both standard 
-            and call home TLS connections.</t>
+            <t>This document defines two YANG modules,
+            one module to configure a RESTCONF client and the other module to
+            configure a RESTCONF server.  Both modules support the TLS transport
+            protocol with both standard RESTCONF and RESTCONF Call Home connections.</t>
+
         </abstract>
         <note title="Editorial Note (To be removed by RFC Editor)">
           <t>This draft contains many placeholder values that need to be replaced
@@ -89,11 +90,11 @@
         <section title="Introduction">
 
             <t>This document defines two YANG <xref target="RFC6020"/> modules,
-            one to configure a RESTCONF client and the other to configure a RESTCONF
-            server (RESTCONF is defined by <xref target="draft-ietf-netconf-restconf"/>.
-            Both modules support TLS <xref target="RFC5246"/> with both standard
-            and call home connections (call home is defined in 
-            <xref target="draft-ietf-netconf-call-home"/>).</t>
+            one module to configure a RESTCONF client and the other module to
+            configure a RESTCONF server <xref target="draft-ietf-netconf-restconf"/>.
+            Both modules support the TLS <xref target="RFC5246"/> transport
+            protocol with both standard RESTCONF and RESTCONF Call Home connections
+            <xref target="draft-ietf-netconf-call-home"/>.</t>
 
             <section title="Terminology">
               <t>The keywords "MUST", "MUST NOT", "REQUIRED", "SHALL",
@@ -127,6 +128,8 @@
         </section>
 
         <section title="The RESTCONF Client Model">
+        <t>EDITOR NOTE: Please ignore this section, it is incomplete.</t>
+
         <t>The RESTCONF client model presented in this section supports both clients
         initiating connections to servers, as well as clients listening
         for connections from servers calling home.</t>
@@ -196,7 +199,7 @@ INSERT_TEXT_FROM_FILE(ietf-restconf-client@YYYY-MM-DD.yang)
         keychain model defined in <xref target="draft-ietf-netconf-system-keychain"/>.</t>
 
         <t>YANG feature statements are used to enable implementations to advertise
-        which parts of the model the NETCONF server supports.</t>
+        which parts of the model the RESTCONF server supports.</t>
 
         <section title="Tree Diagram">
           <t>Note: all lines are folded at column 71 with no '\' character.</t>
@@ -409,12 +412,21 @@ I removed all the NACM statements in the new modules
       </references>
 
      <section title="Change Log">
-       <t>This draft was split out from draft-ietf-netconf-server-model</t>
+       <section title="server-model-09 to 00">
+         <t>
+           <list style="symbols">
+             <t>This draft was split out from draft-ietf-netconf-server-model-09.</t>
+              <t>Added in new features 'listen' and 'call-home' so future transports
+                 can be augmented in.</t>
+           </list>
+         </t>
+       </section>
      </section>
 
      <section title="Open Issues">
        <t>Please see: https://github.com/netconf-wg/restconf-client-server/issues.</t>
      </section>
+
    </back>
 </rfc>
 

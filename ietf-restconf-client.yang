@@ -1,8 +1,20 @@
+// Editor's Note:
+// This module is incomplete at this time.  Below is
+// just a skeleton so there's something in the draft.
+// Please ignore this module for now!
+
 module ietf-restconf-client {
   yang-version 1.1;
 
   namespace "urn:ietf:params:xml:ns:yang:ietf-restconf-client";
   prefix "rcc";
+
+/*
+  import ietf-inet-types {
+    prefix inet;
+    reference 
+      "RFC 6991: Common YANG Data Types";
+  }
 
   //import ietf-netconf-acm {
   //  prefix nacm;
@@ -10,12 +22,6 @@ module ietf-restconf-client {
   //    "RFC 6536: Network Configuration Protocol (NETCONF) 
   //     Access Control Model";
   //}
-
-  import ietf-inet-types {
-    prefix inet;
-    reference 
-      "RFC 6991: Common YANG Data Types";
-  }
 
   import ietf-x509-cert-to-name {
     prefix x509c2n;
@@ -29,7 +35,7 @@ module ietf-restconf-client {
     reference
       "RFC ZZZZ: TLS Client and Server Models";
   }
-
+*/
   organization
    "IETF NETCONF (Network Configuration) Working Group";
 

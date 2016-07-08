@@ -74,18 +74,34 @@ module ietf-restconf-server {
 
   // Features
 
+  feature listen {
+    description
+     "The 'listen' feature indicates that the RESTCONF server 
+      supports opening a port to accept RESTCONF client connections
+      using at least one transport (e.g., TLS, etc.)."; 
+  }
+
   feature tls-listen {
     description
-     "The listen feature indicates that the RESTCONF server 
+     "The 'tls-listen' feature indicates that the RESTCONF server 
       supports opening a port to listen for incoming RESTCONF
       client connections.";
     reference
      "RFC XXXX: RESTCONF Protocol";
   }
 
+  feature call-home {
+    description
+     "The 'call-home' feature indicates that the RESTCONF server
+      supports initiating RESTCONF call home connections to REETCONF
+      clients using at least one transport (e.g., TLS, etc.).";
+    reference
+     "RFC YYYY: NETCONF Call Home and RESTCONF Call Home";
+  }
+
   feature tls-call-home {
     description
-     "The call-home feature indicates that the RESTCONF server 
+     "The 'tls-call-home' feature indicates that the RESTCONF server 
       supports initiating connections to RESTCONF clients.";
     reference
      "RFC YYYY: NETCONF Call Home and RESTCONF Call Home";
@@ -106,7 +122,7 @@ module ietf-restconf-server {
       "Top-level container for RESTCONF server configuration.";
 
     container listen {
-      if-feature tls-listen;
+      if-feature listen;
       description
         "Configures listen behavior";
       leaf max-sessions {
@@ -153,7 +169,7 @@ module ietf-restconf-server {
     }
 
     container call-home {
-      if-feature tls-call-home;
+      if-feature call-home;
       description
         "Configures call-home behavior";
       list restconf-client {
@@ -216,10 +232,11 @@ module ietf-restconf-server {
                     "Configures the keep-alive policy, to proactively
                      test the aliveness of the TLS client.  An
                      unresponsive TLS client will be dropped after 
-                     approximately (max-attempts * max-wait) seconds.";
+                     approximately (max-attempts * max-wait) 
+                     seconds.";
                   reference
-                    "RFC YYYY: NETCONF Call Home and RESTCONF Call Home,
-                     Section 3.1, item S6";
+                    "RFC YYYY: NETCONF Call Home and RESTCONF Call
+                     Home, Section 3.1, item S6";
                   leaf max-wait {
                     type uint16 {
                       range "1..max";
@@ -236,10 +253,10 @@ module ietf-restconf-server {
                     type uint8;
                     default 3;
                     description
-                     "Sets the number of sequential keep-alive messages
-                      that can fail to obtain a response from the TLS
-                      client before assuming the TLS client is no
-                      longer alive.";  
+                     "Sets the maximum number of sequential keep-alive
+                      messages that can fail to obtain a response from
+                      the TLS client before assuming the TLS client is
+                      no longer alive.";  
                   }
                 }
               }
@@ -250,10 +267,10 @@ module ietf-restconf-server {
                 description
                  "Periodically connect to the RESTCONF client, so that
                   the RESTCONF client may deliver messages pending for
-                  the RESTCONF server.  The RESTCONF client is expected
-                  to close the connection when it is ready to release
-                  it, thus starting the RESTCONF server's timer until
-                  next connection.";
+                  the RESTCONF server.  The client must close the
+                  connection when it's ready to release it.  Once the
+                  connection has been closed, the server will restart
+                  its timer until the next connection.";
                 leaf reconnect-timeout {
                   type uint16 {
                     range "1..max";
@@ -261,10 +278,11 @@ module ietf-restconf-server {
                   units minutes;
                   default 60;
                   description
-                   "The maximum amount of unconnected time the RESTCONF
-                    server will wait before re-establishing a connection 
-                    to the RESTCONF client.  The RESTCONF server may 
-                    initiate a connection before this time if desired 
+                   "The maximum amount of unconnected time the
+                    RESTCONF server will wait before re-establishing
+                    a connection to the RESTCONF client.  The
+                    RESTCONF server may initiate a connection to
+                    the RESTCONF client before this time if desired 
                     (e.g., to deliver a notification).";
                 }
               }
@@ -273,12 +291,13 @@ module ietf-restconf-server {
         }
         container reconnect-strategy {
           description
-           "The reconnection strategy guides how a RESTCONF server 
-            reconnects to an RESTCONF client, after losing a connection
-            to it, even if due to a reboot.  The RESTCONF server starts 
-            with the specified endpoint and tries to connect to it 
-            max-attempts times before trying the next endpoint in the 
-            list (round robin).";
+           "The reconnection strategy directs how a RESTCONF server 
+            reconnects to a RESTCONF client after after discovering
+            its connection to the client has dropped, even if due to
+            a reboot.  The RESTCONF server starts with the specified
+            endpoint and tries to connect to it max-attempts times
+            before trying the next endpoint in the list (round
+            robin).";
           leaf start-with {
             type enumeration {
               enum first-listed {

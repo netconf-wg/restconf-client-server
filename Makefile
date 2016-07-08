@@ -55,7 +55,7 @@ $(next).xml: $(draft).xml ietf-restconf-client.yang ietf-restconf-server.yang
 	sed -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" ../tls-client-server/ietf-tls-server.yang > ietf-tls-server\@$(shell date +%Y-%m-%d).yang
 	sed -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" ietf-restconf-client.yang > ietf-restconf-client\@$(shell date +%Y-%m-%d).yang
 	sed -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" ietf-restconf-server.yang > ietf-restconf-server\@$(shell date +%Y-%m-%d).yang
-	cd refs; ./gen-trees.sh; cd ..;
+	cd refs; ./validate-all.sh; ./gen-trees.sh; cd ..;
 	./.insert-figures.sh $@ > tmp; mv tmp $@
 	rm refs/*-tree.txt
 	rm ietf-*\@$(shell date +%Y-%m-%d).yang
