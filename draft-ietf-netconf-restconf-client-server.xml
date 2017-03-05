@@ -60,7 +60,7 @@
           the Normative References section, as well as in body text throughout.  
           Please update the following references to reflect their final RFC assignments:
             <list style="symbols">
-              <t>draft-ietf-netconf-system-keychain</t>
+              <t>draft-ietf-netconf-keystore</t>
               <t>draft-ietf-netconf-tls-client-server</t>
             </list>
           </t>
@@ -138,7 +138,7 @@
         groupings defined in <xref target="draft-ietf-netconf-tls-client-server"/>.</t>
 
         <t>All private keys and trusted certificates are held in the
-        keychain model defined in <xref target="draft-ietf-netconf-system-keychain"/>.</t>
+        keystore model defined in <xref target="draft-ietf-netconf-keystore"/>.</t>
 
         <t>YANG feature statements are used to enable implementations to advertise
         which parts of the model the RESTCONF client supports.</t>
@@ -159,7 +159,7 @@ INSERT_TEXT_FROM_FILE(refs/ietf-restconf-client-tree.txt)
           client to initiate connections, as well as listening for call-home
           connections.</t>
           <t>This example is consistent with the examples presented in
-          Section 2.2 of <xref target="draft-ietf-netconf-system-keychain"/>.</t>
+          Section 2.2 of <xref target="draft-ietf-netconf-keystore"/>.</t>
           <t>
             <figure>
               <artwork><![CDATA[
@@ -196,7 +196,7 @@ INSERT_TEXT_FROM_FILE(ietf-restconf-client@YYYY-MM-DD.yang)
         <xref target="draft-ietf-netconf-tls-client-server"/>.</t>
 
         <t>All private keys and trusted certificates are held in the
-        keychain model defined in <xref target="draft-ietf-netconf-system-keychain"/>.</t>
+        keystore model defined in <xref target="draft-ietf-netconf-keystore"/>.</t>
 
         <t>YANG feature statements are used to enable implementations to advertise
         which parts of the model the RESTCONF server supports.</t>
@@ -218,7 +218,7 @@ INSERT_TEXT_FROM_FILE(refs/ietf-restconf-server-tree.txt)
           call-home to one RESTCONF client.</t>
 
           <t>This example is consistent with the examples presented in
-          Section 2.2 of <xref target="draft-ietf-netconf-system-keychain"/>.</t>
+          Section 2.2 of <xref target="draft-ietf-netconf-keystore"/>.</t>
 
           <t>
             <figure>
@@ -350,15 +350,15 @@ I removed all the NACM statements in the new modules
         &rfc6991;
         &rfc7407;
 
-        <reference anchor='draft-ietf-netconf-system-keychain' target="https://datatracker.ietf.org/html/draft-ieft-netconf-system-keychain">
+        <reference anchor='draft-ietf-netconf-keystore' target="https://datatracker.ietf.org/html/draft-ieft-netconf-keystore">
           <front>
-            <title>System Keychain Model</title>
+            <title>Keystore Model</title>
             <author initials='K.W.' surname='Watsen' fullname='Kent Watsen'>
               <organization>Juniper Networks</organization>
             </author>
             <date year='2016' />
           </front>
-          <seriesInfo name='Internet-Draft' value='draft-ieft-netconf-system-keychain-00'/>
+          <seriesInfo name='Internet-Draft' value='draft-ieft-netconf-keystore-00'/>
         </reference>
 
         <reference anchor='draft-ietf-netconf-tls-client-server' target="https://datatracker.ietf.org/html/draft-ieft-netconf-tls-client-server">
