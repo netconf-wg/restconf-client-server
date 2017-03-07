@@ -1,13 +1,5 @@
 <?xml version='1.0'?>
-<!DOCTYPE rfc SYSTEM "rfc2629.dtd" [
-<!ENTITY rfc2119 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml">
-<!ENTITY rfc3688 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.3688.xml">
-<!ENTITY rfc5246 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5246.xml">
-<!ENTITY rfc6020 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6020.xml">
-<!ENTITY rfc6335 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6335.xml">
-<!ENTITY rfc6991 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6991.xml">
-<!ENTITY rfc7407 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7407.xml">
-]>
+<!DOCTYPE rfc SYSTEM "rfc2629.dtd">
 
 <?rfc toc="yes"?>
 <?rfc symrefs="yes"?>
@@ -68,7 +60,6 @@
           progress.  Please apply the following replacements:
             <list  style="symbols">
               <t><spanx style="verb">XXXX</spanx> --&gt; the assigned RFC value for this draft</t>
-              <t><spanx style="verb">YYYY</spanx> --&gt; the assigned RFC value for draft-ietf-netconf-restconf</t>
               <t><spanx style="verb">ZZZZ</spanx> --&gt; the assigned RFC value for draft-ietf-netconf-tls-client-server</t>
             </list>
           </t>
@@ -89,12 +80,12 @@
 
         <section title="Introduction">
 
-            <t>This document defines two YANG <xref target="RFC6020"/> modules,
+            <t>This document defines two YANG <xref target="RFC7950"/> modules,
             one module to configure a RESTCONF client and the other module to
-            configure a RESTCONF server <xref target="draft-ietf-netconf-restconf"/>.
+            configure a RESTCONF server <xref target="RFC8040"/>.
             Both modules support the TLS <xref target="RFC5246"/> transport
             protocol with both standard RESTCONF and RESTCONF Call Home connections
-            <xref target="draft-ietf-netconf-call-home"/>.</t>
+            <xref target="RFC8071"/>.</t>
 
             <section title="Terminology">
               <t>The keywords "MUST", "MUST NOT", "REQUIRED", "SHALL",
@@ -248,37 +239,7 @@ INSERT_TEXT_FROM_FILE(ietf-restconf-server@YYYY-MM-DD.yang)
       </section>
 
       <section title="Security Considerations">
-<!--
-I removed all the NACM statements in the new modules
-
-            <t>There are a number of data nodes defined in the 
-            "ietf-netconf-server" and "ietf-restconf-server" YANG
-            modules which are readable and/or writable that may 
-            be considered sensitive or vulnerable in some 
-            network environments.  Write and read operations to
-            these data nodes can have a negative effect on network
-            operations.  It is thus important to control write
-            and read access to these data nodes.  Below are the 
-            data nodes and their sensitivity/vulnerability.</t>
-
-            <t>restconf-server/tls/client-auth/trusted-ca-certs:
-            <list style="symbols">
-              <t>This container contains certificates that a RESTCONF server
-              is to use as trust anchors for authenticating X.509-based
-              client certificates.  Write access to this node is
-              protected using an nacm:default-deny-write statement.</t>
-            </list>
-            </t>
-
-            <t>restconf-server/tls/client-auth/trusted-client-certs:
-            <list style="symbols">
-              <t>This container contains certificates that a RESTCONF server
-              is to trust directly when authenticating X.509-based
-              client certificates.  Write access to this node is
-              protected using an nacm:default-deny-write statement.</t>
-            </list>
-            </t>
--->
+        <t>FIXME</t>
       </section>
 
       <section title="IANA Considerations">
@@ -304,8 +265,8 @@ I removed all the NACM statements in the new modules
 
         <section title="The YANG Module Names Registry">
           <t>This document registers two YANG modules in the
-          YANG Module Names registry <xref target="RFC6020"/>.
-          Following the format in <xref target="RFC6020"/>, the
+          YANG Module Names registry <xref target="RFC7950"/>.
+          Following the format in <xref target="RFC7950"/>, the
           the following registrations are requested:</t>
           <t>
             <figure>
@@ -345,10 +306,10 @@ I removed all the NACM statements in the new modules
 
     <back>
       <references title="Normative References">
-        &rfc2119;
-        &rfc6020;
-        &rfc6991;
-        &rfc7407;
+        <?rfc include="reference.RFC.2119.xml"?>
+        <?rfc include="reference.RFC.6991.xml"?>
+        <?rfc include="reference.RFC.7407.xml"?>
+        <?rfc include="reference.RFC.7950.xml"?>
 
         <reference anchor='draft-ietf-netconf-keystore' target="https://datatracker.ietf.org/html/draft-ieft-netconf-keystore">
           <front>
@@ -373,42 +334,13 @@ I removed all the NACM statements in the new modules
                        value='draft-ieft-netconf-tls-client-server-00'/>
         </reference>
 
-        <reference anchor='draft-ietf-netconf-restconf' target="https://datatracker.ietf.org/html/draft-ieft-netconf-restconf">
-          <front>
-            <title>RESTCONF Protocol</title>
-            <author initials='A.B.' surname='Bierman' fullname='Andy Bierman'>
-              <organization>YumaWorks</organization>
-            </author>
-            <author initials='M' surname='Bjorklund' fullname='Martin Bjorklund'>
-              <organization>Tail-f Systems</organization>
-            </author>
-            <author initials='K.W.' surname='Watsen' fullname='Kent Watsen'>
-              <organization>Juniper Networks</organization>
-            </author>
-            <date year='2016' />
-          </front>
-          <seriesInfo name='Internet-Draft' value='draft-ieft-netconf-restconf-13' />
-       </reference>
-
      </references>
 
       <references title="Informative References">
-        &rfc3688;
-        &rfc5246;
-
-        <reference anchor='draft-ietf-netconf-call-home' target="https://datatracker.ietf.org/html/draft-ieft-netconf-call-home-17">
-          <front>
-            <title>
-              NETCONF Call Home and RESTCONF Call Home
-            </title>
-            <author initials='K.W.' surname='Watsen' fullname='Kent Watsen'>
-              <organization>Juniper Networks</organization>
-            </author>
-            <date year='2015'/>
-          </front>
-          <seriesInfo name='Internet-Draft' value='draft-ieft-netconf-call-home-17' />
-        </reference>
-
+        <?rfc include="reference.RFC.3688.xml"?>
+        <?rfc include="reference.RFC.5246.xml"?>
+        <?rfc include="reference.RFC.8040.xml"?>
+        <?rfc include="reference.RFC.8071.xml"?>
       </references>
 
      <section title="Change Log">
@@ -421,6 +353,22 @@ I removed all the NACM statements in the new modules
            </list>
          </t>
        </section>
+        <section title="00 to 01">
+          <t>
+            <list style="symbols">
+              <t>Renamed "keychain" to "keystore".</t>
+            </list>
+          </t>
+        </section>
+        <section title="00 to 01">
+          <t>
+            <list style="symbols">
+              <t>Filled in previously missing 'ietf-restconf-client' module.</t>
+              <t>Updated the ietf-restconf-server modules to accomodate new
+              grouping 'ietf-tls-server-grouping'.</t>
+            </list>
+          </t>
+        </section>
      </section>
 
      <section title="Open Issues">

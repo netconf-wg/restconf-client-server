@@ -96,7 +96,7 @@ module ietf-restconf-server {
       supports initiating RESTCONF call home connections to REETCONF
       clients using at least one transport (e.g., TLS, etc.).";
     reference
-     "RFC YYYY: NETCONF Call Home and RESTCONF Call Home";
+     "RFC 8071: NETCONF Call Home and RESTCONF Call Home";
   }
 
   feature tls-call-home {
@@ -104,7 +104,7 @@ module ietf-restconf-server {
      "The 'tls-call-home' feature indicates that the RESTCONF server 
       supports initiating connections to RESTCONF clients.";
     reference
-     "RFC YYYY: NETCONF Call Home and RESTCONF Call Home";
+     "RFC 8071: NETCONF Call Home and RESTCONF Call Home";
   }
 
   feature client-cert-auth {
@@ -136,7 +136,7 @@ module ietf-restconf-server {
       list endpoint {
         key name;
         description
-          "List of endpoints to listen for RESTCONF connections on.";
+          "List of endpoints to listen for RESTCONF connections.";
         leaf name {
           type string;
           description
@@ -152,10 +152,22 @@ module ietf-restconf-server {
               description
                 "TLS-specific listening configuration for inbound
                  connections.";
-              uses ts:listening-tls-server-grouping {
-                refine port {
-                  default 443;
-                }
+              leaf address {
+                type inet:ip-address;
+                description
+                 "The IP address of the interface to listen on.  The
+                  TLS server will listen on all interfaces if no value
+                  is specified.  Please note that some addresses have
+                  special meanings (e.g., '0.0.0.0' and '::').";
+              }
+              leaf port {
+                type inet:port-number;
+                default 443;
+                description
+                 "The local port number on this interface the TLS server
+                  listens on.";
+              }
+              uses ts:tls-server-grouping {
                 augment "client-auth" {
                   description
                     "Augments in the cert-to-name structure.";
@@ -197,7 +209,7 @@ module ietf-restconf-server {
                   default 4336;
                 }
               }
-              uses ts:non-listening-tls-server-grouping {
+              uses ts:tls-server-grouping {
                 augment "client-auth" {
                   description
                     "Augments in the cert-to-name structure.";
@@ -235,7 +247,7 @@ module ietf-restconf-server {
                      approximately (max-attempts * max-wait) 
                      seconds.";
                   reference
-                    "RFC YYYY: NETCONF Call Home and RESTCONF Call
+                    "RFC 8071: NETCONF Call Home and RESTCONF Call
                      Home, Section 3.1, item S6";
                   leaf max-wait {
                     type uint16 {
