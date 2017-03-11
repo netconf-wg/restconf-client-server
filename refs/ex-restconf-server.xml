@@ -1,5 +1,6 @@
 <restconf-server 
-  xmlns="urn:ietf:params:xml:ns:yang:ietf-restconf-server">
+  xmlns="urn:ietf:params:xml:ns:yang:ietf-restconf-server"
+  xmlns:x509c2n="urn:ietf:params:xml:ns:yang:ietf-x509-cert-to-name">
 
   <!-- listening for TLS (HTTPS) connections -->
   <listen>
@@ -8,15 +9,13 @@
       <tls>
         <address>11.22.33.44</address>
         <certificates>
-          <certificate>ex-key-sect571r1-cert</certificate>
+          <certificate>
+            <name>tls-ec-cert</name>
+          </certificate>
         </certificates>
         <client-auth>
-          <trusted-ca-certs>
-            deployment-specific-ca-certs
-          </trusted-ca-certs>
-          <trusted-client-certs>
-            explicitly-trusted-client-certs
-          </trusted-client-certs>
+          <trusted-ca-certs>deployment-specific-ca-certs</trusted-ca-certs>
+          <trusted-client-certs>explicitly-trusted-client-certs</trusted-client-certs>
           <cert-maps>
             <cert-to-name>
               <id>1</id>
@@ -32,7 +31,6 @@
           </cert-maps>
         </client-auth>
       </tls>
-
     </endpoint>
   </listen>
 
@@ -52,15 +50,13 @@
           </endpoint>
         </endpoints>
         <certificates>
-          <certificate>ex-key-sect571r1-cert</certificate>
+          <certificate>
+            <name>tls-ec-cert</name>
+          </certificate>
         </certificates>
         <client-auth>
-          <trusted-ca-certs>
-            deployment-specific-ca-certs
-          </trusted-ca-certs>
-          <trusted-client-certs>
-            explicitly-trusted-client-certs
-          </trusted-client-certs>
+          <trusted-ca-certs>deployment-specific-ca-certs</trusted-ca-certs>
+          <trusted-client-certs>explicitly-trusted-client-certs</trusted-client-certs>
           <cert-maps>
             <cert-to-name>
               <id>1</id>

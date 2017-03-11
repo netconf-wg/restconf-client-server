@@ -377,6 +377,7 @@ module ietf-restconf-server {
         "Container for the list of endpoints.";
       list endpoint {
         key name;
+        unique "address port";
         min-elements 1;
         ordered-by user;
         description

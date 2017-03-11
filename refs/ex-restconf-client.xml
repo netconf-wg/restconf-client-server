@@ -1,1 +1,45 @@
-FIXME
+<restconf-client
+  xmlns="urn:ietf:params:xml:ns:yang:ietf-restconf-client">
+
+  <!-- RESTCONF servers to initiate connections to -->
+  <initiate>
+    <restconf-server>
+      <name>corp-fw1</name>
+      <tls>
+        <endpoints>
+          <endpoint>
+            <name>corp-fw1.example.com</name>
+            <address>corp-fw1.example.com</address>
+          </endpoint>
+          <endpoint>
+            <name>corp-fw2.example.com</name>
+            <address>corp-fw2.example.com</address>
+          </endpoint>
+        </endpoints>
+        <server-auth>
+          <trusted-server-certs>deployment-specific-ca-certs</trusted-server-certs>
+        </server-auth>
+        <client-auth>
+          <certificate>tls-ec-cert</certificate>
+        </client-auth>
+      </tls>
+    </restconf-server>
+  </initiate>
+
+  <!-- endpoints to listen for RESTCONF Call Home connections on -->
+  <listen>
+    <endpoint>
+      <name>Intranet-facing listener</name>
+      <tls>
+        <address>11.22.33.44</address>
+        <server-auth>
+          <trusted-ca-certs>deployment-specific-ca-certs</trusted-ca-certs>
+          <trusted-server-certs>explicitly-trusted-server-certs</trusted-server-certs>
+        </server-auth>
+        <client-auth>
+          <certificate>tls-ec-cert</certificate>
+        </client-auth>
+      </tls>
+    </endpoint>
+  </listen>
+</restconf-client>
