@@ -52,15 +52,15 @@
           the Normative References section, as well as in body text throughout.  
           Please update the following references to reflect their final RFC assignments:
             <list style="symbols">
-              <t>draft-ietf-netconf-keystore</t>
-              <t>draft-ietf-netconf-tls-client-server</t>
+              <t>I-D.ietf-netconf-keystore</t>
+              <t>I-D.ietf-netconf-tls-client-server</t>
             </list>
           </t>
           <t>Artwork in this document contains shorthand references to drafts in 
           progress.  Please apply the following replacements:
             <list  style="symbols">
               <t><spanx style="verb">XXXX</spanx> --&gt; the assigned RFC value for this draft</t>
-              <t><spanx style="verb">ZZZZ</spanx> --&gt; the assigned RFC value for draft-ietf-netconf-tls-client-server</t>
+              <t><spanx style="verb">ZZZZ</spanx> --&gt; the assigned RFC value for I-D.ietf-netconf-tls-client-server</t>
             </list>
           </t>
           <t>Artwork in this document contains placeholder values for the date of publication of this
@@ -125,11 +125,11 @@
         initiating connections to servers, as well as clients listening
         for connections from servers calling home.</t>
 
-        <t>This model supports both TLS transport protocols using the TLS client
-        groupings defined in <xref target="draft-ietf-netconf-tls-client-server"/>.</t>
+        <t>This model supports the TLS transport protocol using the TLS client
+        groupings defined in <xref target="I-D.ietf-netconf-tls-client-server"/>.</t>
 
         <t>All private keys and trusted certificates are held in the
-        keystore model defined in <xref target="draft-ietf-netconf-keystore"/>.</t>
+        keystore model defined in <xref target="I-D.ietf-netconf-keystore"/>.</t>
 
         <t>YANG feature statements are used to enable implementations to advertise
         which parts of the model the RESTCONF client supports.</t>
@@ -150,7 +150,7 @@ INSERT_TEXT_FROM_FILE(refs/ietf-restconf-client-tree.txt)
           client to initiate connections, as well as listening for call-home
           connections.</t>
           <t>This example is consistent with the examples presented in
-          Section 2.2 of <xref target="draft-ietf-netconf-keystore"/>.</t>
+          Section 2.2 of <xref target="I-D.ietf-netconf-keystore"/>.</t>
           <t>
             <figure>
               <artwork><![CDATA[
@@ -183,11 +183,11 @@ INSERT_TEXT_FROM_FILE(ietf-restconf-client@YYYY-MM-DD.yang)
         both listening for connections as well as initiating call-home
         connections.</t>
 
-        <t>This model supports the TLS using the TLS server groupings defined in
-        <xref target="draft-ietf-netconf-tls-client-server"/>.</t>
+        <t>This model supports the TLS transport protocol using the TLS server groupings defined in
+        <xref target="I-D.ietf-netconf-tls-client-server"/>.</t>
 
         <t>All private keys and trusted certificates are held in the
-        keystore model defined in <xref target="draft-ietf-netconf-keystore"/>.</t>
+        keystore model defined in <xref target="I-D.ietf-netconf-keystore"/>.</t>
 
         <t>YANG feature statements are used to enable implementations to advertise
         which parts of the model the RESTCONF server supports.</t>
@@ -209,7 +209,7 @@ INSERT_TEXT_FROM_FILE(refs/ietf-restconf-server-tree.txt)
           call-home to one RESTCONF client.</t>
 
           <t>This example is consistent with the examples presented in
-          Section 2.2 of <xref target="draft-ietf-netconf-keystore"/>.</t>
+          Section 2.2 of <xref target="I-D.ietf-netconf-keystore"/>.</t>
 
           <t>
             <figure>
@@ -239,7 +239,46 @@ INSERT_TEXT_FROM_FILE(ietf-restconf-server@YYYY-MM-DD.yang)
       </section>
 
       <section title="Security Considerations">
-        <t>FIXME</t>
+        <t>The YANG module defined in this document uses a grouping defined in 
+        <xref target="I-D.ietf-netconf-tls-client-server"/>.  Please see the Security Considerations
+        section in that document for concerns related that grouping.</t>
+
+        <t>The YANG module defined in this document is designed to be accessed via YANG
+        based management protocols, such as NETCONF <xref target="RFC6241"/> and
+        RESTCONF <xref target="RFC8040"/>.  Both of these protocols have mandatory-to-implement
+        secure transport layers (e.g., SSH, TLS) with mutual authentication.</t>
+
+        <t>The NETCONF access control model (NACM) <xref target="RFC6536"/> provides the means
+        to restrict access for particular users to a pre-configured subset of all available
+        protocol operations and content.</t>
+
+        <t>There are a number of data nodes defined in this YANG module that are
+        writable/creatable/deletable (i.e., config true, which is the default). These data
+        nodes may be considered sensitive or vulnerable in some network environments. Write
+        operations (e.g., edit-config) to these data nodes without proper protection can
+        have a negative effect on network operations. These are the subtrees and data nodes
+        and their sensitivity/vulnerability:
+          <list style="hanging" hangIndent="6">
+            <t hangText="   NONE"></t>
+          </list>
+        </t>
+
+        <t>Some of the readable data nodes in this YANG module may be considered sensitive
+        or vulnerable in some network environments. It is thus important to control read
+        access (e.g., via get, get-config, or notification) to these data nodes. These are
+        the subtrees and data nodes and their sensitivity/vulnerability:
+          <list style="hanging" hangIndent="6">
+            <t hangText="   NONE"></t>
+          </list>
+        </t>
+
+        <t>Some of the RPC operations in this YANG module may be considered sensitive or
+        vulnerable in some network environments. It is thus important to control access
+        to these operations. These are the operations and their sensitivity/vulnerability:
+          <list style="hanging" hangIndent="6">
+            <t hangText="   NONE"></t>
+          </list>
+        </t>
       </section>
 
       <section title="IANA Considerations">
@@ -307,38 +346,18 @@ INSERT_TEXT_FROM_FILE(ietf-restconf-server@YYYY-MM-DD.yang)
     <back>
       <references title="Normative References">
         <?rfc include="reference.RFC.2119.xml"?>
+        <?rfc include="reference.RFC.6536.xml"?>
         <?rfc include="reference.RFC.6991.xml"?>
         <?rfc include="reference.RFC.7407.xml"?>
         <?rfc include="reference.RFC.7950.xml"?>
-
-        <reference anchor='draft-ietf-netconf-keystore' target="https://datatracker.ietf.org/html/draft-ieft-netconf-keystore">
-          <front>
-            <title>Keystore Model</title>
-            <author initials='K.W.' surname='Watsen' fullname='Kent Watsen'>
-              <organization>Juniper Networks</organization>
-            </author>
-            <date year='2016' />
-          </front>
-          <seriesInfo name='Internet-Draft' value='draft-ieft-netconf-keystore-00'/>
-        </reference>
-
-        <reference anchor='draft-ietf-netconf-tls-client-server' target="https://datatracker.ietf.org/html/draft-ieft-netconf-tls-client-server">
-          <front>
-            <title>TLS Client and Server Models</title>
-            <author initials='K.W.' surname='Watsen' fullname='Kent Watsen'>
-              <organization>Juniper Networks</organization>
-            </author>
-            <date year='2016' />
-           </front>
-           <seriesInfo name='Internet-Draft'
-                       value='draft-ieft-netconf-tls-client-server-00'/>
-        </reference>
-
+        <?rfc include="reference.I-D.ietf-netconf-keystore"?>
+        <?rfc include="reference.I-D.ietf-netconf-tls-client-server"?>
      </references>
 
       <references title="Informative References">
         <?rfc include="reference.RFC.3688.xml"?>
         <?rfc include="reference.RFC.5246.xml"?>
+        <?rfc include="reference.RFC.6241.xml"?>
         <?rfc include="reference.RFC.8040.xml"?>
         <?rfc include="reference.RFC.8071.xml"?>
       </references>
@@ -360,11 +379,11 @@ INSERT_TEXT_FROM_FILE(ietf-restconf-server@YYYY-MM-DD.yang)
             </list>
           </t>
         </section>
-        <section title="00 to 01">
+        <section title="01 to 02">
           <t>
             <list style="symbols">
               <t>Filled in previously missing 'ietf-restconf-client' module.</t>
-              <t>Updated the ietf-restconf-server modules to accomodate new
+              <t>Updated the ietf-restconf-server module to accomodate new
               grouping 'ietf-tls-server-grouping'.</t>
             </list>
           </t>

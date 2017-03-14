@@ -18,7 +18,7 @@ module ietf-restconf-client {
   }
  
   organization
-   "IETF RESTCONFNETCONF (Network Configuration) Working Group";
+   "IETF NETCONF (Network Configuration) Working Group";
 
   contact
    "WG Web:   <http://tools.ietf.org/wg/restconf/>
@@ -96,7 +96,7 @@ module ietf-restconf-client {
     container initiate {
       if-feature initiate;
       description
-        "Configures client intiating underlying TCP connections.";
+        "Configures client initiating underlying TCP connections.";
       list restconf-server {
         key name;
         description
