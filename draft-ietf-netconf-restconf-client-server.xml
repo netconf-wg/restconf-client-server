@@ -398,6 +398,17 @@ INSERT_TEXT_FROM_FILE(ietf-restconf-server@YYYY-MM-DD.yang)
             </list>
           </t>
         </section>
+        <section title="03 to 04">
+          <t>
+            <list style="symbols">
+              <t>Added RFC 8174 to Requirements Language Section.</t>
+              <t>Replaced refine statement in ietf-restconf-client
+                 to add a mandatory true.</t>
+              <t>Added refine statement in ietf-restconf-server
+                 to add a must statement.</t>
+            </list>
+          </t>
+        </section>
      </section>
    </back>
 </rfc>

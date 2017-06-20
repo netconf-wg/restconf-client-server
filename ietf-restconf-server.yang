@@ -168,17 +168,22 @@ module ietf-restconf-server {
                   listens on.";
               }
               uses ts:tls-server-grouping {
+                refine "client-auth" {
+                  must 'trusted-ca-certs or trusted-client-certs';
+                  description
+                    "RESTCONF servers MUST be able to validate clients.";
+                }
                 augment "client-auth" {
                   description
                     "Augments in the cert-to-name structure.";
                   uses cert-maps-grouping;
                 }
               }
-            }
-          }
-        }
-      }
-    }
+            } end tls container
+          } // end tls case
+        } // end transport
+      } // end endpoint
+    } // end listen
 
     container call-home {
       if-feature call-home;
@@ -210,6 +215,11 @@ module ietf-restconf-server {
                 }
               }
               uses ts:tls-server-grouping {
+                refine "client-auth" {
+                  must 'trusted-ca-certs or trusted-client-certs';
+                  description
+                    "RESTCONF servers MUST be able to validate clients.";
+                }
                 augment "client-auth" {
                   description
                     "Augments in the cert-to-name structure.";
