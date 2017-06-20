@@ -179,7 +179,7 @@ module ietf-restconf-server {
                   uses cert-maps-grouping;
                 }
               }
-            } end tls container
+            } // end tls container
           } // end tls case
         } // end transport
       } // end endpoint
