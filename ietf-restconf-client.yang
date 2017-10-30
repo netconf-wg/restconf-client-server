@@ -14,7 +14,7 @@ module ietf-restconf-client {
     prefix ts;
     revision-date YYYY-MM-DD; // stable grouping definitions
     reference
-      "RFC ZZZZ: TLS Client and Server Models";
+      "RFC ZZZZ: YANG Groupings for TLS Clients and TLS Servers";
   }
  
   organization
@@ -35,7 +35,7 @@ module ietf-restconf-client {
    "This module contains a collection of YANG definitions for
     configuring RESTCONF clients.
 
-    Copyright (c) 2014 IETF Trust and the persons identified as
+    Copyright (c) 2017 IETF Trust and the persons identified as
     authors of the code. All rights reserved.
 
     Redistribution and use in source and binary forms, with or
@@ -65,9 +65,12 @@ module ietf-restconf-client {
   }
 
   feature tls-initiate {
+    if-feature initiate;
     description
      "The ‘tls-initiate’ feature indicates that the RESTCONF client
-      supports initiating TLS connections to RESTCONF servers.";
+      supports initiating TLS connections to RESTCONF servers.  This
+      feature exists as TLS might not be a mandatory-to-implement
+      transport in the future.";
     reference
      "RFC 8040: RESTCONF Protocol";
   }
@@ -81,12 +84,21 @@ module ietf-restconf-client {
   }
 
   feature tls-listen {
+    if-feature listen;
     description
      "The ‘tls-listen’ feature indicates that the RESTCONF client
       supports opening a port to listen for incoming RESTCONF
-      server call-home TLS connections.";
+      server call-home TLS connections.  This feature exists as
+      TLS might not be a mandatory-to-implement transport in the
+      future.";
     reference
      "RFC 8071: NETCONF Call Home and RESTCONF Call Home";
+  }
+
+  container restconf-client {
+    uses restconf-client;
+    description
+      "Top-level container for RESTCONF client configuration.";
   }
 
   grouping restconf-client {
@@ -99,191 +111,226 @@ module ietf-restconf-client {
         "Configures client initiating underlying TCP connections.";
       list restconf-server {
         key name;
+        min-elements 1;
         description
           "List of RESTCONF servers the RESTCONF client is to initiate
-           connections to.";
+           connections to in parallel.";
         leaf name {
           type string;
           description
             "An arbitrary name for the RESTCONF server.";
         }
-        choice transport {
-          mandatory true;
+        container endpoints {
           description
-            "Selects between available transports.";
-
-          case tls {
-            if-feature tls-initiate;
-            container tls {
+            "Container for the list of endpoints.";
+          list endpoint {
+            key name;
+            min-elements 1;
+            ordered-by user;
+            description
+              "A non-empty user-ordered list of endpoints for this
+               RESTCONF client to try to connect to in sequence. 
+               Defining more than one enables high-availability.";
+            leaf name {
+              type string;
               description
-                "Specifies TLS-specific transport configuration.";
-              uses endpoints-container {
-                refine endpoints/endpoint/port {
-                  default 443;
-                }
-              }
-              uses ts:tls-client-grouping {
-                refine "client-auth/auth-type" {
-                  mandatory true;
-                  description
-                    "RESTCONF clients MUST pass some authentication
-                     credentials.";
-                }
-              }
+                "An arbitrary name for this endpoint.";
             }
-          } // end tls
-
-        } // end transport
-
-        container connection-type {
-          description
-           "Indicates the kind of connection to use.";
-          choice connection-type {
-            description
-              "Selects between available connection types.";
-            case persistent-connection {
-              container persistent {
-                presence true;
-                description
-                 "Maintain a persistent connection to the RESTCONF 
-                  server. If the connection goes down, immediately 
-                  start trying to reconnect to it, using the 
-                  reconnection strategy.
-    
-                  This connection type minimizes any RESTCONF server
-                  to RESTCONF client data-transfer delay, albeit at 
-                  the expense of holding resources longer.";
-                leaf idle-timeout {
-                  type uint32;
-                  units "seconds";
-                  default 86400;  // one day;
+            choice transport {
+              mandatory true;
+              description
+                "Selects between available transports. This is a
+                 'choice' statement so as to support additional
+                 transport options to be augmented in.";
+              case tls {
+                if-feature tls-initiate;
+                container tls {
                   description
-                    "Specifies the maximum number of seconds that a 
-                     a RESTCONF session may remain idle. A RESTCONF 
-                     session will be dropped if it is idle for an 
-                     interval longer than this number of seconds.  
-                     If set to zero, then the client will never drop
-                     a session because it is idle.  Sessions that 
-                     have a notification subscription active are 
-                     never dropped.";
-                }
-                container keep-alives {
-                  description
-                    "Configures the keep-alive policy, to proactively
-                     test the aliveness of the SSH/TLS server.  An
-                     unresponsive SSH/TLS server will be dropped after
-                     approximately max-attempts * max-wait seconds.";
-                  reference
-                    "RFC 8071: NETCONF Call Home and RESTCONF Call
-                     Home, Section 3.1, item S6";
-                  leaf max-wait {
-                    type uint16 {
-                      range "1..max";
+                    "Specifies TLS-specific transport configuration.";
+                  leaf address {
+                    type inet:host;
+                    mandatory true;
+                    description
+                     "The IP address or hostname of the endpoint. 
+                      If a domain name is configured, then the DNS
+                      resolution should happen on each usage attempt.
+                      If the the DNS resolution results in multiple 
+                      IP addresses, the IP addresses will be tried 
+                      according to local preference order until a
+                      connection has been established or until all
+                      IP addresses have failed.";
+                  }
+                  leaf port {
+                    type inet:port-number;
+                    default 443;
+                    description
+                     "The IP port for this endpoint. The RESTCONF
+                      client will use the IANA-assigned well-known
+                      port for 'https' (443) if no value is
+                      specified.";
+                  }
+                  uses ts:tls-client-grouping {
+                    refine "client-identity/auth-type" {
+                      mandatory true;
+                      description
+                        "RESTCONF clients MUST pass some authentication
+                         credentials.";
                     }
-                    units seconds;
-                    default 30;
+                  }
+                }
+              } // end tls
+            } // end transport
+            container connection-type {
+              description
+               "Indicates the kind of connection to use.";
+              choice connection-type {
+                description
+                  "Selects between available connection types.";
+                case persistent-connection {
+                  container persistent {
+                    presence true;
                     description
-                     "Sets the amount of time in seconds after which 
-                      if no data has been received from the SSH/TLS
-                      server, a SSH/TLS-level message will be sent 
-                      to test the aliveness of the SSH/TLS server.";
+                     "Maintain a persistent connection to the RESTCONF 
+                      server. If the connection goes down, immediately 
+                      start trying to reconnect to it, using the 
+                      reconnection strategy.  This connection type
+                      minimizes any RESTCONF server to RESTCONF client
+                      data-transfer delay, albeit at the expense of
+                      holding resources longer.";
+                    leaf idle-timeout {
+                      type uint32;
+                      units "seconds";
+                      default 86400;  // one day;
+                      description
+                        "Specifies the maximum number of seconds that
+                         the underlying TLS session may remain idle.
+                         A TLS session will be dropped if it is idle
+                         for an interval longer than this number of
+                         seconds.  If set to zero, then the client
+                         will never drop a session because it is idle.
+                         Sessions that have a notification subscription
+                         active are never dropped.";
+                    }
+                    container keep-alives {
+                      description
+                        "Configures the keep-alive policy, to
+                         proactively test the aliveness of the TLS
+                         server.  An unresponsive TLS server will be
+                         dropped after approximately max-attempts *
+                         max-wait seconds.";
+                      reference
+                        "RFC 8071: NETCONF Call Home and RESTCONF Call
+                         Home, Section 3.1, item S6";
+                      leaf max-wait {
+                        type uint16 {
+                          range "1..max";
+                        }
+                        units seconds;
+                        default 30;
+                        description
+                         "Sets the amount of time in seconds after
+                          which if no data has been received from
+                          the TLS server, a TLS-level message will
+                          be sent to test the aliveness of the TLS
+                          server.";
+                      }
+                      leaf max-attempts {
+                        type uint8;
+                        default 3;
+                        description
+                         "Sets the maximum number of sequential keep-
+                          alive messages that can fail to obtain a
+                          response from the TLS server before assuming
+                          the TLS server is no longer alive.";
+                      }
+                    }
                   }
-                  leaf max-attempts {
-                    type uint8;
-                    default 3;
+                }
+                case periodic-connection {
+                  container periodic {
+                    presence true;
                     description
-                     "Sets the maximum number of sequential keep-alive
-                      messages that can fail to obtain a response from
-                      the SSH/TLS server before assuming the SSH/TLS
-                      server is no longer alive.";
+                     "Periodically connect to the RESTCONF server, so
+                      that, e.g., the RESTCONF client can collect data
+                      (logs) from the RESTCONF server.  Once the
+                      connection is closed, for whatever reason, the
+                      RESTCONF client will restart its timer until the
+                      next connection.";
+                    leaf idle-timeout {
+                      type uint16;
+                      units "seconds";
+                      default 300; // five minutes
+                      description
+                        "Specifies the maximum number of seconds that
+                         the underlying TLS session may remain idle. A
+                         TLS session will be dropped if it is idle for
+                         an interval longer than this number of seconds
+                         If set to zero, then the server will never
+                         drop a session because it is idle.";
+                    }
+                    leaf reconnect-timeout {
+                      type uint16 {
+                        range "1..max";
+                      }
+                      units minutes;
+                      default 60;
+                      description
+                       "Sets the maximum amount of unconnected time
+                        the RESTCONF client will wait before re-
+                        establishing a connection to the RESTCONF
+                        server.  The RESTCONF client may initiate a
+                        connection before this time if desired (e.g.,
+                        to set configuration).";
+                    }
+                  }
+                } // end periodic-connection
+              } // end connection-type
+            } // end connection-type
+            container reconnect-strategy {
+              description
+               "The reconnection strategy directs how a RESTCONF client
+                reconnects to a RESTCONF server, after discovering its
+                connection to the server has dropped, even if due to a
+                reboot.  The RESTCONF client starts with the specified
+                endpoint and tries to connect to it max-attempts times
+                before trying the next endpoint in the list (round 
+                robin).";
+              leaf start-with {
+                type enumeration {
+                  enum first-listed {
+                    description
+                      "Indicates that reconnections should start with
+                       the first endpoint listed.";
+                  }
+                  enum last-connected { 
+                    description
+                      "Indicates that reconnections should start with
+                       the endpoint last connected to.  If no previous
+                       connection has ever been established, then the
+                       first endpoint configured is used.   RESTCONF 
+                       clients SHOULD be able to remember the last 
+                       endpoint connected to across reboots.";
                   }
                 }
-              }
-            }
-            case periodic-connection {
-              container periodic {
-                presence true;
+                default first-listed;
                 description
-                 "Periodically connect to the RESTCONF server, so that
-                  the RESTCONF server may deliver messages pending for
-                  the RESTCONF client.  The RESTCONF server must close
-                  the connection when it is ready to release it. Once
-                  the connection has been closed, the RESTCONF client
-                  will restart its timer until the next connection.";
-                leaf idle-timeout {
-                  type uint16;
-                  units "seconds";
-                  default 300; // five minutes
-                  description
-                    "Specifies the maximum number of seconds that a 
-                     a RESTCONF session may remain idle. A RESTCONF 
-                     session will be dropped if it is idle for an 
-                     interval longer than this number of seconds.  
-                     If set to zero, then the server will never drop
-                     a session because it is idle.  Sessions that 
-                     have a notification subscription active are 
-                     never dropped.";
+                 "Specifies which of the RESTCONF server's endpoints
+                  the RESTCONF client should start with when trying
+                  to connect to the RESTCONF server.";
+              }
+              leaf max-attempts {
+                type uint8 {
+                  range "1..max";
                 }
-                leaf reconnect-timeout {
-                  type uint16 {
-                    range "1..max";
-                  }
-                  units minutes;
-                  default 60;
-                  description
-                   "Sets the maximum amount of unconnected time the 
-                    RESTCONF client will wait before re-establishing
-                    a connection to the RESTCONF server.  The RESTCONF
-                    client may initiate a connection before this 
-                    time if desired (e.g., to set configuration).";
-                }
-              }
-            }
-          }
-        }
-        container reconnect-strategy {
-          description
-           "The reconnection strategy directs how a RESTCONF client 
-            reconnects to a RESTCONF server, after discovering its
-            connection to the server has dropped, even if due to a
-            reboot.  The RESTCONF client starts with the specified
-            endpoint and tries to connect to it max-attempts times
-            before trying the next endpoint in the list (round 
-            robin).";
-          leaf start-with {
-            type enumeration {
-              enum first-listed {
+                default 3;
                 description
-                  "Indicates that reconnections should start with
-                   the first endpoint listed.";
+                 "Specifies the number times the RESTCONF client tries
+                  to connect to a specific endpoint before moving on
+                  to the next endpoint in the list (round robin).";
               }
-              enum last-connected { 
-                description
-                  "Indicates that reconnections should start with
-                   the endpoint last connected to.  If no previous
-                   connection has ever been established, then the
-                   first endpoint configured is used.   RESTCONF 
-                   clients SHOULD be able to remember the last 
-                   endpoint connected to across reboots.";
-              }
-            }
-            default first-listed;
-            description
-             "Specifies which of the RESTCONF server's endpoints the
-              RESTCONF client should start with when trying to connect
-              to the RESTCONF server.";
-          }
-          leaf max-attempts {
-            type uint8 {
-              range "1..max";
-            }
-            default 3;
-            description
-             "Specifies the number times the RESTCONF client tries to
-              connect to a specific endpoint before moving on to the
-              next endpoint in the list (round robin).";
-          }
-        }
+            } // end reconnect-strategy
+          } // end endpoint
+        } // end endpoints
       } // end restconf-server
     } // end initiate
 
@@ -291,29 +338,18 @@ module ietf-restconf-client {
       if-feature listen;
       description
         "Configures client accepting call-home TCP connections.";
-
-      leaf max-sessions {
-        type uint16;
-        default 0;
-        description
-          "Specifies the maximum number of concurrent sessions
-           that can be active at one time.  The value 0 indicates
-           that no artificial session limit should be used.";
-      }
-
       leaf idle-timeout {
         type uint16;
         units "seconds";
         default 3600; // one hour
         description
-          "Specifies the maximum number of seconds that a RESTCONF
-           session may remain idle. A RESTCONF session will be dropped
+          "Specifies the maximum number of seconds that an underlying
+           TLS session may remain idle. A TLS session will be dropped
            if it is idle for an interval longer than this number of
            seconds.  If set to zero, then the server will never drop
            a session because it is idle.  Sessions that have a 
            notification subscription active are never dropped.";
       }
-
       list endpoint {
         key name;
         description
@@ -326,7 +362,9 @@ module ietf-restconf-client {
         choice transport {
           mandatory true;
           description
-            "Selects between available transports.";
+            "Selects between available transports. This is a 'choice'
+             statement so as to support additional transport options
+             to be augmented in.";
           case tls {
             if-feature tls-listen;
             container tls {
@@ -336,16 +374,25 @@ module ietf-restconf-client {
               leaf address {
                 type inet:ip-address;
                 description
-                 "The IP address to listen for call-home connections.";
+                 "The IP address to listen on for incoming call-home
+                  connections.  The RESTCONF client will listen on 
+                  all configured interfaces if no value is specified.
+                  INADDR_ANY (0.0.0.0) or INADDR6_ANY (0:0:0:0:0:0:0:0
+                  a.k.a. ::) MUST be used when the server is to listen
+                  on all IPv4 or IPv6 addresses, respectively.";
               }   
               leaf port {
                 type inet:port-number;
                 default 4336;
                 description
-                 "The port number to listen for call-home connections.";
+                 "The port number to listen on for call-home
+                  connections. The RESTCONF client will listen
+                  on the IANA-assigned well-known port for
+                  'restconf-ch-tls' (4336) if no value is
+                   specified.";
               }   
               uses ts:tls-client-grouping {
-                refine "client-auth/auth-type" {
+                refine "client-identity/auth-type" {
                   mandatory true;
                   description
                     "RESTCONF clients MUST pass some authentication
@@ -357,49 +404,5 @@ module ietf-restconf-client {
         } // end transport
       } // end endpoint
     } // end listen
-
   } // end restconf-client
-
-
-  grouping endpoints-container {
-    description
-      "This grouping is used to configure a set of RESTCONF servers
-       a RESTCONF client may initiate connections to.";
-    container endpoints {
-      description
-        "Container for the list of endpoints.";
-      list endpoint {
-        key name;
-        unique "address port";
-        min-elements 1;
-        ordered-by user;
-        description
-          "A non-empty user-ordered list of endpoints for this RESTCONF
-           client to try to connect to.  Defining more than one enables
-           high-availability.";
-        leaf name {
-          type string;
-          description
-            "An arbitrary name for this endpoint.";
-        }
-        leaf address {
-          type inet:host;
-          mandatory true;
-          description
-           "The IP address or hostname of the endpoint.  If a 
-            hostname is configured and the DNS resolution results
-            in more than one IP address, the RESTCONF client 
-            will process the IP addresses as if they had been
-            explicitly configured in place of the hostname.";
-        }
-        leaf port {
-          type inet:port-number;
-          description
-           "The IP port for this endpoint. The RESTCONF client will
-            use the IANA-assigned well-known port (set via a refine
-            statement when uses) if no value is specified.";
-        }
-      }
-    }
-  }
 }
