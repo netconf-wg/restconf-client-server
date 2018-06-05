@@ -2,25 +2,20 @@
   xmlns="urn:ietf:params:xml:ns:yang:ietf-restconf-server"
   xmlns:x509c2n="urn:ietf:params:xml:ns:yang:ietf-x509-cert-to-name">
 
-  <!-- listening for TLS (HTTPS) connections -->
+  <!-- endpoints to listen for RESTCONF connections on -->
   <listen>
     <endpoint>
       <name>netconf/tls</name>
       <tls>
         <address>11.22.33.44</address>
         <server-identity>
-          <algorithm xmlns:ks="urn:ietf:params:xml:ns:yang:ietf-keystore">ks:secp521r1</algorithm>
+          <algorithm xmlns:ct="urn:ietf:params:xml:ns:yang:ietf-crypto-types">ct:secp521r1</algorithm>
           <private-key>base64encodedvalue==</private-key>
           <public-key>base64encodedvalue==</public-key>
-          <certificates>
-            <certificate>
-              <name>domain certificate</name>
-              <value>base64encodedvalue==</value>
-            </certificate>
-          </certificates>
+          <cert>base64encodedvalue==</cert>
         </server-identity>
         <client-auth>
-          <pinned-ca-certs>deployment-specific-ca-certs</pinned-ca-certs>
+          <pinned-ca-certs>explicitly-trusted-client-ca-certs</pinned-ca-certs>
           <pinned-client-certs>explicitly-trusted-client-certs</pinned-client-certs>
           <cert-maps>
             <cert-to-name>
@@ -40,7 +35,7 @@
     </endpoint>
   </listen>
 
-  <!-- calling home to a RESTCONF client -->
+  <!-- call home to a RESTCONF client with two endpoints -->
   <call-home>
     <restconf-client>
       <name>config-manager</name>
@@ -50,18 +45,13 @@
           <tls>
             <address>22.33.44.55</address>
             <server-identity>
-              <algorithm xmlns:ks="urn:ietf:params:xml:ns:yang:ietf-keystore">ks:secp521r1</algorithm>
+              <algorithm xmlns:ct="urn:ietf:params:xml:ns:yang:ietf-crypto-types">ct:secp521r1</algorithm>
               <private-key>base64encodedvalue==</private-key>
               <public-key>base64encodedvalue==</public-key>
-              <certificates>
-                <certificate>
-                  <name>domain certificate</name>
-                  <value>base64encodedvalue==</value>
-                </certificate>
-              </certificates>
+              <cert>base64encodedvalue==</cert>
             </server-identity>
             <client-auth>
-              <pinned-ca-certs>deployment-specific-ca-certs</pinned-ca-certs>
+              <pinned-ca-certs>explicitly-trusted-client-ca-certs</pinned-ca-certs>
               <pinned-client-certs>explicitly-trusted-client-certs</pinned-client-certs>
               <cert-maps>
                 <cert-to-name>
@@ -84,18 +74,13 @@
           <tls>
             <address>33.44.55.66</address>
             <server-identity>
-              <algorithm xmlns:ks="urn:ietf:params:xml:ns:yang:ietf-keystore">ks:secp521r1</algorithm>
+              <algorithm xmlns:ct="urn:ietf:params:xml:ns:yang:ietf-crypto-types">ct:secp521r1</algorithm>
               <private-key>base64encodedvalue==</private-key>
               <public-key>base64encodedvalue==</public-key>
-              <certificates>
-                <certificate>
-                  <name>domain certificate</name>
-                  <value>base64encodedvalue==</value>
-                </certificate>
-              </certificates>
+              <cert>base64encodedvalue==</cert>
             </server-identity>
             <client-auth>
-              <pinned-ca-certs>deployment-specific-ca-certs</pinned-ca-certs>
+              <pinned-ca-certs>explicitly-trusted-client-ca-certs</pinned-ca-certs>
               <pinned-client-certs>explicitly-trusted-client-certs</pinned-client-certs>
               <cert-maps>
                 <cert-to-name>
