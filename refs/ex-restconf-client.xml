@@ -12,7 +12,7 @@
             <address>corp-fw1.example.com</address>
             <client-identity>
               <certificate>
-                <algorithm xmlns:ct="urn:ietf:params:xml:ns:yang:ietf-crypto-types">ct:secp521r1</algorithm>
+                <algorithm xmlns:ct="urn:ietf:params:xml:ns:yang:ietf-crypto-types">ct:rsa2048</algorithm>
                 <private-key>base64encodedvalue==</private-key>
                 <public-key>base64encodedvalue==</public-key>
                 <cert>base64encodedvalue==</cert>
@@ -33,7 +33,7 @@
             <address>corp-fw2.example.com</address>
             <client-identity>
               <certificate>
-                <algorithm xmlns:ct="urn:ietf:params:xml:ns:yang:ietf-crypto-types">ct:secp521r1</algorithm>
+                <algorithm xmlns:ct="urn:ietf:params:xml:ns:yang:ietf-crypto-types">ct:rsa2048</algorithm>
                 <private-key>base64encodedvalue==</private-key>
                 <public-key>base64encodedvalue==</public-key>
                 <cert>base64encodedvalue==</cert>
@@ -60,7 +60,7 @@
         <address>11.22.33.44</address>
         <client-identity>
           <certificate>
-            <algorithm xmlns:ct="urn:ietf:params:xml:ns:yang:ietf-crypto-types">ct:secp521r1</algorithm>
+            <algorithm xmlns:ct="urn:ietf:params:xml:ns:yang:ietf-crypto-types">ct:rsa2048</algorithm>
             <private-key>base64encodedvalue==</private-key>
             <public-key>base64encodedvalue==</public-key>
             <cert>base64encodedvalue==</cert>
