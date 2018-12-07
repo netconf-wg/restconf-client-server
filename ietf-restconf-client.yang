@@ -398,11 +398,10 @@ module ietf-restconf-client {
                  connections.";
               leaf address {
                 type inet:ip-address;
+                mandatory true;
                 description
                  "The IP address to listen on for incoming call-
-                  home connections.  The RESTCONF client will
-                  listen on all configured interfaces if no
-                  value is specified.  INADDR_ANY (0.0.0.0) or
+                  home connections.  INADDR_ANY (0.0.0.0) or
                   INADDR6_ANY (0:0:0:0:0:0:0:0 a.k.a. ::) MUST
                   be used when the server is to listen on all
                   IPv4 or IPv6 addresses, respectively.";
