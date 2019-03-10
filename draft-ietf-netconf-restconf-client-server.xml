@@ -428,6 +428,14 @@ INSERT_TEXT_FROM_FILE(ietf-restconf-server@YYYY-MM-DD.yang)
         </t>
       </section>
 
+      <section title="09 to 10">
+        <t>
+          <list style="symbols">
+            <t>Reformatted YANG modules.</t>
+          </list>
+        </t>
+      </section>
+
      </section>
 
      <section title="Acknowledgements" numbered="no">
