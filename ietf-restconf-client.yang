@@ -1,6 +1,5 @@
 module ietf-restconf-client {
   yang-version 1.1;
-
   namespace "urn:ietf:params:xml:ns:yang:ietf-restconf-client";
   prefix "rcc";
 
@@ -10,17 +9,28 @@ module ietf-restconf-client {
       "RFC 6991: Common YANG Data Types";
   }
 
-  import ietf-inet-types {
-    prefix inet;
-    reference 
-      "RFC 6991: Common YANG Data Types";
+  import ietf-tcp-client {
+    prefix tcpc;
+    reference
+      "RFC AAAA: YANG Groupings for TCP Clients and TCP Servers";
   }
 
-  import ietf-tls-client {
-    prefix ts;
-    revision-date YYYY-MM-DD; // stable grouping definitions
+  import ietf-tcp-server {
+    prefix tcps;
     reference
-      "RFC ZZZZ: YANG Groupings for TLS Clients and TLS Servers";
+      "RFC AAAA: YANG Groupings for TCP Clients and TCP Servers";
+  }
+ 
+  import ietf-tls-client {
+    prefix tlsc;
+    reference
+      "RFC BBBB: YANG Groupings for TLS Clients and TLS Servers";
+  }
+
+  import ietf-http-client {
+    prefix httpc;
+    reference
+      "RFC CCCC: YANG Groupings for HTTP Clients and HTTP Servers";
   }
  
   organization
@@ -28,13 +38,9 @@ module ietf-restconf-client {
 
   contact
    "WG Web:   <http://datatracker.ietf.org/wg/restconf/>
-    WG List:  <mailto:restconf@ietf.org>
-
-    Author:   Kent Watsen
-              <mailto:kent+ietf@watsen.net>
-
-    Author:   Gary Wu
-              <mailto:garywu@cisco.com>";
+    WG List:  <mailto:netconf@ietf.org>
+    Author:   Kent Watsen <mailto:kent+ietf@watsen.net>
+    Author:   Gary Wu <mailto:garywu@cisco.com>";
 
 
   description
@@ -74,15 +80,15 @@ module ietf-restconf-client {
     description
      "The 'initiate' feature indicates that the RESTCONF client 
       supports initiating RESTCONF connections to RESTCONF servers
-      using at least one transport (e.g., TLS, etc.)."; 
+      using at least one transport (e.g., HTTPS, etc.)."; 
   }
 
-  feature tls-initiate {
+  feature https-initiate {
     if-feature initiate;
     description
-     "The ‘tls-initiate’ feature indicates that the RESTCONF client
-      supports initiating TLS connections to RESTCONF servers. This
-      feature exists as TLS might not be a mandatory to implement
+     "The ‘https-initiate’ feature indicates that the RESTCONF client
+      supports initiating HTTPS connections to RESTCONF servers. This
+      feature exists as HTTPS might not be a mandatory to implement
       transport in the future.";
     reference
      "RFC 8040: RESTCONF Protocol";
@@ -93,26 +99,21 @@ module ietf-restconf-client {
      "The 'listen' feature indicates that the RESTCONF client 
       supports opening a port to accept RESTCONF server call
       home connections using at least one transport (e.g., 
-      TLS, etc.)."; 
+      HTTPS, etc.)."; 
   }
 
-  feature tls-listen {
+  feature https-listen {
     if-feature listen;
     description
-     "The ‘tls-listen’ feature indicates that the RESTCONF client
+     "The ‘https-listen’ feature indicates that the RESTCONF client
       supports opening a port to listen for incoming RESTCONF
-      server call-home TLS connections.  This feature exists as
-      TLS might not be a mandatory to implement transport in the
-      future.";
+      server call-home connections.  This feature exists as not
+      all RESTCONF clients may support RESTCONF call home.";
     reference
      "RFC 8071: NETCONF Call Home and RESTCONF Call Home";
   }
 
-  container restconf-client {
-    uses restconf-client-grouping;
-    description
-      "Top-level container for RESTCONF client configuration.";
-  }
+  // Groupings
 
   grouping restconf-client-grouping {
     description
@@ -156,48 +157,37 @@ module ietf-restconf-client {
                 "Selects between available transports. This is a
                  'choice' statement so as to support additional
                  transport options to be augmented in.";
-              case tls {
-                if-feature tls-initiate;
-                container tls {
+              case https {
+                if-feature https-initiate;
+                container https {
                   description
-                    "Specifies TLS-specific transport
+                    "Specifies HTTPS-specific transport
                      configuration.";
-                  leaf address {
-                    type inet:host;
-                    mandatory true;
-                    description
-                     "The IP address or hostname of the endpoint. 
-                      If a domain name is configured, then the
-                      DNS resolution should happen on each usage
-                      attempt.  If the the DNS resolution results
-                      in multiple IP addresses, the IP addresses
-                      will be tried according to local preference
-                      order until a connection has been established
-                      or until all IP addresses have failed.";
+                  uses tcpc:tcp-client-grouping {
+                    refine "remote-port" {
+                      default 443;
+                      description
+                        "The RESTCONF client will attempt to connect
+                        to the IANA-assigned well-known port value
+                        for 'https' (443) if no value is specified.";
+                    }
                   }
-                  leaf port {
-                    type inet:port-number;
-                    default 443;
-                    description
-                     "The IP port for this endpoint. The RESTCONF
-                      client will use the IANA-assigned well-known
-                      port for 'https' (443) if no value is
-                      specified.";
-                  }
-                  uses ts:tls-client-grouping {
-                    refine "client-identity/auth-type" {
+                  uses tlsc:tls-client-grouping {
+                    refine "tls-client-identity/auth-type" {
                       mandatory true;
                       description
                         "RESTCONF clients MUST pass some
                          authentication credentials.";
                     }
                   }
+                  uses httpc:http-client-grouping;
                 }
-              } // end tls
-            } // end transport
+              } // https
+            } // transport
             container connection-type {
               description
-               "Indicates the kind of connection to use.";
+                "Indicates the RESTCONF client's preference for how
+                 the RESTCONF connection is maintained.";
               choice connection-type {
                 mandatory true;
                 description
@@ -215,37 +205,6 @@ module ietf-restconf-client {
                       connection type minimizes any RESTCONF server
                       to RESTCONF client data-transfer delay, albeit
                       at the expense of holding resources longer.";
-                    container keep-alives {
-                      description
-                        "Configures the keep-alive policy, to
-                         proactively test the aliveness of the TLS
-                         server.  An unresponsive TLS server will
-                         be dropped after approximately max-attempts
-                         * max-wait seconds.";
-                      leaf max-wait {
-                        type uint16 {
-                          range "1..max";
-                        }
-                        units seconds;
-                        default 30;
-                        description
-                         "Sets the amount of time in seconds after
-                          which if no data has been received from
-                          the TLS server, a TLS-level message will
-                          be sent to test the aliveness of the TLS
-                          server.";
-                      }
-                      leaf max-attempts {
-                        type uint8;
-                        default 3;
-                        description
-                         "Sets the maximum number of sequential
-                          keep-alive messages that can fail to
-                          obtain a response from the TLS server
-                          before assuming the TLS server is no
-                          longer alive.";
-                      }
-                    }
                   }
                 }
                 case periodic-connection {
@@ -254,9 +213,9 @@ module ietf-restconf-client {
                      "Indicates that a periodic connection is to be
                       maintained.";
                     description
-                     "Periodically connect to the NETCONF server.
+                     "Periodically connect to the RESTCONF server.
                       The RESTCONF server should close the underlying
-                      TLS connection upon completing planned
+                      TCP connection upon completing planned
                       activities.
 
                       This connection type increases resource
@@ -293,17 +252,17 @@ module ietf-restconf-client {
                       default 120; // two minutes
                       description
                         "Specifies the maximum number of seconds
-                         that the underlying TLS session may remain
-                         idle. A TLS session will be dropped if it
+                         that the underlying TCP session may remain
+                         idle. A TCP session will be dropped if it
                          is idle for an interval longer than this
                          number of seconds If set to zero, then the
                          RESTCONF client will never drop a session
                          because it is idle.";
                     }
                   }
-                } // end periodic-connection
-              } // end connection-type
-            } // end connection-type
+                } // periodic-connection
+              } // connection-type
+            } // connection-type
             container reconnect-strategy {
               description
                "The reconnection strategy directs how a RESTCONF
@@ -355,11 +314,11 @@ module ietf-restconf-client {
                   moving on to the next endpoint in the list
                   (round robin).";
               }
-            } // end reconnect-strategy
-          } // end endpoint
-        } // end endpoints
-      } // end restconf-server
-    } // end initiate
+            } // reconnect-strategy
+          } // endpoint
+        } // endpoints
+      } // restconf-server
+    } // initiate
 
     container listen {
       if-feature listen;
@@ -373,7 +332,7 @@ module ietf-restconf-client {
         default 3600; // one hour
         description
           "Specifies the maximum number of seconds that an
-           underlying TLS session may remain idle. A TLS session
+           underlying TCP session may remain idle. A TCP session
            will be dropped if it is idle for an interval longer
            than this number of seconds.  If set to zero, then
            the server will never drop a session because it is
@@ -397,44 +356,43 @@ module ietf-restconf-client {
             "Selects between available transports. This is a
              'choice' statement so as to support additional
              transport options to be augmented in.";
-          case tls {
-            if-feature tls-listen;
-            container tls {
+          case https {
+            if-feature https-listen;
+            container https {
               description
-                "TLS-specific listening configuration for inbound
+                "HTTPS-specific listening configuration for inbound
                  connections.";
-              leaf address {
-                type inet:ip-address;
-                mandatory true;
-                description
-                 "The IP address to listen on for incoming call-
-                  home connections.  INADDR_ANY (0.0.0.0) or
-                  INADDR6_ANY (0:0:0:0:0:0:0:0 a.k.a. ::) MUST
-                  be used when the server is to listen on all
-                  IPv4 or IPv6 addresses, respectively.";
-              }   
-              leaf port {
-                type inet:port-number;
-                default 4336;
-                description
-                 "The port number to listen on for call-home
-                  connections. The RESTCONF client will listen
-                  on the IANA-assigned well-known port for
-                  'restconf-ch-tls' (4336) if no value is
-                   specified.";
-              }   
-              uses ts:tls-client-grouping {
-                refine "client-identity/auth-type" {
+              uses tcps:tcp-server-grouping {
+                refine "local-port" {
+                  default 4336;
+                  description
+                    "The RESTCONF client will listen on the IANA-
+                     assigned well-known port for 'restconf-ch-tls'
+                     (4336) if no value is specified.";
+                }
+              }
+              uses tlsc:tls-client-grouping {
+                refine "tls-client-identity/auth-type" {
                   mandatory true;
                   description
                     "RESTCONF clients MUST pass some authentication
                      credentials.";
                 }
               }
-            }
-          }
-        } // end transport
-      } // end endpoint
-    } // end listen
-  } // end restconf-client
+              uses httpc:http-client-grouping;
+            } 
+          } // case https
+        } // transport
+      } // endpoint
+    } // listen
+  } // restconf-client
+
+  // Protocol accessible node, for servers that implement this
+  // module.
+
+  container restconf-client {
+    uses restconf-client-grouping;
+    description
+      "Top-level container for RESTCONF client configuration.";
+  }
 }

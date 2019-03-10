@@ -6,17 +6,17 @@
   <listen>
     <endpoint>
       <name>netconf/tls</name>
-      <tls>
-        <address>11.22.33.44</address>
-        <server-identity>
+      <https>
+        <local-address>11.22.33.44</local-address>
+        <tls-server-identity>
           <local-definition>
             <algorithm xmlns:ct="urn:ietf:params:xml:ns:yang:ietf-crypto-types">ct:rsa2048</algorithm>
             <private-key>base64encodedvalue==</private-key>
             <public-key>base64encodedvalue==</public-key>
             <cert>base64encodedvalue==</cert>
           </local-definition>
-        </server-identity>
-        <client-auth>
+        </tls-server-identity>
+        <tls-client-auth>
           <pinned-ca-certs>explicitly-trusted-client-ca-certs</pinned-ca-certs>
           <pinned-client-certs>explicitly-trusted-client-certs</pinned-client-certs>
           <cert-maps>
@@ -32,8 +32,8 @@
               <name>scooby-doo</name>
             </cert-to-name>
           </cert-maps>
-        </client-auth>
-      </tls>
+        </tls-client-auth>
+      </https>
     </endpoint>
   </listen>
 
@@ -44,17 +44,17 @@
       <endpoints>
         <endpoint>
           <name>east-data-center</name>
-          <tls>
-            <address>22.33.44.55</address>
-            <server-identity>
+          <https>
+            <remote-address>east.example.com</remote-address>
+            <tls-server-identity>
               <local-definition>
                 <algorithm xmlns:ct="urn:ietf:params:xml:ns:yang:ietf-crypto-types">ct:rsa2048</algorithm>
                 <private-key>base64encodedvalue==</private-key>
                 <public-key>base64encodedvalue==</public-key>
                 <cert>base64encodedvalue==</cert>
               </local-definition>
-            </server-identity>
-            <client-auth>
+            </tls-server-identity>
+            <tls-client-auth>
               <pinned-ca-certs>explicitly-trusted-client-ca-certs</pinned-ca-certs>
               <pinned-client-certs>explicitly-trusted-client-certs</pinned-client-certs>
               <cert-maps>
@@ -70,22 +70,27 @@
                   <name>scooby-doo</name>
                 </cert-to-name>
               </cert-maps>
-            </client-auth>
-          </tls>
+            </tls-client-auth>
+          </https>
         </endpoint>
         <endpoint>
           <name>west-data-center</name>
-          <tls>
-            <address>33.44.55.66</address>
-            <server-identity>
+          <https>
+            <remote-address>west.example.com</remote-address>
+            <tcp-keepalives>
+              <idle-time>15</idle-time>
+              <max-probes>3</max-probes>
+              <probe-interval>30</probe-interval>
+            </tcp-keepalives>
+            <tls-server-identity>
               <local-definition>
                 <algorithm xmlns:ct="urn:ietf:params:xml:ns:yang:ietf-crypto-types">ct:rsa2048</algorithm>
                 <private-key>base64encodedvalue==</private-key>
                 <public-key>base64encodedvalue==</public-key>
                 <cert>base64encodedvalue==</cert>
               </local-definition>
-            </server-identity>
-            <client-auth>
+            </tls-server-identity>
+            <tls-client-auth>
               <pinned-ca-certs>explicitly-trusted-client-ca-certs</pinned-ca-certs>
               <pinned-client-certs>explicitly-trusted-client-certs</pinned-client-certs>
               <cert-maps>
@@ -101,8 +106,12 @@
                   <name>scooby-doo</name>
                 </cert-to-name>
               </cert-maps>
-            </client-auth>
-          </tls>
+            </tls-client-auth>
+            <http-keepalives>
+              <max-wait>30</max-wait>
+              <max-attempts>3</max-attempts>
+            </http-keepalives>
+          </https>
         </endpoint>
       </endpoints>
       <connection-type>

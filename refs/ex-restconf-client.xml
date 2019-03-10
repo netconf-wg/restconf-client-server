@@ -8,9 +8,14 @@
       <endpoints>
         <endpoint>
           <name>corp-fw1.example.com</name>
-          <tls>
-            <address>corp-fw1.example.com</address>
-            <client-identity>
+          <https>
+            <remote-address>corp-fw1.example.com</remote-address>
+            <tcp-keepalives>
+              <idle-time>15</idle-time>
+              <max-probes>3</max-probes>
+              <probe-interval>30</probe-interval>
+            </tcp-keepalives>
+            <tls-client-identity>
               <certificate>
                 <local-definition>
                   <algorithm xmlns:ct="urn:ietf:params:xml:ns:yang:ietf-crypto-types">ct:rsa2048</algorithm>
@@ -19,21 +24,40 @@
                   <cert>base64encodedvalue==</cert>
                 </local-definition>
               </certificate>
-            </client-identity>
-            <server-auth>
+            </tls-client-identity>
+            <tls-server-auth>
               <pinned-ca-certs>explicitly-trusted-server-ca-certs</pinned-ca-certs>
               <pinned-server-certs>explicitly-trusted-server-certs</pinned-server-certs>
-            </server-auth>
-          </tls>
+            </tls-server-auth>
+            <tls-keepalives>
+              <max-wait>30</max-wait>
+              <max-attempts>3</max-attempts>
+            </tls-keepalives>
+            <http-client-identity>
+              <basic>
+                <user-id>bob</user-id>
+                <password>secret</password>
+              </basic>
+            </http-client-identity>
+            <http-keepalives>
+              <max-wait>30</max-wait>
+              <max-attempts>3</max-attempts>
+            </http-keepalives>
+          </https>
           <connection-type>
             <persistent/>
           </connection-type>
         </endpoint>
         <endpoint>
           <name>corp-fw2.example.com</name>
-          <tls>
-            <address>corp-fw2.example.com</address>
-            <client-identity>
+          <https>
+            <remote-address>corp-fw2.example.com</remote-address>
+            <tcp-keepalives>
+              <idle-time>15</idle-time>
+              <max-probes>3</max-probes>
+              <probe-interval>30</probe-interval>
+            </tcp-keepalives>
+            <tls-client-identity>
               <certificate>
                 <local-definition>
                   <algorithm xmlns:ct="urn:ietf:params:xml:ns:yang:ietf-crypto-types">ct:rsa2048</algorithm>
@@ -42,12 +66,26 @@
                   <cert>base64encodedvalue==</cert>
                 </local-definition>
               </certificate>
-            </client-identity>
-            <server-auth>
+            </tls-client-identity>
+            <tls-server-auth>
               <pinned-ca-certs>explicitly-trusted-server-ca-certs</pinned-ca-certs>
               <pinned-server-certs>explicitly-trusted-server-certs</pinned-server-certs>
-            </server-auth>
-          </tls>
+            </tls-server-auth>
+            <tls-keepalives>
+              <max-wait>30</max-wait>
+              <max-attempts>3</max-attempts>
+            </tls-keepalives>
+            <http-client-identity>
+              <basic>
+                <user-id>bob</user-id>
+                <password>secret</password>
+              </basic>
+            </http-client-identity>
+            <http-keepalives>
+              <max-wait>30</max-wait>
+              <max-attempts>3</max-attempts>
+            </http-keepalives>
+          </https>
           <connection-type>
             <persistent/>
           </connection-type>
@@ -60,9 +98,9 @@
   <listen>
     <endpoint>
       <name>Intranet-facing listener</name>
-      <tls>
-        <address>11.22.33.44</address>
-        <client-identity>
+      <https>
+        <local-address>11.22.33.44</local-address>
+        <tls-client-identity>
           <certificate>
             <local-definition>
               <algorithm xmlns:ct="urn:ietf:params:xml:ns:yang:ietf-crypto-types">ct:rsa2048</algorithm>
@@ -71,12 +109,12 @@
               <cert>base64encodedvalue==</cert>
             </local-definition>
           </certificate>
-        </client-identity>
-        <server-auth>
+        </tls-client-identity>
+        <tls-server-auth>
           <pinned-ca-certs>explicitly-trusted-server-ca-certs</pinned-ca-certs>
           <pinned-server-certs>explicitly-trusted-server-certs</pinned-server-certs>
-        </server-auth>
-      </tls>
+        </tls-server-auth>
+      </https>
     </endpoint>
   </listen>
 </restconf-client>

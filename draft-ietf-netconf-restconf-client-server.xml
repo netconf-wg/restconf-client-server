@@ -47,14 +47,18 @@
           Please update the following references to reflect their final RFC assignments:
             <list style="symbols">
               <t>I-D.ietf-netconf-keystore</t>
+              <t>I-D.ietf-netconf-tcp-client-server</t>
               <t>I-D.ietf-netconf-tls-client-server</t>
+              <t>I-D.ietf-netconf-http-client-server</t>
             </list>
           </t>
           <t>Artwork in this document contains shorthand references to drafts in 
           progress.  Please apply the following replacements:
             <list  style="symbols">
               <t><spanx style="verb">XXXX</spanx> --&gt; the assigned RFC value for this draft</t>
-              <t><spanx style="verb">ZZZZ</spanx> --&gt; the assigned RFC value for I-D.ietf-netconf-tls-client-server</t>
+              <t><spanx style="verb">AAAA</spanx> --&gt; the assigned RFC value for I-D.ietf-netconf-tcp-client-server</t>
+              <t><spanx style="verb">CCCC</spanx> --&gt; the assigned RFC value for I-D.ietf-netconf-tls-client-server</t>
+              <t><spanx style="verb">BBBB</spanx> --&gt; the assigned RFC value for I-D.ietf-netconf-http-client-server</t>
             </list>
           </t>
           <t>Artwork in this document contains placeholder values for the date of publication of this
@@ -136,8 +140,10 @@ INSERT_TEXT_FROM_FILE(refs/ex-restconf-client.xml)
 
         <section title="YANG Module" anchor="ietf-restconf-client-module">
           <t>This YANG module has normative references to <xref target="RFC6991"/>,
-          <xref target="RFC8040"/>, and <xref target="RFC8071"/>, and
-          <xref target="I-D.ietf-netconf-tls-client-server"/>.</t>
+          <xref target="RFC8040"/>, and <xref target="RFC8071"/>,
+          <xref target="I-D.kwatsen-netconf-tcp-client-server"/>,
+          <xref target="I-D.ietf-netconf-tls-client-server"/>, and
+          <xref target="I-D.kwatsen-netconf-http-client-server"/>.</t>
           <t>
             <figure>
               <artwork><![CDATA[
@@ -195,7 +201,9 @@ INSERT_TEXT_FROM_FILE(refs/ex-restconf-server.xml)
         <section title="YANG Module" anchor="ietf-restconf-server-module">
           <t>This YANG module has normative references to <xref target="RFC6991"/>,
           <xref target="RFC7407"/>, <xref target="RFC8040"/>, <xref target="RFC8071"/>,
-          and <xref target="I-D.ietf-netconf-tls-client-server"/>.</t>
+          <xref target="I-D.kwatsen-netconf-tcp-client-server"/>,
+          <xref target="I-D.ietf-netconf-tls-client-server"/>, and
+          <xref target="I-D.kwatsen-netconf-http-client-server"/>.</t>
           <t>
             <figure>
               <artwork><![CDATA[
@@ -315,7 +323,9 @@ INSERT_TEXT_FROM_FILE(ietf-restconf-server@YYYY-MM-DD.yang)
         <?rfc include="reference.RFC.8071.xml"?>
         <?rfc include="reference.RFC.8174.xml"?>
         <?rfc include="reference.I-D.ietf-netconf-keystore"?>
+        <?rfc include="reference.I-D.kwatsen-netconf-tcp-client-server"?>
         <?rfc include="reference.I-D.ietf-netconf-tls-client-server"?>
+        <?rfc include="reference.I-D.kwatsen-netconf-http-client-server"?>
      </references>
 
       <references title="Informative References">
@@ -412,6 +422,8 @@ INSERT_TEXT_FROM_FILE(ietf-restconf-server@YYYY-MM-DD.yang)
           <list style="symbols">
             <t>Corrected use of "mandatory true" for "address" leafs.</t>
             <t>Updated examples to reflect update to groupings defined in the keystore draft.</t>
+            <t>Updated to use groupings defined in new TCP and HTTP drafts.</t>
+            <t>Updated copyright date, boilerplate template, affiliation, and folding algorithm.</t>
           </list>
         </t>
       </section>
