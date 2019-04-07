@@ -57,8 +57,8 @@
             <list  style="symbols">
               <t><spanx style="verb">XXXX</spanx> --&gt; the assigned RFC value for this draft</t>
               <t><spanx style="verb">AAAA</spanx> --&gt; the assigned RFC value for I-D.ietf-netconf-tcp-client-server</t>
-              <t><spanx style="verb">CCCC</spanx> --&gt; the assigned RFC value for I-D.ietf-netconf-tls-client-server</t>
-              <t><spanx style="verb">BBBB</spanx> --&gt; the assigned RFC value for I-D.ietf-netconf-http-client-server</t>
+              <t><spanx style="verb">BBBB</spanx> --&gt; the assigned RFC value for I-D.ietf-netconf-tls-client-server</t>
+              <t><spanx style="verb">CCCC</spanx> --&gt; the assigned RFC value for I-D.ietf-netconf-http-client-server</t>
             </list>
           </t>
           <t>Artwork in this document contains placeholder values for the date of publication of this
@@ -69,7 +69,7 @@
           </t>
           <t>The following Appendix section is to be removed prior to publication:
             <list  style="symbols">
-              <t>Appendix A.  Change Log</t>
+              <t><xref target="change-log"/>.  Change Log</t>
             </list>
           </t>
         </note>
@@ -94,30 +94,26 @@
         </section>
 
         <section title="The RESTCONF Client Model">
+        <t>The RESTCONF client model presented in this section supports
+        both clients initiating connections to servers, as well as
+        clients listening for connections from servers calling home.</t>
 
-        <t>The RESTCONF client model presented in this section supports both clients
-        initiating connections to servers, as well as clients listening
-        for connections from servers calling home.</t>
+        <t>YANG feature statements are used to enable implementations to
+        advertise which potentially uncommon parts of the model the
+        RESTCONF client supports.</t>
 
-        <t>This model, like that presented in <xref target="I-D.ietf-netconf-netconf-client-server"/>,
-        is designed to support any number of possible transports.  RESTCONF only supports the TLS
-        transport currently, thus this model only supports the TLS transport.</t>
-
-        <t>All private keys and trusted certificates are held in the
-        keystore model defined in <xref target="I-D.ietf-netconf-keystore"/>.</t>
-
-        <t>YANG feature statements are used to enable implementations to advertise
-        which parts of the model the RESTCONF client supports.</t>
-
-        <section title="Tree Diagram">
-          <t>The following tree diagram <xref target="RFC8340"/>
-          provides an overview of the data model for the "ietf-restconf-client" module.
-          Just the container is displayed below, but there is also a reusable grouping 
-          called "restconf-client-grouping" that the container is using.</t>
+        <section title="Tree Diagram" anchor="restconf-client-tree">
+          <t>The following tree diagram <xref target="RFC8340"/> provides an
+            overview of the data model for the "ietf-restconf-client" module.</t>
+          <t>This tree diagram only shows the nodes defined in this module; it does
+            show the nodes defined by "grouping" statements used by this module.</t>
+          <t>Please see <xref target="restconf-client-tree-expanded"/> for a tree
+            diagram that illustrates what the module looks like with all the
+            "grouping" statements expanded.</t>
           <t>
             <figure>
               <artwork><![CDATA[
-INSERT_TEXT_FROM_FILE(refs/ietf-restconf-client-tree.txt)
+INSERT_TEXT_FROM_FILE(refs/ietf-restconf-client-tree-no-expand.txt)
 ]]></artwork>
             </figure>
           </t>
@@ -128,7 +124,8 @@ INSERT_TEXT_FROM_FILE(refs/ietf-restconf-client-tree.txt)
           client to initiate connections, as well as listening for call-home
           connections.</t>
           <t>This example is consistent with the examples presented in
-          Section 3.2 of <xref target="I-D.ietf-netconf-keystore"/>.</t>
+          Section 2 of <xref target="I-D.ietf-netconf-trust-anchors"/> 
+          and Section 3.2 of <xref target="I-D.ietf-netconf-keystore"/>.</t>
           <t>
             <figure>
               <artwork><![CDATA[
@@ -157,25 +154,26 @@ INSERT_TEXT_FROM_FILE(ietf-restconf-client@YYYY-MM-DD.yang)
       </section>
 
       <section title="The RESTCONF Server Model">
-        <t>The RESTCONF server model presented in this section supports servers
+        <t>The RESTCONF server model presented in this section supports
         both listening for connections as well as initiating call-home
         connections.</t>
 
-        <t>All private keys and trusted certificates are held in the
-        keystore model defined in <xref target="I-D.ietf-netconf-keystore"/>.</t>
+        <t>YANG feature statements are used to enable implementations to
+        advertise which potentially uncommon parts of the model the
+        RESTCONF server supports.</t>
 
-        <t>YANG feature statements are used to enable implementations to advertise
-        which parts of the model the RESTCONF server supports.</t>
-
-        <section title="Tree Diagram">
-          <t>The following tree diagram <xref target="RFC8340"/>
-          provides an overview of the data model for the "ietf-restconf-server" module.
-          Just the container is displayed below, but there is also a reusable grouping 
-          called "restconf-server-grouping" that the container is using.</t>
+        <section title="Tree Diagram" anchor="restconf-server-tree">
+          <t>The following tree diagram <xref target="RFC8340"/> provides an
+            overview of the data model for the "ietf-restconf-server" module.</t>
+          <t>This tree diagram only shows the nodes defined in this module; it does
+            show the nodes defined by "grouping" statements used by this module.</t>
+          <t>Please see <xref target="restconf-server-tree-expanded"/> for a tree
+            diagram that illustrates what the module looks like with all the
+            "grouping" statements expanded.</t>
           <t>
             <figure>
               <artwork><![CDATA[
-INSERT_TEXT_FROM_FILE(refs/ietf-restconf-server-tree.txt)
+INSERT_TEXT_FROM_FILE(refs/ietf-restconf-server-tree-no-expand.txt)
 ]]></artwork>
             </figure>
           </t>
@@ -185,10 +183,9 @@ INSERT_TEXT_FROM_FILE(refs/ietf-restconf-server-tree.txt)
           <t>The following example illustrates configuring a RESTCONF server
           to listen for RESTCONF client connections, as well as configuring
           call-home to one RESTCONF client.</t>
-
           <t>This example is consistent with the examples presented in
-          Section 3.2 of <xref target="I-D.ietf-netconf-keystore"/>.</t>
-
+          Section 2 of <xref target="I-D.ietf-netconf-trust-anchors"/> 
+          and Section 3.2 of <xref target="I-D.ietf-netconf-keystore"/>.</t>
           <t>
             <figure>
               <artwork><![CDATA[
@@ -217,49 +214,51 @@ INSERT_TEXT_FROM_FILE(ietf-restconf-server@YYYY-MM-DD.yang)
       </section>
 
       <section title="Security Considerations">
-        <t>The YANG module defined in this document uses a grouping defined in 
-        <xref target="I-D.ietf-netconf-tls-client-server"/>.  Please see the Security Considerations
-        section in that document for concerns related that grouping.</t>
+        <t>The YANG module defined in this document uses groupings defined in
+          <xref target="I-D.kwatsen-netconf-tcp-client-server"/>,
+          <xref target="I-D.ietf-netconf-tls-client-server"/>, and
+          <xref target="I-D.kwatsen-netconf-http-client-server"/>.  Please
+          see the Security Considerations section in those documents for
+          concerns related those groupings.</t>
 
-        <t>The YANG module defined in this document is designed to be accessed via YANG
-        based management protocols, such as NETCONF <xref target="RFC6241"/> and
-        RESTCONF <xref target="RFC8040"/>.  Both of these protocols have mandatory-to-implement
-        secure transport layers (e.g., SSH, TLS) with mutual authentication.</t>
+        <t>The YANG modules defined in this document are designed to be accessed
+          via YANG based management protocols, such as NETCONF <xref target="RFC6241"/>
+          and RESTCONF <xref target="RFC8040"/>.  Both of these protocols have
+          mandatory-to-implement secure transport layers (e.g., SSH, TLS) with
+          mutual authentication.</t>
 
-        <t>The NETCONF access control model (NACM) <xref target="RFC8341"/> provides the means
-        to restrict access for particular users to a pre-configured subset of all available
-        protocol operations and content.</t>
+        <t>The NETCONF access control model (NACM) <xref target="RFC8341"/>
+          provides the means to restrict access for particular users to a
+          pre-configured subset of all available protocol operations and content.</t>
 
-        <t>There are a number of data nodes defined in this YANG module that are
-        writable/creatable/deletable (i.e., config true, which is the default). These data
-        nodes may be considered sensitive or vulnerable in some network environments. Write
-        operations (e.g., edit-config) to these data nodes without proper protection can
-        have a negative effect on network operations. These are the subtrees and data nodes
-        and their sensitivity/vulnerability:
+        <t>There are a number of data nodes defined in the YANG modules that are
+          writable/creatable/deletable (i.e., config true, which is the default). 
+          Some of these data nodes may be considered sensitive or vulnerable in 
+          some network environments.  Write operations (e.g., edit-config) to 
+          these data nodes without proper protection can have a negative effect 
+          on network operations. These are the subtrees and data nodes and their 
+          sensitivity/vulnerability: 
           <list style="hanging" hangIndent="6">
-            <t hangText="   /:">The entire data trees defined by the modules defined in
-              this draft are sensitive to write operations.  For instance, the addition or
-              removal of references to keys, certificates, trusted anchors, etc., can
-              dramatically alter the implemented security policy.  However, no NACM
-              annotations are applied as the data SHOULD be editable by users other than
-              a designated 'recovery session'.</t>  <!-- KENT, FIXME -->
+            <t hangText="   None of the subtrees or data nodes in the modules defined in this document need to be protected from write operations."/>
           </list>
         </t>
 
-        <t>Some of the readable data nodes in this YANG module may be considered sensitive
-        or vulnerable in some network environments. It is thus important to control read
-        access (e.g., via get, get-config, or notification) to these data nodes. These are
-        the subtrees and data nodes and their sensitivity/vulnerability:
+        <t>Some of the readable data nodes in the YANG modules may be considered
+          sensitive or vulnerable in some network environments. It is thus 
+          important to control read access (e.g., via get, get-config, or 
+          notification) to these data nodes. These are the subtrees and data 
+          nodes and their sensitivity/vulnerability:
           <list style="hanging" hangIndent="6">
-            <t hangText="   NONE"></t>
+            <t hangText="   None of the subtrees or data nodes in the modules defined in this document need to be protected from read operations."/>
           </list>
         </t>
 
-        <t>Some of the RPC operations in this YANG module may be considered sensitive or
-        vulnerable in some network environments. It is thus important to control access
-        to these operations. These are the operations and their sensitivity/vulnerability:
+        <t>Some of the RPC operations in the YANG modules may be considered
+          sensitive or vulnerable in some network environments. It is thus 
+          important to control access to these operations. These are the 
+          operations and their sensitivity/vulnerability:
           <list style="hanging" hangIndent="6">
-            <t hangText="   NONE"></t>
+            <t hangText="   The modules defined in this document do not define any 'RPC' or 'action' statements."/>
           </list>
         </t>
       </section>
@@ -306,117 +305,149 @@ INSERT_TEXT_FROM_FILE(ietf-restconf-server@YYYY-MM-DD.yang)
             </figure>
           </t>
         </section>
-
       </section>
 
+  </middle>
+  <back>
 
-    </middle>
+    <references title="Normative References">
+      <?rfc include="reference.RFC.2119.xml"?>
+      <?rfc include="reference.RFC.6020.xml"?>
+      <?rfc include="reference.RFC.6991.xml"?>
+      <?rfc include="reference.RFC.7407.xml"?>
+      <?rfc include="reference.RFC.7950.xml"?>
+      <?rfc include="reference.RFC.8040.xml"?>
+      <?rfc include="reference.RFC.8071.xml"?>
+      <?rfc include="reference.RFC.8174.xml"?>
+      <?rfc include="reference.I-D.ietf-netconf-keystore"?>
+      <?rfc include="reference.I-D.kwatsen-netconf-tcp-client-server"?>
+      <?rfc include="reference.I-D.ietf-netconf-tls-client-server"?>
+      <?rfc include="reference.I-D.kwatsen-netconf-http-client-server"?>
+    </references>
 
-    <back>
-      <references title="Normative References">
-        <?rfc include="reference.RFC.2119.xml"?>
-        <?rfc include="reference.RFC.6020.xml"?>
-        <?rfc include="reference.RFC.6991.xml"?>
-        <?rfc include="reference.RFC.7407.xml"?>
-        <?rfc include="reference.RFC.7950.xml"?>
-        <?rfc include="reference.RFC.8040.xml"?>
-        <?rfc include="reference.RFC.8071.xml"?>
-        <?rfc include="reference.RFC.8174.xml"?>
-        <?rfc include="reference.I-D.ietf-netconf-keystore"?>
-        <?rfc include="reference.I-D.kwatsen-netconf-tcp-client-server"?>
-        <?rfc include="reference.I-D.ietf-netconf-tls-client-server"?>
-        <?rfc include="reference.I-D.kwatsen-netconf-http-client-server"?>
-     </references>
+    <references title="Informative References">
+      <?rfc include="reference.RFC.3688.xml"?>
+      <?rfc include="reference.RFC.6241.xml"?>
+      <?rfc include="reference.RFC.8340.xml"?>
+      <?rfc include="reference.RFC.8341.xml"?>
+      <?rfc include="reference.RFC.8446.xml"?>
+      <?rfc include="reference.I-D.ietf-netconf-trust-anchors"?>
+    </references>
 
-      <references title="Informative References">
-        <?rfc include="reference.RFC.3688.xml"?>
-        <?rfc include="reference.RFC.6241.xml"?>
-        <?rfc include="reference.RFC.8340.xml"?>
-        <?rfc include="reference.RFC.8341.xml"?>
-        <?rfc include="reference.RFC.8446.xml"?>
-        <?rfc include="reference.I-D.ietf-netconf-netconf-client-server"?>
-      </references>
+    <section title="Expanded Tree Diagrams">
+      <section title="Expanded Tree Diagram for 'ietf-restconf-client'" anchor="restconf-client-tree-expanded">
+        <t>The following tree diagram <xref target="RFC8340"/> provides an
+          overview of the data model for the "ietf-restconf-client" module.</t>
+        <t>This tree diagram shows all the nodes defined in this module,
+          including those defined by "grouping" statements used by this module.</t>
+        <t>Please see <xref target="restconf-client-tree"/> for a tree
+          diagram that illustrates what the module looks like without
+          all the "grouping" statements expanded.</t>
+        <t>
+          <figure>
+            <artwork><![CDATA[
+INSERT_TEXT_FROM_FILE(refs/ietf-restconf-client-tree.txt)
+]]></artwork>
+          </figure>
+        </t>
+      </section>
+      <section title="Expanded Tree Diagram for 'ietf-restconf-server'" anchor="restconf-server-tree-expanded">
+        <t>The following tree diagram <xref target="RFC8340"/> provides an
+          overview of the data model for the "ietf-restconf-server" module.</t>
+        <t>This tree diagram shows all the nodes defined in this module,
+          including those defined by "grouping" statements used by this module.</t>
+        <t>Please see <xref target="restconf-server-tree"/> for a tree
+          diagram that illustrates what the module looks like without
+          all the "grouping" statements expanded.</t>
+        <t>
+          <figure>
+            <artwork><![CDATA[
+INSERT_TEXT_FROM_FILE(refs/ietf-restconf-server-tree.txt)
+]]></artwork>
+          </figure>
+        </t>
+      </section>
+    </section>
 
-     <section title="Change Log">
-        <section title="00 to 01">
-          <t>
-            <list style="symbols">
-              <t>Renamed "keychain" to "keystore".</t>
-            </list>
-          </t>
-        </section>
-        <section title="01 to 02">
-          <t>
-            <list style="symbols">
-              <t>Filled in previously missing 'ietf-restconf-client' module.</t>
-              <t>Updated the ietf-restconf-server module to accomodate new
-              grouping 'ietf-tls-server-grouping'.</t>
-            </list>
-          </t>
-        </section>
-        <section title="02 to 03">
-          <t>
-            <list style="symbols">
-              <t>Refined use of tls-client-grouping to add a must statement
-                 indicating that the TLS client must specify a client-certificate.</t>
-              <t>Changed restconf-client??? to be a grouping (not a container).</t>
-            </list>
-          </t>
-        </section>
-        <section title="03 to 04">
-          <t>
-            <list style="symbols">
-              <t>Added RFC 8174 to Requirements Language Section.</t>
-              <t>Replaced refine statement in ietf-restconf-client
-                 to add a mandatory true.</t>
-              <t>Added refine statement in ietf-restconf-server
-                 to add a must statement.</t>
-              <t>Now there are containers and groupings, for both the
-                 client and server models.</t>
-              <t>Now tree diagrams reference ietf-netmod-yang-tree-diagrams</t>
-              <t>Updated examples to inline key and certificates (no longer 
-                 a leafref to keystore)</t>
-            </list>
-          </t>
-        </section>
-        <section title="04 to 05">
-          <t>
-            <list style="symbols">
-              <t>Now tree diagrams reference ietf-netmod-yang-tree-diagrams</t>
-              <t>Updated examples to inline key and certificates (no longer
-                 a leafref to keystore)</t>
-            </list>
-          </t>
-        </section>
-        <section title="05 to 06">
-          <t>
-            <list style="symbols">
-              <t>Fixed change log missing section issue.</t>
-              <t>Updated examples to match latest updates to the crypto-types,
-                 trust-anchors, and keystore drafts.</t>
-              <t>Reduced line length of the YANG modules to fit within 69 columns.</t>
-            </list>
-          </t>
-        </section>
-        <section title="06 to 07">
-          <t>
-            <list style="symbols">
-              <t>removed "idle-timeout" from "persistent" connection config.</t>
-              <t>Added "random-selection" for reconnection-strategy's "starts-with" enum.</t>
-              <t>Replaced "connection-type" choice default (persistent) with "mandatory true".</t>
-              <t>Reduced the periodic-connection's "idle-timeout" from 5 to 2 minutes.</t>
-              <t>Replaced reconnect-timeout with period/anchor-time combo.</t>
-            </list>
-          </t>
-        </section>
-        <section title="07 to 08">
-          <t>
-            <list style="symbols">
-              <t>Modified examples to be compatible with new crypto-types algs</t>
-            </list>
-          </t>
-        </section>
-
+    <section title="Change Log" anchor="change-log">
+      <section title="00 to 01">
+        <t>
+          <list style="symbols">
+            <t>Renamed "keychain" to "keystore".</t>
+          </list>
+        </t>
+      </section>
+      <section title="01 to 02">
+        <t>
+          <list style="symbols">
+            <t>Filled in previously missing 'ietf-restconf-client' module.</t>
+            <t>Updated the ietf-restconf-server module to accommodate new
+            grouping 'ietf-tls-server-grouping'.</t>
+          </list>
+        </t>
+      </section>
+      <section title="02 to 03">
+        <t>
+          <list style="symbols">
+            <t>Refined use of tls-client-grouping to add a must statement
+               indicating that the TLS client must specify a client-certificate.</t>
+            <t>Changed restconf-client??? to be a grouping (not a container).</t>
+          </list>
+        </t>
+      </section>
+      <section title="03 to 04">
+        <t>
+          <list style="symbols">
+            <t>Added RFC 8174 to Requirements Language Section.</t>
+            <t>Replaced refine statement in ietf-restconf-client
+               to add a mandatory true.</t>
+            <t>Added refine statement in ietf-restconf-server
+               to add a must statement.</t>
+            <t>Now there are containers and groupings, for both the
+               client and server models.</t>
+            <t>Now tree diagrams reference ietf-netmod-yang-tree-diagrams</t>
+            <t>Updated examples to inline key and certificates (no longer 
+               a leafref to keystore)</t>
+          </list>
+        </t>
+      </section>
+      <section title="04 to 05">
+        <t>
+          <list style="symbols">
+            <t>Now tree diagrams reference ietf-netmod-yang-tree-diagrams</t>
+            <t>Updated examples to inline key and certificates (no longer
+               a leafref to keystore)</t>
+          </list>
+        </t>
+      </section>
+      <section title="05 to 06">
+        <t>
+          <list style="symbols">
+            <t>Fixed change log missing section issue.</t>
+            <t>Updated examples to match latest updates to the crypto-types,
+               trust-anchors, and keystore drafts.</t>
+            <t>Reduced line length of the YANG modules to fit within 69 columns.</t>
+          </list>
+        </t>
+      </section>
+      <section title="06 to 07">
+        <t>
+          <list style="symbols">
+            <t>removed "idle-timeout" from "persistent" connection config.</t>
+            <t>Added "random-selection" for reconnection-strategy's "starts-with" enum.</t>
+            <t>Replaced "connection-type" choice default (persistent) with "mandatory true".</t>
+            <t>Reduced the periodic-connection's "idle-timeout" from 5 to 2 minutes.</t>
+            <t>Replaced reconnect-timeout with period/anchor-time combo.</t>
+          </list>
+        </t>
+      </section>
+      <section title="07 to 08">
+        <t>
+          <list style="symbols">
+            <t>Modified examples to be compatible with new crypto-types algs</t>
+          </list>
+        </t>
+      </section>
       <section title="08 to 09">
         <t>
           <list style="symbols">
@@ -427,7 +458,6 @@ INSERT_TEXT_FROM_FILE(ietf-restconf-server@YYYY-MM-DD.yang)
           </list>
         </t>
       </section>
-
       <section title="09 to 10">
         <t>
           <list style="symbols">
@@ -435,18 +465,30 @@ INSERT_TEXT_FROM_FILE(ietf-restconf-server@YYYY-MM-DD.yang)
           </list>
         </t>
       </section>
+      <section title="10 to 11">
+        <t>
+          <list style="symbols">
+              <t>Adjusted for the top-level "demux container" added to groupings
+                imported from other modules.</t>
+              <t>Added "must" expressions to ensure that keepalives are not configured
+                for "periodic" connections.</t>
+              <t>Updated the boilerplate text in module-level "description" statement
+                to match copyeditor convention.</t>
+              <t>Moved "expanded" tree diagrams to the Appendix.</t>
+          </list>
+        </t>
+      </section>
+    </section>
 
-     </section>
+    <section title="Acknowledgements" numbered="no">
+      <t>The authors would like to thank for following for
+      lively discussions on list and in the halls (ordered
+      by last name): Andy Bierman, Martin Bjorklund, Benoit Claise, Ramkumar Dhanapal,
+      Mehmet Ersue, Balázs Kovács, David Lamparter, Alan Luchuk, Ladislav Lhotka,
+      Radek Krejci, Tom Petch, Juergen Schoenwaelder, Phil Shafer, Sean Turner, and
+      Bert Wijnen.</t>
+    </section>
 
-     <section title="Acknowledgements" numbered="no">
-       <t>The authors would like to thank for following for
-       lively discussions on list and in the halls (ordered
-       by last name): Andy Bierman, Martin Bjorklund, Benoit Claise, Ramkumar Dhanapal,
-       Mehmet Ersue, Balázs Kovács, David Lamparter, Alan Luchuk, Ladislav Lhotka,
-       Radek Krejci, Tom Petch, Juergen Schoenwaelder, Phil Shafer, Sean Turner, and
-       Bert Wijnen.</t>
-     </section>
-
-   </back>
+  </back>
 </rfc>
 

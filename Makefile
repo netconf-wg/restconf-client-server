@@ -63,7 +63,7 @@ $(next).xml: $(draft).xml ietf-restconf-client.yang ietf-restconf-server.yang
 	sed -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" ietf-restconf-server.yang > ietf-restconf-server\@$(shell date +%Y-%m-%d).yang
 	cd refs; ./validate-all.sh; ./gen-trees.sh; cd ..;
 	./.insert-figures.sh $@ > tmp; mv tmp $@
-	rm refs/*-tree.txt
+	rm refs/*-tree*.txt
 
 
 .INTERMEDIATE: $(draft).xml

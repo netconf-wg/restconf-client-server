@@ -21,9 +21,17 @@ while ( grep INSERT_TEXT_FROM_FILE .tmp.new.txt >> /dev/null ); do
   if [ `echo $file | grep ","` ]; then
     col=`echo $file | sed 's/.*,//'`
     file=`echo $file | sed 's/,.*//'`
-    $FOLD -c $col -i $file -o $file.potentially-folded
+    output=`$FOLD -c $col -i $file -o $file.potentially-folded`
+    if [ $? -eq 1 ]; then
+      echo "$FOLD -c $col -i $file -o $file.potentially-folded failed"
+      echo "output: $output"
+    fi
   else
-    $FOLD -i $file -o $file.potentially-folded
+    output=`$FOLD -i $file -o $file.potentially-folded`
+    if [ $? -eq 1 ]; then
+      echo "$FOLD -i $file -o $file.potentially-folded failed"
+      echo "output: $output"
+    fi
   fi
 
   cat .tmp.pre.txt $file.potentially-folded .tmp.post.txt > .tmp.new.txt
