@@ -20,6 +20,7 @@
             </local-definition>
           </server-identity>
           <client-authentication>
+            <required/>
             <pinned-ca-certs>explicitly-trusted-client-ca-certs</pinned-ca-certs>
             <pinned-client-certs>explicitly-trusted-client-certs</pinned-client-certs>
             <cert-maps>
@@ -69,6 +70,7 @@
                 </local-definition>
               </server-identity>
               <client-authentication>
+                <required/>
                 <pinned-ca-certs>explicitly-trusted-client-ca-certs</pinned-ca-certs>
                 <pinned-client-certs>explicitly-trusted-client-certs</pinned-client-certs>
                 <cert-maps>
@@ -111,6 +113,7 @@
                 </local-definition>
               </server-identity>
               <client-authentication>
+                <required/>
                 <pinned-ca-certs>explicitly-trusted-client-ca-certs</pinned-ca-certs>
                 <pinned-client-certs>explicitly-trusted-client-certs</pinned-client-certs>
                 <cert-maps>

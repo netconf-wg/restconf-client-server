@@ -84,15 +84,7 @@ module ietf-restconf-server {
 
   // Features
 
-  feature listen {
-    description
-      "The 'listen' feature indicates that the RESTCONF server
-       supports opening a port to accept RESTCONF client connections
-       using at least one transport (e.g., HTTPS, etc.).";
-  }
-
   feature https-listen {
-    if-feature "listen";
     description
       "The 'https-listen' feature indicates that the RESTCONF server
        supports opening a port to listen for incoming RESTCONF
@@ -102,18 +94,7 @@ module ietf-restconf-server {
       "RFC 8040: RESTCONF Protocol";
   }
 
-  feature call-home {
-    description
-      "The 'call-home' feature indicates that the RESTCONF
-       server supports initiating RESTCONF call home connections
-       to RESTCONF clients using at least one transport (e.g.,
-       HTTPS, etc.).";
-    reference
-      "RFC 8071: NETCONF Call Home and RESTCONF Call Home";
-  }
-
   feature https-call-home {
-    if-feature "call-home";
     description
       "The 'https-call-home' feature indicates that the RESTCONF
        server supports initiating connections to RESTCONF clients.
@@ -129,8 +110,10 @@ module ietf-restconf-server {
     description
       "Top-level grouping for RESTCONF server configuration.";
     container listen {
-      if-feature "listen";
-      presence "Enables server to listen for TCP connections";
+      if-feature "https-listen";
+      presence
+        "Enables the RESTCONF server to listen for RESTCONF
+         client connections.";
       description "Configures listen behavior";
       list endpoint {
         key "name";
@@ -154,47 +137,96 @@ module ietf-restconf-server {
               description
                 "HTTPS-specific listening configuration for inbound
                  connections.";
-              uses tcps:tcp-server-grouping {
-                refine "tcp-server-parameters/local-port" {
-                  default "443";
-                  description
-                    "The RESTCONF server will listen on the IANA-
-                     assigned well-known port value for 'https'
-                     (443) if no value is specified.";
-                }
-              }
-              uses tlss:tls-server-grouping {
-                refine
-                  "tls-server-parameters/client-authentication" {
-                  must 'pinned-ca-certs or pinned-client-certs';
-                  description
-                    "RESTCONF servers MUST be able to validate
-                     clients.";
-                }
-                augment
-                  "tls-server-parameters/client-authentication" {
-                  description
-                    "Augments in the cert-to-name structure,
-                     so the RESTCONF server can map TLS-layer
-                     client certificates to RESTCONF usernames.";
-                  container cert-maps {
-                    uses x509c2n:cert-to-name;
+              container tcp-server-parameters {
+                description
+                  "A wrapper around the TCP server parameters
+                   to avoid name collisions.";
+                uses tcps:tcp-server-grouping {
+                  refine "local-port" {
+                    default "443";
                     description
-                      "The cert-maps container is used by a TLS-
-                       based RESTCONF server to map the RESTCONF
-                       client's presented X.509 certificate to
-                       a RESTCONF username.  If no matching and
-                       valid cert-to-name list entry can be found,
-                       then the RESTCONF server MUST close the
-                       connection, and MUST NOT accept RESTCONF
-                       messages over it.";
-                    reference
-                      "RFC 7407: A YANG Data Model for SNMP
-                                 Configuration.";
+                      "The RESTCONF server will listen on the IANA-
+                       assigned well-known port value for 'https'
+                       (443) if no value is specified.";
                   }
                 }
               }
-              uses https:http-server-grouping;
+              container tls-server-parameters {
+                description
+                  "A wrapper around the TLS server parameters
+                   to avoid name collisions.";
+                uses tlss:tls-server-grouping {
+/*
+                  refine
+                    "client-authentication" {
+                    //must 'pinned-ca-certs or pinned-client-certs';
+                    //presence "Enables TLS-level authentication
+                    //          using client certificates.";
+                    description
+                      "RESTCONF servers MUST be able to validate
+                       clients.";
+                  }
+*/
+                  augment
+                    "client-authentication/local-or-external/local" {
+                    description
+                      "Augments in the cert-to-name structure,
+                       so the RESTCONF server can map TLS-layer
+                       client certificates to RESTCONF usernames.";
+                    container cert-maps {
+                      /*must '../pinned-ca-certs 
+                              or ../pinned-client-certs'; */
+                      uses x509c2n:cert-to-name;
+                      description
+                        "The cert-maps container is used by a TLS-
+                         based RESTCONF server to map the RESTCONF
+                         client's presented X.509 certificate to
+                         a RESTCONF username.  If no matching and
+                         valid cert-to-name list entry can be found,
+                         then the RESTCONF server MUST close the
+                         connection, and MUST NOT accept RESTCONF
+                         messages over it.";
+                      reference
+                        "RFC 7407: A YANG Data Model for SNMP
+                                   Configuration.";
+                    }
+                    //leaf optional {
+                    //  type empty;
+                    //}
+                  }
+                }
+              }
+              container http-server-parameters {
+                description
+                  "A wrapper around the HTTP server parameters
+                   to avoid name collisions.";
+                uses https:http-server-grouping;
+                /* {
+                  augment "http-server-parameters" {   // HELP!!!
+                    description
+                      "Augments in a flag indicating that the
+                       RESCONF server MUST authenticate the
+                       RESTCONF client using the HTTP 'basic'
+                       authentication scheme.  How the RESTCONF
+                       server defines users and passwords is
+                       outside the scope of this data model.";
+                    container client-authentication {
+                      leaf optional {
+                        type empty;
+                      }
+                      choice configured-or-external {
+                        mandatory true;
+                        case external {
+                          leaf user-auth-defined-elsewhere {
+                            type empty;
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+                */
+              }
             } // https container
           } // tls case
         } // transport
@@ -202,8 +234,10 @@ module ietf-restconf-server {
     } // listen
 
     container call-home {
-      if-feature "call-home";
-      presence "Enables server to initiate TCP connections";
+      if-feature "https-call-home";
+      presence
+        "Enables the RESTCONF server to initiate the underlying
+         transport connection to RESTCONF clients.";
       description "Configures call-home behavior";
       list restconf-client {
         key "name";
@@ -244,49 +278,64 @@ module ietf-restconf-server {
                   description
                     "Specifies HTTPS-specific call-home transport
                      configuration.";
-                  uses tcpc:tcp-client-grouping {
-                    refine "tcp-client-parameters/remote-port" {
-                      default "4336";
-                      description
-                        "The RESTCONF server will attempt to connect
-                         to the IANA-assigned well-known port for
-                         'restconf-ch-tls' (4336) if no value is
-                         specified.";
-                    }
-                  }
-                  uses tlss:tls-server-grouping {
-                    refine
-                      "tls-server-parameters/client-authentication" {
-                      must 'pinned-ca-certs or pinned-client-certs';
-                      description
-                        "RESTCONF servers MUST be able to validate
-                         clients.";
-                    }
-                    augment
-                      "tls-server-parameters/client-authentication" {
-                      description
-                        "Augments in the cert-to-name structure,
-                         so the RESTCONF server can map TLS-layer
-                         client certificates to RESTCONF usernames.";
-                      container cert-maps {
-                        uses x509c2n:cert-to-name;
+                  container tcp-client-parameters {
+                    description
+                      "A wrapper around the TCP client parameters
+                       to avoid name collisions.";
+                    uses tcpc:tcp-client-grouping {
+                      refine "remote-port" {
+                        default "4336";
                         description
-                          "The cert-maps container is used by a
-                           TLS-based RESTCONF server to map the
-                           RESTCONF client's presented X.509
-                           certificate to a RESTCONF username. If
-                           no matching and valid cert-to-name list
-                           entry can be found, then the RESTCONF
-                           server MUST close the connection, and
-                           MUST NOT accept RESTCONF messages over
-                           it.";
-                        reference
-                          "RFC 7407: A YANG Data Model for SNMP
-                           Configuration.";
+                          "The RESTCONF server will attempt to
+                           connect to the IANA-assigned well-known
+                           port for 'restconf-ch-tls' (4336) if no
+                           value is specified.";
                       }
                     }
                   }
-                  uses https:http-server-grouping;
+                  container tls-server-parameters {
+                    description
+                      "A wrapper around the TLS server parameters
+                       to avoid name collisions.";
+                    uses tlss:tls-server-grouping {
+                      refine "client-authentication" {
+                        /*must 'pinned-ca-certs
+                                or pinned-client-certs'; */
+                        description
+                          "RESTCONF servers MUST be able to validate
+                           clients.";
+                      }
+                      augment "client-authentication" {
+                        description
+                          "Augments in the cert-to-name structure,
+                           so the RESTCONF server can map TLS-layer
+                           client certificates to RESTCONF
+                           usernames.";
+                        container cert-maps {
+                          uses x509c2n:cert-to-name;
+                          description
+                            "The cert-maps container is used by a
+                             TLS-based RESTCONF server to map the
+                             RESTCONF client's presented X.509
+                             certificate to a RESTCONF username. If
+                             no matching and valid cert-to-name list
+                             entry can be found, then the RESTCONF
+                             server MUST close the connection, and
+                             MUST NOT accept RESTCONF messages over
+                             it.";
+                          reference
+                            "RFC 7407: A YANG Data Model for SNMP
+                             Configuration.";
+                        }
+                      }
+                    }
+                  }
+                  container http-server-parameters {
+                    description
+                      "A wrapper around the HTTP server parameters
+                       to avoid name collisions.";
+                    uses https:http-server-grouping;
+                  }
                 }
               }
             } // transport
@@ -307,8 +356,8 @@ module ietf-restconf-server {
                 description
                   "Maintain a persistent connection to the RESTCONF
                    client. If the connection goes down, immediately
-                   start trying to reconnect to it, using the
-                   reconnection strategy.
+                   start trying to reconnect to the RESTCONF server,
+                   using the reconnection strategy.
 
                    This connection type minimizes any RESTCONF
                    client to RESTCONF server data-transfer delay,
@@ -318,20 +367,27 @@ module ietf-restconf-server {
             }
             case periodic-connection {
               container periodic {
-                must 'not (../../endpoints/endpoint/https/'
-                           + 'tcp-client-parameters/keepalives '
-                           + 'or ../../endpoints/endpoint/https/'
-                           + 'tls-server-parameters/keepalives)';
                 presence "Indicates that a periodic connection is
                           to be maintained.";
                 description
-                  "Periodically connect to the RESTCONF client.  The
-                   RESTCONF client should close the underlying TCP
-                   connection upon completing planned activities.
+                  "Periodically connect to the RESTCONF client.
 
                    This connection type increases resource
                    utilization, albeit with increased delay in
-                   RESTCONF client to RESTCONF client interactions.";
+                   RESTCONF client to RESTCONF client interactions.
+
+                   The RESTCONF client SHOULD gracefully close
+                   the underlying TLS connection upon completing
+                   planned activities.  If the underlying TLS
+                   connection is not closed gracefully, the
+                   RESTCONF server MUST immediately attempt
+                   to reestablish the connection.
+
+                   In the case that the previous connection is
+                   still active (i.e., the RESTCONF client has not
+                   closed it yet), establishing a new connection
+                   is NOT RECOMMENDED.";
+
                 leaf period {
                   type uint16;
                   units "minutes";

@@ -76,15 +76,7 @@ module ietf-restconf-client {
 
   // Features
 
-  feature initiate {
-    description
-      "The 'initiate' feature indicates that the RESTCONF client
-       supports initiating RESTCONF connections to RESTCONF servers
-       using at least one transport (e.g., HTTPS, etc.).";
-  }
-
   feature https-initiate {
-    if-feature "initiate";
     description
       "The ‘https-initiate’ feature indicates that the RESTCONF
        client supports initiating HTTPS connections to RESTCONF
@@ -94,16 +86,7 @@ module ietf-restconf-client {
       "RFC 8040: RESTCONF Protocol";
   }
 
-  feature listen {
-    description
-      "The 'listen' feature indicates that the RESTCONF client
-       supports opening a port to accept RESTCONF server call
-       home connections using at least one transport (e.g.,
-       HTTPS, etc.).";
-  }
-
   feature https-listen {
-    if-feature "listen";
     description
       "The ‘https-listen’ feature indicates that the RESTCONF client
        supports opening a port to listen for incoming RESTCONF
@@ -119,7 +102,7 @@ module ietf-restconf-client {
     description
       "Top-level grouping for RESTCONF client configuration.";
     container initiate {
-      if-feature "initiate";
+      if-feature "https-initiate";
       presence "Enables client to initiate TCP connections";
       description
         "Configures client initiating underlying TCP connections.";
@@ -162,26 +145,40 @@ module ietf-restconf-client {
                   description
                     "Specifies HTTPS-specific transport
                      configuration.";
-                  uses tcpc:tcp-client-grouping {
-                    refine "tcp-client-parameters/remote-port" {
-                      default "443";
-                      description
-                        "The RESTCONF client will attempt to
-                         connect to the IANA-assigned well-known
-                         port value for 'https' (443) if no value
-                         is specified.";
+                  container tcp-client-parameters {
+                    description
+                      "A wrapper around the TCP client parameters
+                       to avoid name collisions.";
+                    uses tcpc:tcp-client-grouping {
+                      refine "remote-port" {
+                        default "443";
+                        description
+                          "The RESTCONF client will attempt to
+                           connect to the IANA-assigned well-known
+                           port value for 'https' (443) if no value
+                           is specified.";
+                      }
                     }
                   }
-                  uses tlsc:tls-client-grouping {
-                    refine "tls-client-parameters/client-identity"
-                                                  + "/auth-type" {
-                      mandatory true;
-                      description
-                        "RESTCONF clients MUST pass some
-                         authentication credentials.";
+                  container tls-client-parameters {
+                    description
+                      "A wrapper around the TLS client parameters
+                       to avoid name collisions.";
+                    uses tlsc:tls-client-grouping {
+                      refine "client-identity/auth-type" {
+                        mandatory true;
+                        description
+                          "RESTCONF clients MUST pass some
+                           authentication credentials.";
+                      }
                     }
                   }
-                  uses httpc:http-client-grouping;
+                  container http-client-parameters {
+                    description
+                      "A wrapper around the HTTP client parameters
+                       to avoid name collisions.";
+                    uses httpc:http-client-grouping;
+                  }
                 }
               } // https
             } // transport
@@ -202,31 +199,34 @@ module ietf-restconf-client {
                 description
                   "Maintain a persistent connection to the
                    RESTCONF server. If the connection goes down,
-                   immediately start trying to reconnect to it,
-                   using the reconnection strategy.  This
-                   connection type minimizes any RESTCONF server
+                   immediately start trying to reconnect to the
+                   RESTCONF server, using the reconnection strategy.
+                   
+                   This connection type minimizes any RESTCONF server
                    to RESTCONF client data-transfer delay, albeit
                    at the expense of holding resources longer.";
               }
             }
             case periodic-connection {
               container periodic {
-                must 'not (../../endpoints/endpoint/https/'
-                           + 'tcp-client-parameters/keepalives '
-                           + 'or ../../endpoints/endpoint/https/'
-                           + 'tls-client-parameters/keepalives)';
                 presence "Indicates that a periodic connection is
                           to be maintained.";
                 description
                   "Periodically connect to the RESTCONF server.
-                   The RESTCONF server should close the
-                   underlying TCP connection upon completing
-                   planned activities.
 
                    This connection type increases resource
-                   utilization, albeit with increased delay in
-                   RESTCONF server to RESTCONF client
-                   interactions.";
+                   utilization, albeit with increased delay
+                   in RESTCONF server to RESTCONF client
+                   interactions.
+
+                   The RESTCONF client SHOULD gracefully close
+                   the underlying TLS connection upon completing
+                   planned activities.
+                   
+                   In the case that the previous connection is
+                   still active, establishing a new connection
+                   is NOT RECOMMENDED.";
+
                 leaf period {
                   type uint16;
                   units "minutes";
@@ -324,7 +324,7 @@ module ietf-restconf-client {
     } // initiate
 
     container listen {
-      if-feature "listen";
+      if-feature "https-listen";
       presence "Enables client to accept call-home connections";
       description
         "Configures client accepting call-home TCP connections.";
@@ -363,25 +363,39 @@ module ietf-restconf-client {
               description
                 "HTTPS-specific listening configuration for inbound
                  connections.";
-              uses tcps:tcp-server-grouping {
-                refine "tcp-server-parameters/local-port" {
-                  default "4336";
-                  description
-                    "The RESTCONF client will listen on the IANA-
-                     assigned well-known port for 'restconf-ch-tls'
-                     (4336) if no value is specified.";
+              container tcp-server-parameters {
+                description
+                  "A wrapper around the TCP client parameters
+                   to avoid name collisions.";
+                uses tcps:tcp-server-grouping {
+                  refine "local-port" {
+                    default "4336";
+                    description
+                      "The RESTCONF client will listen on the IANA-
+                       assigned well-known port for 'restconf-ch-tls'
+                       (4336) if no value is specified.";
+                  }
                 }
               }
-              uses tlsc:tls-client-grouping {
-                refine
-                  "tls-client-parameters/client-identity/auth-type" {
-                  mandatory true;
-                  description
-                    "RESTCONF clients MUST pass some authentication
-                     credentials.";
+              container tls-client-parameters {
+                description
+                  "A wrapper around the TLS client parameters
+                   to avoid name collisions.";
+                uses tlsc:tls-client-grouping {
+                  refine "client-identity/auth-type" {
+                    mandatory true;
+                    description
+                      "RESTCONF clients MUST pass some authentication
+                       credentials.";
+                  }
                 }
               }
-              uses httpc:http-client-grouping;
+              container http-client-parameters {
+                description
+                  "A wrapper around the HTTP client parameters
+                   to avoid name collisions.";
+                uses httpc:http-client-grouping;
+              }
             } 
           } // case https
         } // transport

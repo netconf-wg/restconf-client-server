@@ -478,6 +478,26 @@ INSERT_TEXT_FROM_FILE(refs/ietf-restconf-server-tree.txt)
           </list>
         </t>
       </section>
+        <section title="11 to 12">
+          <t>
+            <list style="symbols">
+              <t>Removed the 'must' statement limiting keepalives in periodic
+                connections.</t>
+              <t>Updated models and examples to reflect removal of the "demux"
+                containers in the imported models.</t>
+              <t>Updated the "periodic-connnection" description statements to
+                better describe behavior when connections are not closed
+                gracefully.</t>
+              <t>Updated text to better reference where certain examples come from
+                (e.g., which Section in which draft).</t>
+              <t>In the server model, commented out the "must 'pinned-ca-certs or 
+                pinned-client-certs'" statement to reflect change made in the
+                TLS draft whereby the trust anchors MAY be defined externally.</t>
+              <t>Replaced the 'listen', 'initiate', and 'call-home' features
+                with boolean expressions.</t>
+            </list>
+          </t>
+        </section>
     </section>
 
     <section title="Acknowledgements" numbered="no">
