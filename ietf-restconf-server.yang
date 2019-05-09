@@ -159,7 +159,7 @@ module ietf-restconf-server {
 /*
                   refine
                     "client-authentication" {
-                    //must 'pinned-ca-certs or pinned-client-certs';
+                    //must 'ca-certs or client-certs';
                     //presence "Enables TLS-level authentication
                     //          using client certificates.";
                     description
@@ -174,8 +174,8 @@ module ietf-restconf-server {
                        so the RESTCONF server can map TLS-layer
                        client certificates to RESTCONF usernames.";
                     container cert-maps {
-                      /*must '../pinned-ca-certs 
-                              or ../pinned-client-certs'; */
+                      /*must '../ca-certs 
+                              or ../client-certs'; */
                       uses x509c2n:cert-to-name;
                       description
                         "The cert-maps container is used by a TLS-
@@ -299,8 +299,8 @@ module ietf-restconf-server {
                        to avoid name collisions.";
                     uses tlss:tls-server-grouping {
                       refine "client-authentication" {
-                        /*must 'pinned-ca-certs
-                                or pinned-client-certs'; */
+                        /*must 'ca-certs
+                                or client-certs'; */
                         description
                           "RESTCONF servers MUST be able to validate
                            clients.";

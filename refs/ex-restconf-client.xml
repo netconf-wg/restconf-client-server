@@ -29,8 +29,8 @@
                 </certificate>
               </client-identity>
               <server-authentication>
-                <pinned-ca-certs>explicitly-trusted-server-ca-certs</pinned-ca-certs>
-                <pinned-server-certs>explicitly-trusted-server-certs</pinned-server-certs>
+                <ca-certs>explicitly-trusted-server-ca-certs</ca-certs>
+                <server-certs>explicitly-trusted-server-certs</server-certs>
               </server-authentication>
               <keepalives>
                 <max-wait>30</max-wait>
@@ -71,8 +71,8 @@
                 </certificate>
               </client-identity>
               <server-authentication>
-                <pinned-ca-certs>explicitly-trusted-server-ca-certs</pinned-ca-certs>
-                <pinned-server-certs>explicitly-trusted-server-certs</pinned-server-certs>
+                <ca-certs>explicitly-trusted-server-ca-certs</ca-certs>
+                <server-certs>explicitly-trusted-server-certs</server-certs>
               </server-authentication>
               <keepalives>
                 <max-wait>30</max-wait>
@@ -117,8 +117,8 @@
             </certificate>
           </client-identity>
           <server-authentication>
-            <pinned-ca-certs>explicitly-trusted-server-ca-certs</pinned-ca-certs>
-            <pinned-server-certs>explicitly-trusted-server-certs</pinned-server-certs>
+            <ca-certs>explicitly-trusted-server-ca-certs</ca-certs>
+            <server-certs>explicitly-trusted-server-certs</server-certs>
           </server-authentication>
         </tls-client-parameters>
         <http-client-parameters>
