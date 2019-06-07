@@ -23,6 +23,17 @@
             <required/>
             <ca-certs>explicitly-trusted-client-ca-certs</ca-certs>
             <client-certs>explicitly-trusted-client-certs</client-certs>
+          </client-authentication>
+        </tls-server-parameters>
+        <http-server-parameters>
+          <server-name>foo.example.com</server-name>
+          <protocol-versions>
+            <protocol-version>HTTP/1.1</protocol-version>
+            <protocol-version>HTTP/2.0</protocol-version>
+          </protocol-versions>
+        </http-server-parameters>
+        <restconf-server-parameters>
+          <client-identification>
             <cert-maps>
               <cert-to-name>
                 <id>1</id>
@@ -36,15 +47,8 @@
                 <name>scooby-doo</name>
               </cert-to-name>
             </cert-maps>
-          </client-authentication>
-        </tls-server-parameters>
-        <http-server-parameters>
-          <server-name>foo.example.com</server-name>
-          <protocol-versions>
-            <protocol-version>HTTP/1.1</protocol-version>
-            <protocol-version>HTTP/2.0</protocol-version>
-          </protocol-versions>
-        </http-server-parameters>
+          </client-identification>
+        </restconf-server-parameters>
       </https>
     </endpoint>
   </listen>
@@ -73,6 +77,17 @@
                 <required/>
                 <ca-certs>explicitly-trusted-client-ca-certs</ca-certs>
                 <client-certs>explicitly-trusted-client-certs</client-certs>
+              </client-authentication>
+            </tls-server-parameters>
+            <http-server-parameters>
+              <server-name>foo.example.com</server-name>
+              <protocol-versions>
+                <protocol-version>HTTP/1.1</protocol-version>
+                <protocol-version>HTTP/2.0</protocol-version>
+              </protocol-versions>
+            </http-server-parameters>
+            <restconf-server-parameters>
+              <client-identification>
                 <cert-maps>
                   <cert-to-name>
                     <id>1</id>
@@ -86,15 +101,8 @@
                     <name>scooby-doo</name>
                   </cert-to-name>
                 </cert-maps>
-              </client-authentication>
-            </tls-server-parameters>
-            <http-server-parameters>
-              <server-name>foo.example.com</server-name>
-              <protocol-versions>
-                <protocol-version>HTTP/1.1</protocol-version>
-                <protocol-version>HTTP/2.0</protocol-version>
-              </protocol-versions>
-            </http-server-parameters>
+              </client-identification>
+            </restconf-server-parameters>
           </https>
         </endpoint>
         <endpoint>
@@ -116,6 +124,17 @@
                 <required/>
                 <ca-certs>explicitly-trusted-client-ca-certs</ca-certs>
                 <client-certs>explicitly-trusted-client-certs</client-certs>
+              </client-authentication>
+            </tls-server-parameters>
+            <http-server-parameters>
+              <server-name>foo.example.com</server-name>
+              <protocol-versions>
+                <protocol-version>HTTP/1.1</protocol-version>
+                <protocol-version>HTTP/2.0</protocol-version>
+              </protocol-versions>
+            </http-server-parameters>
+            <restconf-server-parameters>
+              <client-identification>
                 <cert-maps>
                   <cert-to-name>
                     <id>1</id>
@@ -129,15 +148,8 @@
                     <name>scooby-doo</name>
                   </cert-to-name>
                 </cert-maps>
-              </client-authentication>
-            </tls-server-parameters>
-            <http-server-parameters>
-              <server-name>foo.example.com</server-name>
-              <protocol-versions>
-                <protocol-version>HTTP/1.1</protocol-version>
-                <protocol-version>HTTP/2.0</protocol-version>
-              </protocol-versions>
-            </http-server-parameters>
+              </client-identification>
+            </restconf-server-parameters>
           </https>
         </endpoint>
       </endpoints>

@@ -503,6 +503,14 @@ INSERT_TEXT_FROM_FILE(refs/ietf-restconf-server-tree.txt)
           <list style="symbols">
             <t>Updated to reflect changes in trust-anchors drafts
               (e.g., s/trust-anchors/truststore/g + s/pinned.//)</t>
+            <t>In ietf-restconf-server, Added 'http-listen' (not https-listen) choice, to support
+              case when server is behind a TLS-terminator.</t>
+            <t>Refactored server module to be more like other 'server' models.  If folks like it, will
+              also apply to the client model, as well as to both the netconf client/server models.  Now
+              the 'restconf-server-grouping' is just the RC-specific bits (i.e., the "demux" container
+              minus the container), 'restconf-server-[listen|callhome]-stack-grouping' is the protocol
+              stack for a single connection, and 'restconf-server-app-grouping' is effectively what
+              was before (both listen+callhome for many inbound/outbound endpoints).</t>
           </list>
         </t>
       </section>
