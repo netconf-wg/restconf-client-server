@@ -161,17 +161,15 @@ module ietf-restconf-client {
                     }
                   }
                   container tls-client-parameters {
+                    must "client-identity" {
+                      description
+                        "NETCONF/TLS clients MUST pass some
+                         authentication credentials.";
+                    }
                     description
                       "A wrapper around the TLS client parameters
                        to avoid name collisions.";
-                    uses tlsc:tls-client-grouping {
-                      refine "client-identity/auth-type" {
-                        mandatory true;
-                        description
-                          "RESTCONF clients MUST pass some
-                           authentication credentials.";
-                      }
-                    }
+                    uses tlsc:tls-client-grouping;
                   }
                   container http-client-parameters {
                     description
@@ -378,17 +376,15 @@ module ietf-restconf-client {
                 }
               }
               container tls-client-parameters {
+                must "client-identity" {
+                  description
+                    "NETCONF/TLS clients MUST pass some
+                     authentication credentials.";
+                }
                 description
                   "A wrapper around the TLS client parameters
                    to avoid name collisions.";
-                uses tlsc:tls-client-grouping {
-                  refine "client-identity/auth-type" {
-                    mandatory true;
-                    description
-                      "RESTCONF clients MUST pass some authentication
-                       credentials.";
-                  }
-                }
+                uses tlsc:tls-client-grouping;
               }
               container http-client-parameters {
                 description

@@ -478,26 +478,26 @@ INSERT_TEXT_FROM_FILE(refs/ietf-restconf-server-tree.txt)
           </list>
         </t>
       </section>
-        <section title="11 to 12">
-          <t>
-            <list style="symbols">
-              <t>Removed the 'must' statement limiting keepalives in periodic
-                connections.</t>
-              <t>Updated models and examples to reflect removal of the "demux"
-                containers in the imported models.</t>
-              <t>Updated the "periodic-connnection" description statements to
-                better describe behavior when connections are not closed
-                gracefully.</t>
-              <t>Updated text to better reference where certain examples come from
-                (e.g., which Section in which draft).</t>
-              <t>In the server model, commented out the "must 'pinned-ca-certs or 
-                pinned-client-certs'" statement to reflect change made in the
-                TLS draft whereby the trust anchors MAY be defined externally.</t>
-              <t>Replaced the 'listen', 'initiate', and 'call-home' features
-                with boolean expressions.</t>
-            </list>
-          </t>
-        </section>
+      <section title="11 to 12">
+        <t>
+          <list style="symbols">
+            <t>Removed the 'must' statement limiting keepalives in periodic
+              connections.</t>
+            <t>Updated models and examples to reflect removal of the "demux"
+              containers in the imported models.</t>
+            <t>Updated the "periodic-connnection" description statements to
+              better describe behavior when connections are not closed
+              gracefully.</t>
+            <t>Updated text to better reference where certain examples come from
+              (e.g., which Section in which draft).</t>
+            <t>In the server model, commented out the "must 'pinned-ca-certs or 
+              pinned-client-certs'" statement to reflect change made in the
+              TLS draft whereby the trust anchors MAY be defined externally.</t>
+            <t>Replaced the 'listen', 'initiate', and 'call-home' features
+              with boolean expressions.</t>
+          </list>
+        </t>
+      </section>
       <section title="12 to 13">
         <t>
           <list style="symbols">
@@ -514,15 +514,39 @@ INSERT_TEXT_FROM_FILE(refs/ietf-restconf-server-tree.txt)
           </list>
         </t>
       </section>
+      <section title="13 to 14">
+        <t>
+          <list style="symbols">
+            <t>Updated examples to reflect ietf-crypto-types change
+              (e.g., identities --&gt; enumerations)</t>
+            <t>Adjusting from change in TLS client model (removing the top-level
+              'certificate' container).</t>
+            <t>Added "external-endpoint" to the "http-listen" choice in ietf-restconf-server.</t>
+          </list>
+        </t>
+      </section>
     </section>
 
     <section title="Acknowledgements" numbered="no">
       <t>The authors would like to thank for following for
       lively discussions on list and in the halls (ordered
-      by last name): Andy Bierman, Martin Bjorklund, Benoit Claise, Ramkumar Dhanapal,
-      Mehmet Ersue, Balázs Kovács, David Lamparter, Alan Luchuk, Ladislav Lhotka,
-      Radek Krejci, Tom Petch, Juergen Schoenwaelder, Phil Shafer, Sean Turner, and
-      Bert Wijnen.</t>
+      by first name):
+      Alan Luchuk,
+      Andy Bierman,
+      Balázs Kovács,
+      Benoit Claise,
+      Bert Wijnen
+      David Lamparter,
+      Juergen Schoenwaelder,
+      Ladislav Lhotka,
+      Martin Bjorklund,
+      Mehmet Ersue,
+      Phil Shafer,
+      Radek Krejci,
+      Ramkumar Dhanapal,
+      Sean Turner,
+      and
+      Tom Petch.</t>
     </section>
 
   </back>

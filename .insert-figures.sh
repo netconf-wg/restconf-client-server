@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #FOLD=fold-artwork.sh
-FOLD=../../netmod-wg/artwork-folding/fold-artwork.sh
+FOLD=../../netmod-wg/artwork-folding/rfcfold
 
 # make sure input params are good
 if [ "$#" == "0" ]; then
@@ -21,17 +21,9 @@ while ( grep INSERT_TEXT_FROM_FILE .tmp.new.txt >> /dev/null ); do
   if [ `echo $file | grep ","` ]; then
     col=`echo $file | sed 's/.*,//'`
     file=`echo $file | sed 's/,.*//'`
-    output=`$FOLD -c $col -i $file -o $file.potentially-folded`
-    if [ $? -eq 1 ]; then
-      echo "$FOLD -c $col -i $file -o $file.potentially-folded failed"
-      echo "output: $output"
-    fi
+    $FOLD -c $col -i $file -o $file.potentially-folded
   else
-    output=`$FOLD -i $file -o $file.potentially-folded`
-    if [ $? -eq 1 ]; then
-      echo "$FOLD -i $file -o $file.potentially-folded failed"
-      echo "output: $output"
-    fi
+    $FOLD -i $file -o $file.potentially-folded
   fi
 
   cat .tmp.pre.txt $file.potentially-folded .tmp.post.txt > .tmp.new.txt
