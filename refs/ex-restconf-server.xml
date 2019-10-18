@@ -21,8 +21,12 @@
           </server-identity>
           <client-authentication>
             <required/>
-            <ca-certs>explicitly-trusted-client-ca-certs</ca-certs>
-            <client-certs>explicitly-trusted-client-certs</client-certs>
+            <ca-certs>
+              <truststore-reference>explicitly-trusted-client-ca-certs</truststore-reference>
+            </ca-certs>
+            <client-certs>
+              <truststore-reference>explicitly-trusted-client-certs</truststore-reference>
+            </client-certs>
           </client-authentication>
         </tls-server-parameters>
         <http-server-parameters>
@@ -75,8 +79,12 @@
               </server-identity>
               <client-authentication>
                 <required/>
-                <ca-certs>explicitly-trusted-client-ca-certs</ca-certs>
-                <client-certs>explicitly-trusted-client-certs</client-certs>
+                <ca-certs>
+                  <truststore-reference>explicitly-trusted-client-ca-certs</truststore-reference>
+                </ca-certs>
+                <client-certs>
+                  <truststore-reference>explicitly-trusted-client-certs</truststore-reference>
+                </client-certs>
               </client-authentication>
             </tls-server-parameters>
             <http-server-parameters>
@@ -122,8 +130,12 @@
               </server-identity>
               <client-authentication>
                 <required/>
-                <ca-certs>explicitly-trusted-client-ca-certs</ca-certs>
-                <client-certs>explicitly-trusted-client-certs</client-certs>
+                <ca-certs>
+                  <truststore-reference>explicitly-trusted-client-ca-certs</truststore-reference>
+                </ca-certs>
+                <client-certs>
+                  <truststore-reference>explicitly-trusted-client-certs</truststore-reference>
+                </client-certs>
               </client-authentication>
             </tls-server-parameters>
             <http-server-parameters>

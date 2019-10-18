@@ -143,11 +143,11 @@ INSERT_TEXT_FROM_FILE(refs/ex-restconf-client.xml)
           <xref target="I-D.kwatsen-netconf-http-client-server"/>.</t>
           <t>
             <figure>
+              <preamble>&lt;CODE BEGINS&gt; file "ietf-restconf-client@YYYY-MM-DD.yang"</preamble>
               <artwork><![CDATA[
-<CODE BEGINS> file "ietf-restconf-client@YYYY-MM-DD.yang"
 INSERT_TEXT_FROM_FILE(ietf-restconf-client@YYYY-MM-DD.yang)
-<CODE ENDS>
 ]]></artwork>
+              <postamble>&lt;CODE ENDS&gt;</postamble>
             </figure>
           </t>
         </section>
@@ -203,11 +203,11 @@ INSERT_TEXT_FROM_FILE(refs/ex-restconf-server.xml)
           <xref target="I-D.kwatsen-netconf-http-client-server"/>.</t>
           <t>
             <figure>
+              <preamble>&lt;CODE BEGINS&gt; file "ietf-restconf-server@YYYY-MM-DD.yang"</preamble>
               <artwork><![CDATA[
-<CODE BEGINS> file "ietf-restconf-server@YYYY-MM-DD.yang"
 INSERT_TEXT_FROM_FILE(ietf-restconf-server@YYYY-MM-DD.yang)
-<CODE ENDS>
 ]]></artwork>
+              <postamble>&lt;CODE ENDS&gt;</postamble>
             </figure>
           </t>
         </section>
@@ -522,6 +522,18 @@ INSERT_TEXT_FROM_FILE(refs/ietf-restconf-server-tree.txt)
             <t>Adjusting from change in TLS client model (removing the top-level
               'certificate' container).</t>
             <t>Added "external-endpoint" to the "http-listen" choice in ietf-restconf-server.</t>
+          </list>
+        </t>
+      </section>
+      <section title="14 to 15">
+        <t>
+          <list style="symbols">
+            <t>Added missing "or https-listen" clause in a "must" expression.</t>
+            <t>Refactored the client module similar to how the server module was refactored in -13.  Now
+              the 'restconf-client-grouping' is just the RC-specific bits, the 
+              'restconf-client-[initiate|listen]-stack-grouping' is the protocol
+              stack for a single connection, and 'restconf-client-app-grouping' is effectively what
+              was before (both listen+callhome for many inbound/outbound endpoints).</t>
           </list>
         </t>
       </section>

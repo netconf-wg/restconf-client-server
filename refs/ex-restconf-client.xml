@@ -27,8 +27,12 @@
                 </local-definition>
               </client-identity>
               <server-authentication>
-                <ca-certs>explicitly-trusted-server-ca-certs</ca-certs>
-                <server-certs>explicitly-trusted-server-certs</server-certs>
+                <ca-certs>
+                  <truststore-reference>explicitly-trusted-server-ca-certs</truststore-reference>
+                </ca-certs>
+                <server-certs>
+                  <truststore-reference>explicitly-trusted-server-certs</truststore-reference>
+                </server-certs>
               </server-authentication>
               <keepalives>
                 <max-wait>30</max-wait>
@@ -67,8 +71,12 @@
                 </local-definition>
               </client-identity>
               <server-authentication>
-                <ca-certs>explicitly-trusted-server-ca-certs</ca-certs>
-                <server-certs>explicitly-trusted-server-certs</server-certs>
+                <ca-certs>
+                  <truststore-reference>explicitly-trusted-server-ca-certs</truststore-reference>
+                </ca-certs>
+                <server-certs>
+                  <truststore-reference>explicitly-trusted-server-certs</truststore-reference>
+                </server-certs>
               </server-authentication>
               <keepalives>
                 <max-wait>30</max-wait>
@@ -111,8 +119,12 @@
             </local-definition>
           </client-identity>
           <server-authentication>
-            <ca-certs>explicitly-trusted-server-ca-certs</ca-certs>
-            <server-certs>explicitly-trusted-server-certs</server-certs>
+            <ca-certs>
+              <truststore-reference>explicitly-trusted-server-ca-certs</truststore-reference>
+            </ca-certs>
+            <server-certs>
+              <truststore-reference>explicitly-trusted-server-certs</truststore-reference>
+            </server-certs>
           </server-authentication>
         </tls-client-parameters>
         <http-client-parameters>
