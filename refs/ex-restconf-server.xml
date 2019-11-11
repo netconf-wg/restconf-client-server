@@ -12,12 +12,14 @@
         </tcp-server-parameters>
         <tls-server-parameters>
           <server-identity>
-            <local-definition>
-              <algorithm>rsa2048</algorithm>
-              <private-key>base64encodedvalue==</private-key>
-              <public-key>base64encodedvalue==</public-key>
-              <cert>base64encodedvalue==</cert>
-            </local-definition>
+            <certificate>
+              <local-definition>
+                <algorithm>rsa2048</algorithm>
+                <private-key>base64encodedvalue==</private-key>
+                <public-key>base64encodedvalue==</public-key>
+                <cert>base64encodedvalue==</cert>
+              </local-definition>
+            </certificate>
           </server-identity>
           <client-authentication>
             <required/>
@@ -37,21 +39,18 @@
           </protocol-versions>
         </http-server-parameters>
         <restconf-server-parameters>
-          <client-identification>
-            <cert-maps>
+          <client-identity-mappings>
+            <cert-to-name>
+              <id>1</id>
+              <fingerprint>11:0A:05:11:00</fingerprint>
+              <map-type>x509c2n:specified</map-type>
+              <name>scooby-doo</name>
+            </cert-to-name>
               <cert-to-name>
-                <id>1</id>
-                <fingerprint>11:0A:05:11:00</fingerprint>
-                <map-type>x509c2n:san-any</map-type>
-              </cert-to-name>
-              <cert-to-name>
-                <id>2</id>
-                <fingerprint>B3:4F:A1:8C:54</fingerprint>
-                <map-type>x509c2n:specified</map-type>
-                <name>scooby-doo</name>
-              </cert-to-name>
-            </cert-maps>
-          </client-identification>
+              <id>2</id>
+              <map-type>x509c2n:san-any</map-type>
+            </cert-to-name>
+          </client-identity-mappings>
         </restconf-server-parameters>
       </https>
     </endpoint>
@@ -70,12 +69,14 @@
             </tcp-client-parameters>
             <tls-server-parameters>
               <server-identity>
-                <local-definition>
-                  <algorithm>rsa2048</algorithm>
-                  <private-key>base64encodedvalue==</private-key>
-                  <public-key>base64encodedvalue==</public-key>
-                  <cert>base64encodedvalue==</cert>
-                </local-definition>
+                <certificate>
+                  <local-definition>
+                    <algorithm>rsa2048</algorithm>
+                    <private-key>base64encodedvalue==</private-key>
+                    <public-key>base64encodedvalue==</public-key>
+                    <cert>base64encodedvalue==</cert>
+                  </local-definition>
+                </certificate>
               </server-identity>
               <client-authentication>
                 <required/>
@@ -95,21 +96,18 @@
               </protocol-versions>
             </http-server-parameters>
             <restconf-server-parameters>
-              <client-identification>
-                <cert-maps>
-                  <cert-to-name>
-                    <id>1</id>
-                    <fingerprint>11:0A:05:11:00</fingerprint>
-                    <map-type>x509c2n:san-any</map-type>
-                  </cert-to-name>
-                  <cert-to-name>
-                    <id>2</id>
-                    <fingerprint>B3:4F:A1:8C:54</fingerprint>
-                    <map-type>x509c2n:specified</map-type>
-                    <name>scooby-doo</name>
-                  </cert-to-name>
-                </cert-maps>
-              </client-identification>
+              <client-identity-mappings>
+                <cert-to-name>
+                  <id>1</id>
+                  <fingerprint>11:0A:05:11:00</fingerprint>
+                  <map-type>x509c2n:specified</map-type>
+                  <name>scooby-doo</name>
+                </cert-to-name>
+                <cert-to-name>
+                  <id>2</id>
+                  <map-type>x509c2n:san-any</map-type>
+                </cert-to-name>
+              </client-identity-mappings>
             </restconf-server-parameters>
           </https>
         </endpoint>
@@ -121,12 +119,14 @@
             </tcp-client-parameters>
             <tls-server-parameters>
               <server-identity>
-                <local-definition>
-                  <algorithm>rsa2048</algorithm>
-                  <private-key>base64encodedvalue==</private-key>
-                  <public-key>base64encodedvalue==</public-key>
-                  <cert>base64encodedvalue==</cert>
-                </local-definition>
+                <certificate>
+                  <local-definition>
+                    <algorithm>rsa2048</algorithm>
+                    <private-key>base64encodedvalue==</private-key>
+                    <public-key>base64encodedvalue==</public-key>
+                    <cert>base64encodedvalue==</cert>
+                  </local-definition>
+                </certificate>
               </server-identity>
               <client-authentication>
                 <required/>
@@ -146,21 +146,18 @@
               </protocol-versions>
             </http-server-parameters>
             <restconf-server-parameters>
-              <client-identification>
-                <cert-maps>
-                  <cert-to-name>
-                    <id>1</id>
-                    <fingerprint>11:0A:05:11:00</fingerprint>
-                    <map-type>x509c2n:san-any</map-type>
-                  </cert-to-name>
-                  <cert-to-name>
-                    <id>2</id>
-                    <fingerprint>B3:4F:A1:8C:54</fingerprint>
-                    <map-type>x509c2n:specified</map-type>
-                    <name>scooby-doo</name>
-                  </cert-to-name>
-                </cert-maps>
-              </client-identification>
+              <client-identity-mappings>
+                <cert-to-name>
+                  <id>1</id>
+                  <fingerprint>11:0A:05:11:00</fingerprint>
+                  <map-type>x509c2n:specified</map-type>
+                  <name>scooby-doo</name>
+                </cert-to-name>
+                <cert-to-name>
+                  <id>2</id>
+                  <map-type>x509c2n:san-any</map-type>
+                </cert-to-name>
+              </client-identity-mappings>
             </restconf-server-parameters>
           </https>
         </endpoint>

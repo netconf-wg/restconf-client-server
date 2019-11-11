@@ -19,12 +19,14 @@
             </tcp-client-parameters>
             <tls-client-parameters>
               <client-identity>
-                <local-definition>
-                  <algorithm>rsa2048</algorithm>
-                  <private-key>base64encodedvalue==</private-key>
-                  <public-key>base64encodedvalue==</public-key>
-                  <cert>base64encodedvalue==</cert>
-                </local-definition>
+                <certificate>
+                  <local-definition>
+                    <algorithm>rsa2048</algorithm>
+                    <private-key>base64encodedvalue==</private-key>
+                    <public-key>base64encodedvalue==</public-key>
+                    <cert>base64encodedvalue==</cert>
+                  </local-definition>
+                </certificate>
               </client-identity>
               <server-authentication>
                 <ca-certs>
@@ -40,7 +42,6 @@
               </keepalives>
             </tls-client-parameters>
             <http-client-parameters>
-              <protocol-version>HTTP/1.1</protocol-version>
               <client-identity>
                 <basic>
                   <user-id>bob</user-id>
@@ -63,12 +64,14 @@
             </tcp-client-parameters>
             <tls-client-parameters>
               <client-identity>
-                <local-definition>
-                  <algorithm>rsa2048</algorithm>
-                  <private-key>base64encodedvalue==</private-key>
-                  <public-key>base64encodedvalue==</public-key>
-                  <cert>base64encodedvalue==</cert>
-                </local-definition>
+                <certificate>
+                  <local-definition>
+                    <algorithm>rsa2048</algorithm>
+                    <private-key>base64encodedvalue==</private-key>
+                    <public-key>base64encodedvalue==</public-key>
+                    <cert>base64encodedvalue==</cert>
+                  </local-definition>
+                </certificate>
               </client-identity>
               <server-authentication>
                 <ca-certs>
@@ -84,7 +87,6 @@
               </keepalives>
             </tls-client-parameters>
             <http-client-parameters>
-              <protocol-version>HTTP/1.1</protocol-version>
               <client-identity>
                 <basic>
                   <user-id>bob</user-id>
@@ -111,12 +113,14 @@
         </tcp-server-parameters>
         <tls-client-parameters>
           <client-identity>
-            <local-definition>
-              <algorithm>rsa2048</algorithm>
-              <private-key>base64encodedvalue==</private-key>
-              <public-key>base64encodedvalue==</public-key>
-              <cert>base64encodedvalue==</cert>
-            </local-definition>
+            <certificate>
+              <local-definition>
+                <algorithm>rsa2048</algorithm>
+                <private-key>base64encodedvalue==</private-key>
+                <public-key>base64encodedvalue==</public-key>
+                <cert>base64encodedvalue==</cert>
+              </local-definition>
+            </certificate>
           </client-identity>
           <server-authentication>
             <ca-certs>
@@ -128,7 +132,6 @@
           </server-authentication>
         </tls-client-parameters>
         <http-client-parameters>
-          <protocol-version>HTTP/1.1</protocol-version>
           <client-identity>
             <basic>
               <user-id>bob</user-id>

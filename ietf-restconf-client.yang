@@ -58,7 +58,7 @@ module ietf-restconf-client {
 
      This version of this YANG module is part of RFC XXXX
      (https://www.rfc-editor.org/info/rfcXXXX); see the RFC
-     itself for full legal notices.; 
+     itself for full legal notices.
 
      The key words 'MUST', 'MUST NOT', 'REQUIRED', 'SHALL',
      'SHALL NOT', 'SHOULD', 'SHOULD NOT', 'RECOMMENDED',
@@ -78,7 +78,7 @@ module ietf-restconf-client {
 
   feature https-initiate {
     description
-      "The ‘https-initiate’ feature indicates that the RESTCONF
+      "The 'https-initiate' feature indicates that the RESTCONF
        client supports initiating HTTPS connections to RESTCONF
        servers. This feature exists as HTTPS might not be a
        mandatory to implement transport in the future.";
@@ -88,7 +88,7 @@ module ietf-restconf-client {
 
   feature http-listen {
     description
-      "The ‘https-listen’ feature indicates that the RESTCONF client
+      "The 'https-listen' feature indicates that the RESTCONF client
        supports opening a port to listen for incoming RESTCONF
        server call-home connections.  This feature exists as not
        all RESTCONF clients may support RESTCONF call home.";
@@ -98,7 +98,7 @@ module ietf-restconf-client {
 
   feature https-listen {
     description
-      "The ‘https-listen’ feature indicates that the RESTCONF client
+      "The 'https-listen' feature indicates that the RESTCONF client
        supports opening a port to listen for incoming RESTCONF
        server call-home connections.  This feature exists as not
        all RESTCONF clients may support RESTCONF call home.";
@@ -150,7 +150,7 @@ module ietf-restconf-client {
             }
           }
           container tls-client-parameters {
-            must "client-identity" {
+            must 'client-identity' {
               description
                 "NETCONF/TLS clients MUST pass some
                  authentication credentials.";
@@ -190,7 +190,8 @@ module ietf-restconf-client {
       case http {
         if-feature "http-listen";
         container FIXME {
-          description "FIXME";
+          description
+            "FIXME";
         }
       }
       case https {
@@ -214,7 +215,7 @@ module ietf-restconf-client {
             }
           }
           container tls-client-parameters {
-            must "client-identity" {
+            must 'client-identity' {
               description
                 "NETCONF/TLS clients MUST pass some
                  authentication credentials.";
@@ -236,7 +237,7 @@ module ietf-restconf-client {
                to avoid name collisions.";
             uses rcc:restconf-client-grouping;
           }
-        } 
+        }
       }
     }
   } // restconf-client-listen-stack-grouping
@@ -298,7 +299,7 @@ module ietf-restconf-client {
                    RESTCONF server. If the connection goes down,
                    immediately start trying to reconnect to the
                    RESTCONF server, using the reconnection strategy.
-                   
+
                    This connection type minimizes any RESTCONF server
                    to RESTCONF client data-transfer delay, albeit
                    at the expense of holding resources longer.";
@@ -319,11 +320,10 @@ module ietf-restconf-client {
                    The RESTCONF client SHOULD gracefully close
                    the underlying TLS connection upon completing
                    planned activities.
-                   
+
                    In the case that the previous connection is
                    still active, establishing a new connection
                    is NOT RECOMMENDED.";
-
                 leaf period {
                   type uint16;
                   units "minutes";

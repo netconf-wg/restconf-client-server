@@ -537,6 +537,17 @@ INSERT_TEXT_FROM_FILE(refs/ietf-restconf-server-tree.txt)
           </list>
         </t>
       </section>
+      <section title="15 to 16">
+          <t>
+            <list style="symbols">
+              <t>Added refinement to make "cert-to-name/fingerprint" be mandatory false.</t>
+              <t>Commented out refinement to "tls-server-grouping/client-authentication"
+                until a better "must" expression is defined.</t>
+              <t>Updated restconf-client example to reflect that http-client-grouping no
+                longer has a "protocol-version" leaf.</t>
+            </list>
+          </t>
+        </section>
     </section>
 
     <section title="Acknowledgements" numbered="no">
