@@ -15,7 +15,6 @@
           <server-identity>
             <certificate>
               <local-definition>
-                <algorithm>rsa2048</algorithm>
                 <public-key-format>ct:subject-public-key-info-format</public-key-format>
                 <public-key>base64encodedvalue==</public-key>
                 <private-key-format>ct:rsa-private-key-format</private-key-format>
@@ -32,13 +31,12 @@
               <truststore-reference>trusted-client-ee-certs</truststore-reference>
             </client-certs>
           </client-authentication>
+          <keepalives>
+            <peer-allowed-to-send/>
+          </keepalives>
         </tls-server-parameters>
         <http-server-parameters>
           <server-name>foo.example.com</server-name>
-          <protocol-versions>
-            <protocol-version>HTTP/1.1</protocol-version>
-            <protocol-version>HTTP/2.0</protocol-version>
-          </protocol-versions>
         </http-server-parameters>
         <restconf-server-parameters>
           <client-identity-mappings>
@@ -68,12 +66,16 @@
           <https>
             <tcp-client-parameters>
               <remote-address>east.example.com</remote-address>
+              <keepalives>
+                <idle-time>15</idle-time>
+                <max-probes>3</max-probes>
+                <probe-interval>30</probe-interval>
+              </keepalives>
             </tcp-client-parameters>
             <tls-server-parameters>
               <server-identity>
                 <certificate>
                   <local-definition>
-                    <algorithm>rsa2048</algorithm>
                     <public-key-format>ct:subject-public-key-info-format</public-key-format>
                     <public-key>base64encodedvalue==</public-key>
                     <private-key-format>ct:rsa-private-key-format</private-key-format>
@@ -90,13 +92,15 @@
                   <truststore-reference>trusted-client-ee-certs</truststore-reference>
                 </client-certs>
               </client-authentication>
+              <keepalives>
+                <test-peer-aliveness>
+                  <max-wait>30</max-wait>
+                  <max-attempts>3</max-attempts>
+                </test-peer-aliveness>
+              </keepalives>
             </tls-server-parameters>
             <http-server-parameters>
               <server-name>foo.example.com</server-name>
-              <protocol-versions>
-                <protocol-version>HTTP/1.1</protocol-version>
-                <protocol-version>HTTP/2.0</protocol-version>
-              </protocol-versions>
             </http-server-parameters>
             <restconf-server-parameters>
               <client-identity-mappings>
@@ -119,12 +123,16 @@
           <https>
             <tcp-client-parameters>
               <remote-address>west.example.com</remote-address>
+              <keepalives>
+                <idle-time>15</idle-time>
+                <max-probes>3</max-probes>
+                <probe-interval>30</probe-interval>
+              </keepalives>
             </tcp-client-parameters>
             <tls-server-parameters>
               <server-identity>
                 <certificate>
                   <local-definition>
-                    <algorithm>rsa2048</algorithm>
                     <public-key-format>ct:subject-public-key-info-format</public-key-format>
                     <public-key>base64encodedvalue==</public-key>
                     <private-key-format>ct:rsa-private-key-format</private-key-format>
@@ -141,13 +149,15 @@
                   <truststore-reference>trusted-client-ee-certs</truststore-reference>
                 </client-certs>
               </client-authentication>
+              <keepalives>
+                <test-peer-aliveness>
+                  <max-wait>30</max-wait>
+                  <max-attempts>3</max-attempts>
+                </test-peer-aliveness>
+              </keepalives>
             </tls-server-parameters>
             <http-server-parameters>
               <server-name>foo.example.com</server-name>
-              <protocol-versions>
-                <protocol-version>HTTP/1.1</protocol-version>
-                <protocol-version>HTTP/2.0</protocol-version>
-              </protocol-versions>
             </http-server-parameters>
             <restconf-server-parameters>
               <client-identity-mappings>
