@@ -533,9 +533,8 @@ module ietf-restconf-server {
 
 
 
-  // Protocol accessible node, for servers that implement this
-  // module.
-
+  // Protocol accessible node, for servers that implement
+  // this module.
   container restconf-server {
     uses restconf-server-app-grouping;
     description
