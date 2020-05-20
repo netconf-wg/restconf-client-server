@@ -19,61 +19,56 @@
      ipr="trust200902"
      docName="draft-ietf-netconf-restconf-client-server-latest" >
     <front>
-        <title>RESTCONF Client and Server Models</title>
-        <author initials="K." surname="Watsen" fullname="Kent Watsen">
-            <organization>Watsen Networks</organization>
-            <address>
-                <email>kent+ietf@watsen.net</email>
-            </address>
-        </author>
-        <date/>
-        <area>Operations</area>
-        <workgroup>NETCONF Working Group</workgroup>
-        <abstract>
-            <t>This document defines two YANG modules,
-            one module to configure a RESTCONF client and the other module to
-            configure a RESTCONF server.  Both modules support the TLS transport
-            protocol with both standard RESTCONF and RESTCONF Call Home connections.</t>
-
-        </abstract>
-        <note title="Editorial Note (To be removed by RFC Editor)">
-          <t>This draft contains many placeholder values that need to be replaced
+      <title>RESTCONF Client and Server Models</title>
+      <author initials="K." surname="Watsen" fullname="Kent Watsen">
+        <organization>Watsen Networks</organization>
+        <address>
+          <email>kent+ietf@watsen.net</email>
+        </address>
+      </author>
+      <date/>
+      <area>Operations</area>
+      <workgroup>NETCONF Working Group</workgroup>
+      <abstract>
+        <t>This document defines two YANG modules,
+          one module to configure a RESTCONF client and the other module to
+          configure a RESTCONF server.  Both modules support the TLS transport
+          protocol with both standard RESTCONF and RESTCONF Call Home connections.</t>
+      </abstract>
+      <note title="Editorial Note (To be removed by RFC Editor)">
+        <t>This draft contains placeholder values that need to be replaced
           with finalized values at the time of publication.  This note summarizes
           all of the substitutions that are needed.  No other RFC Editor
           instructions are specified elsewhere in this document.</t>
-
-          <t>This document contains references to other drafts in progress, both in
-          the Normative References section, as well as in body text throughout.  
-          Please update the following references to reflect their final RFC assignments:
-            <list style="symbols">
-              <t>I-D.ietf-netconf-keystore</t>
-              <t>I-D.ietf-netconf-tcp-client-server</t>
-              <t>I-D.ietf-netconf-tls-client-server</t>
-              <t>I-D.ietf-netconf-http-client-server</t>
-            </list>
-          </t>
-          <t>Artwork in this document contains shorthand references to drafts in 
-          progress.  Please apply the following replacements:
-            <list  style="symbols">
-              <t><spanx style="verb">XXXX</spanx> --&gt; the assigned RFC value for this draft</t>
-              <t><spanx style="verb">AAAA</spanx> --&gt; the assigned RFC value for I-D.ietf-netconf-tcp-client-server</t>
-              <t><spanx style="verb">BBBB</spanx> --&gt; the assigned RFC value for I-D.ietf-netconf-tls-client-server</t>
-              <t><spanx style="verb">CCCC</spanx> --&gt; the assigned RFC value for I-D.ietf-netconf-http-client-server</t>
-            </list>
-          </t>
-          <t>Artwork in this document contains placeholder values for the date of publication of this
-          draft.  Please apply the following replacement:
-            <list  style="symbols">
-              <t><spanx style="verb">YYYY-MM-DD</spanx> --&gt; the publication date of this draft</t>
-            </list>
-          </t>
-          <t>The following Appendix section is to be removed prior to publication:
-            <list  style="symbols">
-              <t><xref target="change-log"/>.  Change Log</t>
-            </list>
-          </t>
-        </note>
-    </front> <middle>
+        <t>Artwork in this document contains shorthand references to drafts in
+          progress.  Please apply the following replacements (note: not all may be present):
+          <list style="symbols">
+            <t><spanx style="verb">AAAA</spanx> --&gt; the assigned RFC value for draft-ietf-netconf-crypto-types</t>
+            <t><spanx style="verb">BBBB</spanx> --&gt; the assigned RFC value for draft-ietf-netconf-trust-anchors</t>
+            <t><spanx style="verb">CCCC</spanx> --&gt; the assigned RFC value for draft-ietf-netconf-keystore</t>
+            <t><spanx style="verb">DDDD</spanx> --&gt; the assigned RFC value for draft-ietf-netconf-tcp-client-server</t>
+            <t><spanx style="verb">EEEE</spanx> --&gt; the assigned RFC value for draft-ietf-netconf-ssh-client-server</t>
+            <t><spanx style="verb">FFFF</spanx> --&gt; the assigned RFC value for draft-ietf-netconf-tls-client-server</t>
+            <t><spanx style="verb">GGGG</spanx> --&gt; the assigned RFC value for draft-ietf-netconf-http-client-server</t>
+            <t><spanx style="verb">HHHH</spanx> --&gt; the assigned RFC value for draft-ietf-netconf-netconf-client-server</t>
+            <t><spanx style="verb">IIII</spanx> --&gt; the assigned RFC value for this draft</t>
+          </list>
+        </t>
+        <t>Artwork in this document contains placeholder values for the date of publication of this
+        draft.  Please apply the following replacement:
+          <list style="symbols">
+            <t><spanx style="verb">YYYY-MM-DD</spanx> --&gt; the publication date of this draft</t>
+          </list>
+        </t>
+        <t>The following Appendix section is to be removed prior to publication:
+          <list style="symbols">
+            <t><xref target="change-log"/>.  Change Log</t>
+          </list>
+        </t>
+      </note>
+INSERT_TEXT_FROM_FILE(../client-server-overview-snippet.xml,158)
+    </front>
+    <middle>
 
         <section title="Introduction">
 
@@ -295,12 +290,12 @@ INSERT_TEXT_FROM_FILE(ietf-restconf-server@YYYY-MM-DD.yang)
    name:         ietf-restconf-client
    namespace:    urn:ietf:params:xml:ns:yang:ietf-restconf-client
    prefix:       ncc
-   reference:    RFC XXXX
+   reference:    RFC IIII
 
    name:         ietf-restconf-server
    namespace:    urn:ietf:params:xml:ns:yang:ietf-restconf-server
    prefix:       ncs
-   reference:    RFC XXXX
+   reference:    RFC IIII
 ]]></artwork>
             </figure>
           </t>
@@ -569,6 +564,7 @@ INSERT_TEXT_FROM_FILE(refs/ietf-restconf-server-tree.txt)
               <t>Updated examples to remove the 'algorithm' nodes.</t>
               <t>Updated examples to reflect the new TLS keepalives structure.</t>
               <t>Removed the 'protocol-versions' node from the restconf-server examples.</t>
+              <t>Added a "Note to Reviewers" note to first page.</t>
             </list>
           </t>
         </section>

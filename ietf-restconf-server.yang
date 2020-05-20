@@ -24,25 +24,25 @@ module ietf-restconf-server {
   import ietf-tcp-client {
     prefix tcpc;
     reference
-      "RFC AAAA: YANG Groupings for TCP Clients and TCP Servers";
+      "RFC DDDD: YANG Groupings for TCP Clients and TCP Servers";
   }
 
   import ietf-tcp-server {
     prefix tcps;
     reference
-      "RFC AAAA: YANG Groupings for TCP Clients and TCP Servers";
+      "RFC DDDD: YANG Groupings for TCP Clients and TCP Servers";
   }
 
   import ietf-tls-server {
     prefix tlss;
     reference
-      "RFC BBBB: YANG Groupings for TLS Clients and TLS Servers";
+      "RFC FFFF: YANG Groupings for TLS Clients and TLS Servers";
   }
 
   import ietf-http-server {
     prefix https;
     reference
-      "RFC CCCC: YANG Groupings for HTTP Clients and HTTP Servers";
+      "RFC GGGG: YANG Groupings for HTTP Clients and HTTP Servers";
   }
 
   organization
@@ -60,7 +60,7 @@ module ietf-restconf-server {
     "This module contains a collection of YANG definitions
      for configuring RESTCONF servers.
 
-     Copyright (c) 2019 IETF Trust and the persons identified
+     Copyright (c) 2020 IETF Trust and the persons identified
      as authors of the code. All rights reserved.
 
      Redistribution and use in source and binary forms, with
@@ -70,8 +70,8 @@ module ietf-restconf-server {
      Legal Provisions Relating to IETF Documents
      (https://trustee.ietf.org/license-info).
 
-     This version of this YANG module is part of RFC XXXX
-     (https://www.rfc-editor.org/info/rfcXXXX); see the RFC
+     This version of this YANG module is part of RFC IIII
+     (https://www.rfc-editor.org/info/rfcIIII); see the RFC
      itself for full legal notices.
 
      The key words 'MUST', 'MUST NOT', 'REQUIRED', 'SHALL',
@@ -85,7 +85,7 @@ module ietf-restconf-server {
     description
       "Initial version";
     reference
-      "RFC XXXX: RESTCONF Client and Server Models";
+      "RFC IIII: RESTCONF Client and Server Models";
   }
 
   // Features
@@ -137,7 +137,6 @@ module ietf-restconf-server {
        to consuming models.";
 
     container client-identity-mappings {
-      //if-feature "client-certificates-supported"; // FIXME: yes?
       description
         "Specifies mappings through which RESTCONF client X.509
          certificates are used to determine a RESTCONF username.
@@ -314,15 +313,7 @@ module ietf-restconf-server {
             description
               "A wrapper around the TLS server parameters
                to avoid name collisions.";
-            uses tlss:tls-server-grouping; /* {
-              FIXME: commented out since auth could also be external.
-                       ^-- need a better 'must' expression?
-              refine "client-authentication" {
-              must 'ca-certs or client-certs';
-                description
-                  "NETCONF/TLS servers MUST validate client
-                   certificates.";
-              }*/
+            uses tlss:tls-server-grouping;
           }
           container http-server-parameters {
             description

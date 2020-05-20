@@ -27,9 +27,9 @@
             <ca-certs>
               <truststore-reference>trusted-client-ca-certs</truststore-reference>
             </ca-certs>
-            <client-certs>
+            <ee-certs>
               <truststore-reference>trusted-client-ee-certs</truststore-reference>
-            </client-certs>
+            </ee-certs>
           </client-authentication>
           <keepalives>
             <peer-allowed-to-send/>
@@ -88,9 +88,9 @@
                 <ca-certs>
                   <truststore-reference>trusted-client-ca-certs</truststore-reference>
                 </ca-certs>
-                <client-certs>
+                <ee-certs>
                   <truststore-reference>trusted-client-ee-certs</truststore-reference>
-                </client-certs>
+                </ee-certs>
               </client-authentication>
               <keepalives>
                 <test-peer-aliveness>
@@ -145,9 +145,9 @@
                 <ca-certs>
                   <truststore-reference>trusted-client-ca-certs</truststore-reference>
                 </ca-certs>
-                <client-certs>
+                <ee-certs>
                   <truststore-reference>trusted-client-ee-certs</truststore-reference>
-                </client-certs>
+                </ee-certs>
               </client-authentication>
               <keepalives>
                 <test-peer-aliveness>
