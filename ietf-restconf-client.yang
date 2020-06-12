@@ -131,6 +131,8 @@ module ietf-restconf-client {
       case https {
         if-feature "https-initiate";
         container https {
+          must 'tls-client-parameters/client-identity
+                or http-client-parameters/client-identity';
           description
             "Specifies HTTPS-specific transport
              configuration.";
@@ -150,11 +152,6 @@ module ietf-restconf-client {
             }
           }
           container tls-client-parameters {
-            must 'client-identity' {
-              description
-                "NETCONF/TLS clients MUST pass some
-                 authentication credentials.";
-            }
             description
               "A wrapper around the TLS client parameters
                to avoid name collisions.";
@@ -233,6 +230,8 @@ module ietf-restconf-client {
       case https {
         if-feature "https-listen";
         container https {
+          must 'tls-client-parameters/client-identity
+                or http-client-parameters/client-identity';
           description
             "HTTPS-specific listening configuration for inbound
              connections.";
@@ -251,11 +250,6 @@ module ietf-restconf-client {
             }
           }
           container tls-client-parameters {
-            must 'client-identity' {
-              description
-                "NETCONF/TLS clients MUST pass some
-                 authentication credentials.";
-            }
             description
               "A wrapper around the TLS client parameters
                to avoid name collisions.";
