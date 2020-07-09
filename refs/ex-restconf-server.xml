@@ -6,7 +6,7 @@
   <!-- endpoints to listen for RESTCONF connections on -->
   <listen>
     <endpoint>
-      <name>netconf/tls</name>
+      <name>restconf/https</name>
       <https>
         <tcp-server-parameters>
           <local-address>11.22.33.44</local-address>
@@ -14,13 +14,10 @@
         <tls-server-parameters>
           <server-identity>
             <certificate>
-              <local-definition>
-                <public-key-format>ct:subject-public-key-info-format</public-key-format>
-                <public-key>base64encodedvalue==</public-key>
-                <private-key-format>ct:rsa-private-key-format</private-key-format>
-                <private-key>base64encodedvalue==</private-key>
-                <cert>base64encodedvalue==</cert>
-              </local-definition>
+              <keystore-reference>
+                <asymmetric-key>rsa-asymmetric-key</asymmetric-key>
+                <certificate>ex-rsa-cert</certificate>
+              </keystore-reference>
             </certificate>
           </server-identity>
           <client-authentication>
@@ -75,13 +72,10 @@
             <tls-server-parameters>
               <server-identity>
                 <certificate>
-                  <local-definition>
-                    <public-key-format>ct:subject-public-key-info-format</public-key-format>
-                    <public-key>base64encodedvalue==</public-key>
-                    <private-key-format>ct:rsa-private-key-format</private-key-format>
-                    <private-key>base64encodedvalue==</private-key>
-                    <cert>base64encodedvalue==</cert>
-                  </local-definition>
+                  <keystore-reference>
+                    <asymmetric-key>rsa-asymmetric-key</asymmetric-key>
+                    <certificate>ex-rsa-cert</certificate>
+                  </keystore-reference>
                 </certificate>
               </server-identity>
               <client-authentication>
@@ -132,13 +126,10 @@
             <tls-server-parameters>
               <server-identity>
                 <certificate>
-                  <local-definition>
-                    <public-key-format>ct:subject-public-key-info-format</public-key-format>
-                    <public-key>base64encodedvalue==</public-key>
-                    <private-key-format>ct:rsa-private-key-format</private-key-format>
-                    <private-key>base64encodedvalue==</private-key>
-                    <cert>base64encodedvalue==</cert>
-                  </local-definition>
+                  <keystore-reference>
+                    <asymmetric-key>rsa-asymmetric-key</asymmetric-key>
+                    <certificate>ex-rsa-cert</certificate>
+                  </keystore-reference>
                 </certificate>
               </server-identity>
               <client-authentication>
