@@ -46,7 +46,7 @@
               <client-identity>
                 <basic>
                   <user-id>bob</user-id>
-                  <password>secret</password>
+                  <cleartext-password>secret</cleartext-password>
                 </basic>
               </client-identity>
             </http-client-parameters>
@@ -91,7 +91,7 @@
               <client-identity>
                 <basic>
                   <user-id>bob</user-id>
-                  <password>secret</password>
+                  <cleartext-password>secret</cleartext-password>
                 </basic>
               </client-identity>
             </http-client-parameters>
@@ -137,7 +137,7 @@
           <client-identity>
             <basic>
               <user-id>bob</user-id>
-              <password>secret</password>
+              <cleartext-password>secret</cleartext-password>
             </basic>
           </client-identity>
         </http-client-parameters>

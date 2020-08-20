@@ -94,6 +94,7 @@ INSERT_TEXT_FROM_FILE(../common-intro-snippet.xml,150)
       </section>
 
       <section title="The &quot;ietf-restconf-client&quot; Module">
+
         <t>The RESTCONF client model presented in this section supports
         both clients initiating connections to servers, as well as
         clients listening for connections from servers calling home.</t>
@@ -103,6 +104,9 @@ INSERT_TEXT_FROM_FILE(../common-intro-snippet.xml,150)
         RESTCONF client supports.</t>
 
         <section title="Data Model Overview" anchor="restconf-client-tree">
+
+          <t>This section provides an overview of the "ietf-restconf-client"
+            module in terms of its features and groupings.</t>
 
           <section title="Features" anchor="client-features" toc="exclude">
             <t>The following diagram lists all the "feature" statements
@@ -117,6 +121,10 @@ Features:
 ]]></artwork>
               </figure>
             </t>
+            <aside>
+              <t>The diagram above uses syntax that is similar to but not
+                defined in <xref target="RFC8340"/>.</t>
+            </aside>
           </section>
 
           <section title="Groupings" toc="exclude">
@@ -133,6 +141,10 @@ Groupings:
 ]]></artwork> 
               </figure>
             </t>
+            <aside>
+              <t>The diagram above uses syntax that is similar to but not
+                defined in <xref target="RFC8340"/>.</t>
+            </aside>
             <t>Each of these groupings are presented in the following subsections.</t>
 
             <section title="The &quot;restconf-client-grouping&quot; Grouping" anchor="restconf-client-grouping">
@@ -261,7 +273,7 @@ INSERT_TEXT_FROM_FILE(refs/tree-restconf-client-app-grouping.no-expand.txt)
           </section>
 
           <section title="Protocol-accessible Nodes" toc="exclude">
-            <t>The following diagram lists all the protocol-accessible nodes
+            <t>The following tree diagram <xref target="RFC8340"/> lists all the protocol-accessible nodes
               defined in the "ietf-restconf-client" module:</t>
             <t>
               <figure>
@@ -321,6 +333,7 @@ INSERT_TEXT_FROM_FILE(ietf-restconf-client@YYYY-MM-DD.yang)
       </section>
 
       <section title="The &quot;ietf-restconf-server&quot; Module">
+
         <t>The RESTCONF server model presented in this section supports
         both listening for connections as well as initiating call-home
         connections.</t>
@@ -330,6 +343,9 @@ INSERT_TEXT_FROM_FILE(ietf-restconf-client@YYYY-MM-DD.yang)
         RESTCONF server supports.</t>
 
         <section title="Data Model Overview" anchor="restconf-server-tree">
+
+          <t>This section provides an overview of the "ietf-restconf-server"
+            module in terms of its features and groupings.</t>
 
           <section title="Features" anchor="server-features" toc="exclude">
             <t>The following diagram lists all the "feature" statements
@@ -344,6 +360,10 @@ Features:
 ]]></artwork>
               </figure>
             </t>
+            <aside>
+              <t>The diagram above uses syntax that is similar to but not
+                defined in <xref target="RFC8340"/>.</t>
+            </aside>
           </section>
 
           <section title="Groupings" toc="exclude">
@@ -360,6 +380,10 @@ Groupings:
 ]]></artwork> 
               </figure>
             </t>
+            <aside>
+              <t>The diagram above uses syntax that is similar to but not
+                defined in <xref target="RFC8340"/>.</t>
+            </aside>
             <t>Each of these groupings are presented in the following subsections.</t>
 
             <section title="The &quot;restconf-server-grouping&quot; Grouping" anchor="restconf-server-grouping">
@@ -492,7 +516,7 @@ INSERT_TEXT_FROM_FILE(refs/tree-restconf-server-app-grouping.no-expand.txt)
           </section>
 
           <section title="Protocol-accessible Nodes" toc="exclude">
-            <t>The following diagram lists all the protocol-accessible nodes
+            <t>The following tree diagram <xref target="RFC8340"/> lists all the protocol-accessible nodes
               defined in the "ietf-restconf-server" module:</t>
             <t>
               <figure>
@@ -641,7 +665,7 @@ INSERT_TEXT_FROM_FILE(ietf-restconf-server@YYYY-MM-DD.yang)
           <t>This document registers two YANG modules in the
           YANG Module Names registry <xref target="RFC6020"/>.
           Following the format in <xref target="RFC6020"/>, the
-          the following registrations are requested:</t>
+          following registrations are requested:</t>
           <t>
             <figure>
                 <artwork><![CDATA[
@@ -672,10 +696,10 @@ INSERT_TEXT_FROM_FILE(ietf-restconf-server@YYYY-MM-DD.yang)
       <?rfc include="reference.RFC.8040.xml"?>
       <?rfc include="reference.RFC.8071.xml"?>
       <?rfc include="reference.RFC.8174.xml"?>
-      <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-netconf-keystore.xml"/>
-      <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-netconf-tcp-client-server.xml"/>
-      <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-netconf-tls-client-server.xml"/>
-      <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-netconf-http-client-server.xml"/>
+      <xi:include href="https://datatracker.ietf.org/doc/bibxml3/reference.I-D.ietf-netconf-keystore.xml"/>
+      <xi:include href="https://datatracker.ietf.org/doc/bibxml3/reference.I-D.ietf-netconf-tcp-client-server.xml"/>
+      <xi:include href="https://datatracker.ietf.org/doc/bibxml3/reference.I-D.ietf-netconf-tls-client-server.xml"/>
+      <xi:include href="https://datatracker.ietf.org/doc/bibxml3/reference.I-D.ietf-netconf-http-client-server.xml"/>
     </references>
 
     <references title="Informative References">
@@ -685,11 +709,11 @@ INSERT_TEXT_FROM_FILE(ietf-restconf-server@YYYY-MM-DD.yang)
       <?rfc include="reference.RFC.8341.xml"?>
       <?rfc include="reference.RFC.8342.xml"?>
       <?rfc include="reference.RFC.8446.xml"?>
-      <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-netconf-ssh-client-server.xml"/>
-      <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-netconf-crypto-types.xml"/>
-      <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-netconf-trust-anchors.xml"/>
-      <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-netconf-netconf-client-server.xml"/>
-      <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-netconf-restconf-client-server.xml"/>
+      <xi:include href="https://datatracker.ietf.org/doc/bibxml3/reference.I-D.ietf-netconf-ssh-client-server.xml"/>
+      <xi:include href="https://datatracker.ietf.org/doc/bibxml3/reference.I-D.ietf-netconf-crypto-types.xml"/>
+      <xi:include href="https://datatracker.ietf.org/doc/bibxml3/reference.I-D.ietf-netconf-trust-anchors.xml"/>
+      <xi:include href="https://datatracker.ietf.org/doc/bibxml3/reference.I-D.ietf-netconf-netconf-client-server.xml"/>
+      <xi:include href="https://datatracker.ietf.org/doc/bibxml3/reference.I-D.ietf-netconf-restconf-client-server.xml"/>
 
     </references>
 
@@ -945,8 +969,7 @@ XNSERT_TEXT_FROM_FILE(refs/ietf-restconf-server-tree.txt)
           <t>
             <list style="symbols">
               <t>Cleaned up titles in the IANA Consideratons section</t>
-     
-              <t>SUBMISSION PENDING!...</t>
+              <t>Fixed issues found by the SecDir review of the "keystore" draft.</t>
             </list>
           </t>
         </section>
