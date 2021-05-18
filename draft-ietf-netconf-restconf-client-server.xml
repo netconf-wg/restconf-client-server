@@ -83,7 +83,7 @@
 INSERT_TEXT_FROM_FILE(../common-intro-snippet.xml,150)
 
         <section title="Adherence to the NMDA">
-          <t>This document in compliant with the Network Management Datastore
+          <t>This document is compliant with the Network Management Datastore
             Architecture (NMDA) <xref target="RFC8342"/>.  For instance, as
             described in <xref target="I-D.ietf-netconf-trust-anchors"/> and
             <xref target="I-D.ietf-netconf-keystore"/>, trust anchors and keys
@@ -479,7 +479,7 @@ INSERT_TEXT_FROM_FILE(refs/tree-restconf-server-app-grouping.no-expand.txt)
               <ul>
                 <li>The "restconf-server-app-grouping" defines the configuration
                   for a RESTCONF server that supports both listening for connections
-                  from RESTCONF clients as well as initiatiating call-home connections to
+                  from RESTCONF clients as well as initiating call-home connections to
                   RESTCONF clients.</li>
                 <li>Both the "listen" and "call-home" subtrees must be enabled by
                   "feature" statements.</li>
@@ -960,8 +960,17 @@ XNSERT_TEXT_FROM_FILE(refs/ietf-restconf-server-tree.txt)
             </list>
           </t>
         </section>
-        <!--
         <section title="22 to 23">
+          <t>
+            <list style="symbols">  
+              <t>Further clarified why some 'presence' statements are present.</t>
+              <t>Addressed nits found in YANG Doctor reviews.</t>
+              <t>Aligned modules with `pyang -f` formatting.</t>
+            </list>
+          </t>
+        </section>
+        <!--
+        <section title="23 to 24">
           <t>
             <list style="symbols">  
               <t>SUBMISSION PENDING</t>
@@ -974,22 +983,22 @@ XNSERT_TEXT_FROM_FILE(refs/ietf-restconf-server-tree.txt)
     <section title="Acknowledgements" numbered="no">
       <t>The authors would like to thank for following for
       lively discussions on list and in the halls (ordered
-      by last name):
-      Andy Bierman,
-      Martin Bjorklund,
-      Benoit Claise,
-      Mehmet Ersue,
-      Ramkumar Dhanapal,
-      Balázs Kovács,
-      Radek Krejci,
-      David Lamparter,
-      Ladislav Lhotka,
+      by first name):
       Alan Luchuk,
-      Tom Petch,
+      Andy Bierman,
+      Balázs Kovács,
+      Benoit Claise,
+      Bert Wijnen
+      David Lamparter,
       Juergen Schoenwaelder,
+      Ladislav Lhotka,
+      Martin Björklund,
+      Mehmet Ersue,
       Phil Shafer,
+      Radek Krejci,
+      Ramkumar Dhanapal,
       Sean Turner,
-      Bert Wijnen.</t>
+      and Tom Petch.</t>
     </section>
 
   </back>
