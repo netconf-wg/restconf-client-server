@@ -114,7 +114,7 @@ module ietf-restconf-client {
        without any consideration for how underlying transport
        sessions are established.
 
-       This grouping currently doesn't define any nodes.";
+       This grouping currently does not define any nodes.";
   }
 
   grouping restconf-client-initiate-stack-grouping {
