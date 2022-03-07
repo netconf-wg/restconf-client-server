@@ -1,6 +1,4 @@
-<restconf-client
-  xmlns="urn:ietf:params:xml:ns:yang:ietf-restconf-client"
-  xmlns:ct="urn:ietf:params:xml:ns:yang:ietf-crypto-types">
+<restconf-client xmlns="urn:ietf:params:xml:ns:yang:ietf-restconf-client">
 
   <!-- RESTCONF servers to initiate connections to -->
   <initiate>
