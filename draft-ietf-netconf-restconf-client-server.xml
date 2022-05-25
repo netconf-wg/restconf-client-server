@@ -126,7 +126,8 @@ Features:
   +-- https-initiate
   +-- http-listen
   +-- https-listen
-]]></artwork>
+  +-- central-restconf-client-supported 
+                  ]]></artwork>
               </figure>
             </t>
             <aside>
@@ -284,10 +285,11 @@ INSERT_TEXT_FROM_FILE(refs/ietf-restconf-client-tree-no-expand.txt)
             <ul>
               <li>Protocol-accessible nodes are those nodes that are accessible
                 when the module is "implemented", as described in <relref
-                section="5.6.5" target="RFC7950"/>.</li>
-              <li>For the "ietf-restconf-client" module, the protocol-accessible nodes
-                are an instance of the "restconf-client-app-grouping" discussed in
-                <xref target="restconf-client-app-grouping"/> grouping.</li>
+                  section="5.6.5" target="RFC7950"/>.</li>
+              <li>The top-level node "restconf-client" is additionally constrained
+                by the feature "central-restconf-client-supported".</li>
+              <li>The "restconf-client-app-grouping" grouping is discussed in
+                <xref target="restconf-client-app-grouping"/> in this document.</li>
               <li>The reason for why "restconf-client-app-grouping" exists separate from
                 the protocol-accessible nodes definition is so as to enable
                 instances of restconf-client-app-grouping to be instantiated in other
@@ -355,7 +357,8 @@ Features:
   +-- http-listen
   +-- https-listen
   +-- https-call-home
-]]></artwork>
+  +-- central-restconf-server-supported
+                  ]]></artwork>
               </figure>
             </t>
             <aside>
@@ -517,10 +520,11 @@ INSERT_TEXT_FROM_FILE(refs/ietf-restconf-server-tree-no-expand.txt)
             <ul>
               <li>Protocol-accessible nodes are those nodes that are accessible
                 when the module is "implemented", as described in <relref
-                section="5.6.5" target="RFC7950"/>.</li>
-              <li>For the "ietf-restconf-server" module, the protocol-accessible nodes
-                are an instance of the "restconf-server-app-grouping" discussed in
-                <xref target="restconf-server-app-grouping"/> grouping.</li>
+                  section="5.6.5" target="RFC7950"/>.</li>
+              <li>The top-level node "restconf-server" is additionally constrained
+                by the feature "central-restconf-server-supported".</li>
+              <li>The "restconf-server-app-grouping" grouping is discussed in
+                <xref target="restconf-server-app-grouping"/> in this document.</li>
               <li>The reason for why "restconf-server-app-grouping" exists separate from
                 the protocol-accessible nodes definition is so as to enable
                 instances of restconf-server-app-grouping to be instantiated in other
@@ -956,6 +960,14 @@ INSERT_TEXT_FROM_FILE(ietf-restconf-server@YYYY-MM-DD.yang)
             <list style="symbols">  
               <t>Fixed up the 'WG Web' and 'WG List' lines in YANG module(s)</t>
               <t>Fixed up copyright (i.e., s/Simplified/Revised/) in YANG module(s)</t>
+            </list>
+          </t>
+        </section>
+        <section title="25 to 26">
+          <t>
+            <list style="symbols">
+              <t>Added feature "central-restconf-client-supported" to top-level node "restconf-client".</t>
+              <t>Added feature "central-restconf-server-supported" to top-level node "restconf-server".</t>
             </list>
           </t>
         </section>
