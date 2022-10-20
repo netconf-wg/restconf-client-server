@@ -58,7 +58,7 @@ $(next).xml: $(draft).xml ietf-restconf-client.yang ietf-restconf-server.yang
 	sed -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" ../tcp-client-server/ietf-tcp-common.yang > ietf-tcp-common\@$(shell date +%Y-%m-%d).yang
 	sed -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" ../tcp-client-server/ietf-tcp-client.yang > ietf-tcp-client\@$(shell date +%Y-%m-%d).yang
 	sed -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" ../tcp-client-server/ietf-tcp-server.yang > ietf-tcp-server\@$(shell date +%Y-%m-%d).yang
-	sed -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" ../tls-client-server/iana-tls-cipher-suite-algs.yang > iana-tls-cipher-suite-algs\@$(shell date +%Y-%m-%d).yang
+	sed -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" ../tls-client-server/iana-tls-cipher-suite-algs.yang > iana-tls-cipher-suite-algs\@2022-06-16.yang
 	sed -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" ../tls-client-server/ietf-tls-common.yang > ietf-tls-common\@$(shell date +%Y-%m-%d).yang
 	sed -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" ../tls-client-server/ietf-tls-client.yang > ietf-tls-client\@$(shell date +%Y-%m-%d).yang
 	sed -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" ../tls-client-server/ietf-tls-server.yang > ietf-tls-server\@$(shell date +%Y-%m-%d).yang

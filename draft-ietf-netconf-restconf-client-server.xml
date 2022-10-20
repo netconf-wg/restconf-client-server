@@ -62,6 +62,14 @@
             <t><spanx style="verb">YYYY-MM-DD</spanx> --&gt; the publication date of this draft</t>
           </list>
         </t>
+        <t>The "Relation to other RFCs" section <xref target="collective-effort"/> contains
+          the text "one or more YANG modules" and, later, "modules".  This text is sourced
+          from a file in a context where it is unknown how many modules a draft defines.
+          The text is not wrong as is, but it may be improved by stating more directly how
+          many modules are defined.</t>
+        <t>The "Relation to other RFCs" section <xref target="collective-effort"/> contains
+          a self-reference to this draft, along with a corresponding Informative Reference in
+          the Appendix.</t>
         <t>The following Appendix section is to be removed prior to publication:
           <list style="symbols">
             <t><xref target="change-log"/>.  Change Log</t>
@@ -577,7 +585,7 @@ INSERT_TEXT_FROM_FILE(ietf-restconf-server@YYYY-MM-DD.yang)
             mandatory-to-implement secure transport layers (e.g., SSH, TLS)
             with mutual authentication.</t>
   
-          <t>The NETCONF access control model (NACM) <xref target="RFC8341"/>
+          <t>The Network Access Control Model (NACM) <xref target="RFC8341"/>
             provides the means to restrict access for particular users to a
             pre-configured subset of all available protocol operations and
             content.</t>
@@ -608,7 +616,7 @@ INSERT_TEXT_FROM_FILE(ietf-restconf-server@YYYY-MM-DD.yang)
             mandatory-to-implement secure transport layers (e.g., SSH, TLS)
             with mutual authentication.</t>
   
-          <t>The NETCONF access control model (NACM) <xref target="RFC8341"/>
+          <t>The Network Access Control Model (NACM) <xref target="RFC8341"/>
             provides the means to restrict access for particular users to a
             pre-configured subset of all available protocol operations and
             content.</t>
@@ -663,12 +671,12 @@ INSERT_TEXT_FROM_FILE(ietf-restconf-server@YYYY-MM-DD.yang)
                 <artwork><![CDATA[
    name:         ietf-restconf-client
    namespace:    urn:ietf:params:xml:ns:yang:ietf-restconf-client
-   prefix:       ncc
+   prefix:       rcc
    reference:    RFC IIII
 
    name:         ietf-restconf-server
    namespace:    urn:ietf:params:xml:ns:yang:ietf-restconf-server
-   prefix:       ncs
+   prefix:       rcs
    reference:    RFC IIII
 ]]></artwork>
             </figure>
@@ -971,15 +979,14 @@ INSERT_TEXT_FROM_FILE(ietf-restconf-server@YYYY-MM-DD.yang)
             </list>
           </t>
         </section>
-        <!--
-        <section title="24 to 25">
+        <section title="26 to 27">
           <t>
-            <list style="symbols">  
-              <t>SUBMISSION PENDING</t>
+            <list style="symbols">
+              <t>Updated per Shepherd reviews.</t>
+              <t>Added "max-wait" leaf to the "reconnection-strategy" nodes.</t>
             </list>
           </t>
         </section>
-        -->
     </section>
 
     <section title="Acknowledgements" numbered="no">
@@ -996,7 +1003,9 @@ INSERT_TEXT_FROM_FILE(ietf-restconf-server@YYYY-MM-DD.yang)
       Ladislav Lhotka,
       Martin Björklund,
       Mehmet Ersue,
+      Michal Vaško,
       Phil Shafer,
+      Qiufang Ma,
       Radek Krejci,
       Ramkumar Dhanapal,
       Sean Turner,
