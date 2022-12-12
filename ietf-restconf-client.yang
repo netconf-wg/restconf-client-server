@@ -108,8 +108,8 @@ module ietf-restconf-client {
   feature central-restconf-client-supported {
    description
       "The 'central-restconf-client-supported' feature indicates
-       that the server supports the top-level 'restconf-client'
-       node.
+       that the server that implements this module supports
+       the top-level 'restconf-client' node.
 
        This feature is needed as some servers may want to use
        features defined in this module, which requires this
