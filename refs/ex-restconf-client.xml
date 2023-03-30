@@ -108,7 +108,7 @@
       <name>Intranet-facing listener</name>
       <https>
         <tcp-server-parameters>
-          <local-address>11.22.33.44</local-address>
+          <local-address>192.0.2.2</local-address>
         </tcp-server-parameters>
         <tls-client-parameters>
           <client-identity>

@@ -8,7 +8,7 @@
       <name>restconf/https</name>
       <https>
         <tcp-server-parameters>
-          <local-address>11.22.33.44</local-address>
+          <local-address>192.0.2.2</local-address>
         </tcp-server-parameters>
         <tls-server-parameters>
           <server-identity>
@@ -169,6 +169,7 @@
       <connection-type>
         <periodic>
           <idle-timeout>300</idle-timeout>
+          <anchor-time>2023-03-15T01:30:00Z</anchor-time>
           <period>60</period>
         </periodic>
       </connection-type>

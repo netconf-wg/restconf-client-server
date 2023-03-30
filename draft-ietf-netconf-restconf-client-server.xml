@@ -1,5 +1,4 @@
 <?xml version='1.0'?>
-<!DOCTYPE rfc SYSTEM "rfc2629.dtd">
 
 <?rfc toc="yes"?>
 <?rfc symrefs="yes"?>
@@ -18,6 +17,7 @@
 <rfc xmlns:xi="http://www.w3.org/2001/XInclude"
      consensus="true"
      category="std"
+     submissionType="IETF"
      ipr="trust200902"
      docName="draft-ietf-netconf-restconf-client-server-latest" >
     <front>
@@ -167,7 +167,7 @@ INSERT_TEXT_FROM_FILE(refs/tree-restconf-client-grouping.no-expand.txt)
               <t>Comments:</t>
               <ul>
                 <li>This grouping does not define any nodes, but is maintained so
-                  that downstream modules can augment nodes into it if needed.</li>
+                  that consuming modules can augment nodes into it if needed.</li>
                 <li>The "restconf-client-grouping" defines, if it can be called
                   that, the configuration for just "RESTCONF" part of a protocol
                   stack.  It does not, for instance, define any configuration for
@@ -991,6 +991,15 @@ INSERT_TEXT_FROM_FILE(ietf-restconf-server@YYYY-MM-DD.yang)
           <t>
             <list style="symbols">
               <t>Updated per Shepherd reviews impacting the suite of drafts.</t>
+            </list>
+          </t>
+        </section>
+        <section title="28 to 29">
+          <t>
+            <list style="symbols">
+              <t>Updated (implicitly) via Tom Petch reviews.</t>
+              <t>Fixed pattern statement for "leaf anchor-time".</t>
+              <t>Updated examples to use IETF-sanctioned values.</t>
             </list>
           </t>
         </section>
