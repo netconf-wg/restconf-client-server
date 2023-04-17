@@ -457,6 +457,10 @@ module ietf-restconf-server {
                    RESTCONF server MUST immediately attempt
                    to reestablish the connection.
 
+                   Connections are established at the same start
+                   time regardless how long the previous connection
+                   stayed open.
+
                    In the case that the previous connection is
                    still active (i.e., the RESTCONF client has not
                    closed it yet), establishing a new connection
@@ -481,16 +485,21 @@ module ietf-restconf-server {
                     "Designates a timestamp before or after which a
                      series of periodic connections are determined.
                      The periodic connections occur at a whole
-                     multiple interval from the anchor time.  For
-                     example, for an anchor time is 15 minutes past
-                     midnight and a period interval of 24 hours, then
-                     a periodic connection will occur 15 minutes past
-                     midnight everyday.";
+                     multiple interval from the anchor time.
+
+                     If an 'anchor-time' is not provided, then the
+                     server may implicitly set it to the time when
+                     this configuraton is applied (e.g., on boot).
+
+                     For example, for an anchor time is 15 minutes
+                     past midnight and a period interval of 24 hours,
+                     then a periodic connection will occur 15 minutes
+                     past midnight everyday.";
                 }
                 leaf idle-timeout {
                   type uint16;
                   units "seconds";
-                  default "120"; // two minutes
+                  default "180"; // three minutes
                   description
                     "Specifies the maximum number of seconds that
                      the underlying TCP session may remain idle.

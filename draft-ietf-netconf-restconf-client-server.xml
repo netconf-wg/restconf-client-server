@@ -169,7 +169,7 @@ INSERT_TEXT_FROM_FILE(refs/tree-restconf-client-grouping.no-expand.txt)
                 <li>This grouping does not define any nodes, but is maintained so
                   that consuming modules can augment nodes into it if needed.</li>
                 <li>The "restconf-client-grouping" defines, if it can be called
-                  that, the configuration for just "RESTCONF" part of a protocol
+                  that, the configuration for the "RESTCONF" part of a protocol
                   stack.  It does not, for instance, define any configuration for
                   the "TCP", "TLS", or "HTTP" protocol layers (for that, see
                   <xref target="restconf-client-initiate-stack-grouping"/>
@@ -228,7 +228,7 @@ INSERT_TEXT_FROM_FILE(refs/tree-restconf-client-listen-stack-grouping.no-expand.
                   configuration for a full RESTCONF protocol stack, for RESTCONF
                   clients that receive call-home <xref target="RFC8071"/>
                   connections from RESTCONF servers.</li>
-                <li>The "transport" choice node enables both the HTTP and
+                <li>The "transport" choice node enables either the HTTP or
                   HTTPS transports to be configured, with each option
                   enabled by a "feature" statement.  Note that RESTCONF
                   requires HTTPS, the HTTP option is provided to support
@@ -397,7 +397,7 @@ INSERT_TEXT_FROM_FILE(refs/tree-restconf-server-grouping.no-expand.txt)
               </t>
               <t>Comments:</t>
               <ul>
-                <li>The "restconf-server-grouping" defines the configuration for just
+                <li>The "restconf-server-grouping" defines the configuration for the
                   "RESTCONF" part of a protocol stack.  It does not, for instance,
                   define any configuration for the "TCP", "TLS", or "HTTP" protocol layers
                   (for that, see <xref target="restconf-server-listen-stack-grouping"/>
@@ -428,9 +428,9 @@ INSERT_TEXT_FROM_FILE(refs/tree-restconf-server-listen-stack-grouping.no-expand.
               <ul>
                 <li>The "restconf-server-listen-stack-grouping" defines the
                   configuration for a full RESTCONF protocol stack for RESTCONF
-                  servers that listen for standard connections from RESTCONF clients,
+                  servers that listen for connections from RESTCONF clients,
                   as opposed to initiating call-home <xref target="RFC8071"/> connections.</li>
-                <li>The "transport" choice node enables both the HTTP and HTTPS
+                <li>The "transport" choice node enables either the HTTP or HTTPS
                   transports to be configured, with each option enabled by a
                   "feature" statement. The HTTP option is provided to support
                   cases where a TLS-terminator is deployed in front of
