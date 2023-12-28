@@ -4,52 +4,54 @@
 
   <!-- endpoints to listen for RESTCONF connections on -->
   <listen>
-    <endpoint>
-      <name>restconf/https</name>
-      <https>
-        <tcp-server-parameters>
-          <local-address>192.0.2.2</local-address>
-        </tcp-server-parameters>
-        <tls-server-parameters>
-          <server-identity>
-            <certificate>
-              <keystore-reference>
-                <asymmetric-key>rsa-asymmetric-key</asymmetric-key>
-                <certificate>ex-rsa-cert</certificate>
-              </keystore-reference>
-            </certificate>
-          </server-identity>
-          <client-authentication>
-            <ca-certs>
-              <truststore-reference>trusted-client-ca-certs</truststore-reference>
-            </ca-certs>
-            <ee-certs>
-              <truststore-reference>trusted-client-ee-certs</truststore-reference>
-            </ee-certs>
-          </client-authentication>
-          <keepalives>
-            <peer-allowed-to-send/>
-          </keepalives>
-        </tls-server-parameters>
-        <http-server-parameters>
-          <server-name>foo.example.com</server-name>
-        </http-server-parameters>
-        <restconf-server-parameters>
-          <client-identity-mappings>
-            <cert-to-name>
-              <id>1</id>
-              <fingerprint>11:0A:05:11:00</fingerprint>
-              <map-type>x509c2n:specified</map-type>
-              <name>scooby-doo</name>
-            </cert-to-name>
+    <endpoints>
+      <endpoint>
+        <name>restconf/https</name>
+        <https>
+          <tcp-server-parameters>
+            <local-address>192.0.2.2</local-address>
+          </tcp-server-parameters>
+          <tls-server-parameters>
+            <server-identity>
+              <certificate>
+                <central-keystore-reference>
+                  <asymmetric-key>rsa-asymmetric-key</asymmetric-key>
+                  <certificate>ex-rsa-cert</certificate>
+                </central-keystore-reference>
+              </certificate>
+            </server-identity>
+            <client-authentication>
+              <ca-certs>
+                <central-truststore-reference>trusted-client-ca-certs</central-truststore-reference>
+              </ca-certs>
+              <ee-certs>
+                <central-truststore-reference>trusted-client-ee-certs</central-truststore-reference>
+              </ee-certs>
+            </client-authentication>
+            <keepalives>
+              <peer-allowed-to-send/>
+            </keepalives>
+          </tls-server-parameters>
+          <http-server-parameters>
+            <server-name>foo.example.com</server-name>
+          </http-server-parameters>
+          <restconf-server-parameters>
+            <client-identity-mappings>
               <cert-to-name>
-              <id>2</id>
-              <map-type>x509c2n:san-any</map-type>
-            </cert-to-name>
-          </client-identity-mappings>
-        </restconf-server-parameters>
-      </https>
-    </endpoint>
+                <id>1</id>
+                <fingerprint>11:0A:05:11:00</fingerprint>
+                <map-type>x509c2n:specified</map-type>
+                <name>scooby-doo</name>
+              </cert-to-name>
+                <cert-to-name>
+                <id>2</id>
+                <map-type>x509c2n:san-any</map-type>
+              </cert-to-name>
+            </client-identity-mappings>
+          </restconf-server-parameters>
+        </https>
+      </endpoint>
+    </endpoints>
   </listen>
 
   <!-- call home to a RESTCONF client with two endpoints -->
@@ -63,26 +65,26 @@
             <tcp-client-parameters>
               <remote-address>east.example.com</remote-address>
               <keepalives>
-                <idle-time>15</idle-time>
-                <max-probes>3</max-probes>
-                <probe-interval>30</probe-interval>
+                <idle-time>7200</idle-time>
+                <max-probes>9</max-probes>
+                <probe-interval>75</probe-interval>
               </keepalives>
             </tcp-client-parameters>
             <tls-server-parameters>
               <server-identity>
                 <certificate>
-                  <keystore-reference>
+                  <central-keystore-reference>
                     <asymmetric-key>rsa-asymmetric-key</asymmetric-key>
                     <certificate>ex-rsa-cert</certificate>
-                  </keystore-reference>
+                  </central-keystore-reference>
                 </certificate>
               </server-identity>
               <client-authentication>
                 <ca-certs>
-                  <truststore-reference>trusted-client-ca-certs</truststore-reference>
+                  <central-truststore-reference>trusted-client-ca-certs</central-truststore-reference>
                 </ca-certs>
                 <ee-certs>
-                  <truststore-reference>trusted-client-ee-certs</truststore-reference>
+                  <central-truststore-reference>trusted-client-ee-certs</central-truststore-reference>
                 </ee-certs>
               </client-authentication>
               <keepalives>
@@ -117,26 +119,26 @@
             <tcp-client-parameters>
               <remote-address>west.example.com</remote-address>
               <keepalives>
-                <idle-time>15</idle-time>
-                <max-probes>3</max-probes>
-                <probe-interval>30</probe-interval>
+                <idle-time>7200</idle-time>
+                <max-probes>9</max-probes>
+                <probe-interval>75</probe-interval>
               </keepalives>
             </tcp-client-parameters>
             <tls-server-parameters>
               <server-identity>
                 <certificate>
-                  <keystore-reference>
+                  <central-keystore-reference>
                     <asymmetric-key>rsa-asymmetric-key</asymmetric-key>
                     <certificate>ex-rsa-cert</certificate>
-                  </keystore-reference>
+                  </central-keystore-reference>
                 </certificate>
               </server-identity>
               <client-authentication>
                 <ca-certs>
-                  <truststore-reference>trusted-client-ca-certs</truststore-reference>
+                  <central-truststore-reference>trusted-client-ca-certs</central-truststore-reference>
                 </ca-certs>
                 <ee-certs>
-                  <truststore-reference>trusted-client-ee-certs</truststore-reference>
+                  <central-truststore-reference>trusted-client-ee-certs</central-truststore-reference>
                 </ee-certs>
               </client-authentication>
               <keepalives>

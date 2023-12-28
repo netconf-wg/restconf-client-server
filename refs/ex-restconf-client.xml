@@ -11,26 +11,26 @@
             <tcp-client-parameters>
               <remote-address>corp-fw1.example.com</remote-address>
               <keepalives>
-                <idle-time>15</idle-time>
-                <max-probes>3</max-probes>
-                <probe-interval>30</probe-interval>
+                <idle-time>7200</idle-time>
+                <max-probes>9</max-probes>
+                <probe-interval>75</probe-interval>
               </keepalives>
             </tcp-client-parameters>
             <tls-client-parameters>
               <client-identity>
                 <certificate>
-                  <keystore-reference>
+                  <central-keystore-reference>
                     <asymmetric-key>rsa-asymmetric-key</asymmetric-key>
                     <certificate>ex-rsa-cert</certificate>
-                  </keystore-reference>
+                  </central-keystore-reference>
                 </certificate>
               </client-identity>
               <server-authentication>
                 <ca-certs>
-                  <truststore-reference>trusted-server-ca-certs</truststore-reference>
+                  <central-truststore-reference>trusted-server-ca-certs</central-truststore-reference>
                 </ca-certs>
                 <ee-certs>
-                  <truststore-reference>trusted-server-ee-certs</truststore-reference>
+                  <central-truststore-reference>trusted-server-ee-certs</central-truststore-reference>
                 </ee-certs>
               </server-authentication>
               <keepalives>
@@ -56,26 +56,26 @@
             <tcp-client-parameters>
               <remote-address>corp-fw2.example.com</remote-address>
               <keepalives>
-                <idle-time>15</idle-time>
-                <max-probes>3</max-probes>
-                <probe-interval>30</probe-interval>
+                <idle-time>7200</idle-time>
+                <max-probes>9</max-probes>
+                <probe-interval>75</probe-interval>
               </keepalives>
             </tcp-client-parameters>
             <tls-client-parameters>
               <client-identity>
                 <certificate>
-                  <keystore-reference>
+                  <central-keystore-reference>
                     <asymmetric-key>rsa-asymmetric-key</asymmetric-key>
                     <certificate>ex-rsa-cert</certificate>
-                  </keystore-reference>
+                  </central-keystore-reference>
                 </certificate>
               </client-identity>
               <server-authentication>
                 <ca-certs>
-                  <truststore-reference>trusted-server-ca-certs</truststore-reference>
+                  <central-truststore-reference>trusted-server-ca-certs</central-truststore-reference>
                 </ca-certs>
                 <ee-certs>
-                  <truststore-reference>trusted-server-ee-certs</truststore-reference>
+                  <central-truststore-reference>trusted-server-ee-certs</central-truststore-reference>
                 </ee-certs>
               </server-authentication>
               <keepalives>
@@ -104,42 +104,44 @@
 
   <!-- endpoints to listen for RESTCONF Call Home connections on -->
   <listen>
-    <endpoint>
-      <name>Intranet-facing listener</name>
-      <https>
-        <tcp-server-parameters>
-          <local-address>192.0.2.2</local-address>
-        </tcp-server-parameters>
-        <tls-client-parameters>
-          <client-identity>
-            <certificate>
-              <keystore-reference>
-                <asymmetric-key>rsa-asymmetric-key</asymmetric-key>
-                <certificate>ex-rsa-cert</certificate>
-              </keystore-reference>
-            </certificate>
-          </client-identity>
-          <server-authentication>
-            <ca-certs>
-              <truststore-reference>trusted-server-ca-certs</truststore-reference>
-            </ca-certs>
-            <ee-certs>
-              <truststore-reference>trusted-server-ee-certs</truststore-reference>
-            </ee-certs>
-          </server-authentication>
-          <keepalives>
-            <peer-allowed-to-send/>
-          </keepalives>
-        </tls-client-parameters>
-        <http-client-parameters>
-          <client-identity>
-            <basic>
-              <user-id>bob</user-id>
-              <cleartext-password>secret</cleartext-password>
-            </basic>
-          </client-identity>
-        </http-client-parameters>
-      </https>
-    </endpoint>
+    <endpoints>
+      <endpoint>
+        <name>Intranet-facing listener</name>
+        <https>
+          <tcp-server-parameters>
+            <local-address>192.0.2.2</local-address>
+          </tcp-server-parameters>
+          <tls-client-parameters>
+            <client-identity>
+              <certificate>
+                <central-keystore-reference>
+                  <asymmetric-key>rsa-asymmetric-key</asymmetric-key>
+                  <certificate>ex-rsa-cert</certificate>
+                </central-keystore-reference>
+              </certificate>
+            </client-identity>
+            <server-authentication>
+              <ca-certs>
+                <central-truststore-reference>trusted-server-ca-certs</central-truststore-reference>
+              </ca-certs>
+              <ee-certs>
+                <central-truststore-reference>trusted-server-ee-certs</central-truststore-reference>
+              </ee-certs>
+            </server-authentication>
+            <keepalives>
+              <peer-allowed-to-send/>
+            </keepalives>
+          </tls-client-parameters>
+          <http-client-parameters>
+            <client-identity>
+              <basic>
+                <user-id>bob</user-id>
+                <cleartext-password>secret</cleartext-password>
+              </basic>
+            </client-identity>
+          </http-client-parameters>
+        </https>
+      </endpoint>
+    </endpoints>
   </listen>
 </restconf-client>
