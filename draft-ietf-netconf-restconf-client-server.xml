@@ -72,10 +72,10 @@
           the Appendix.  Please replace the self-reference in this section with "This RFC"
           (or similar) and remove the self-reference in the "Normative/Informative References"
           section, whichever it is in.</t>
-        <t>Tree-diagrams in this draft may use the '/' line-folding mode defined in RFC 8792.
-          However, nicer-to-the-eye is when the '//' line-folding mode is used.  The AD suggested
-          suggested putting a request here for the RFC Editor to help convert "ugly" '/' folded
-          examples to use the '//' folding mode.  "Help convert" may be interpreted as, identify
+        <t>Tree-diagrams in this draft may use the '&#92;' line-folding mode defined in RFC 8792.
+          However, nicer-to-the-eye is when the '&#92;&#92;' line-folding mode is used.  The AD suggested
+          suggested putting a request here for the RFC Editor to help convert "ugly" '&#92;' folded
+          examples to use the '&#92;&#92;' folding mode.  "Help convert" may be interpreted as, identify
           what looks ugly and ask the authors to make the adjustment.</t>
         <t>The following Appendix section is to be removed prior to publication:
           <list style="symbols">
@@ -310,8 +310,8 @@ INSERT_TEXT_FROM_FILE(refs/ietf-restconf-client-tree-no-expand.txt)
           client to initiate connections, as well as to listen for call-home
           connections.</t>
           <t>This example is consistent with the examples presented in
-            <relref section="2.2" target="I-D.ietf-netconf-trust-anchors"/> and
-            <relref section="2.2" target="I-D.ietf-netconf-keystore"/>.</t>
+            <relref section="2.2.1" target="I-D.ietf-netconf-trust-anchors"/> and
+            <relref section="2.2.1" target="I-D.ietf-netconf-keystore"/>.</t>
           <t>
             <figure>
               <artwork><![CDATA[
@@ -544,8 +544,8 @@ INSERT_TEXT_FROM_FILE(refs/ietf-restconf-server-tree-no-expand.txt)
           to listen for RESTCONF client connections, as well as configuring
           call-home to one RESTCONF client.</t>
           <t>This example is consistent with the examples presented in
-            <relref section="2.2" target="I-D.ietf-netconf-trust-anchors"/> and
-            <relref section="2.2" target="I-D.ietf-netconf-keystore"/>.</t>
+            <relref section="2.2.1" target="I-D.ietf-netconf-trust-anchors"/> and
+            <relref section="2.2.1" target="I-D.ietf-netconf-keystore"/>.</t>
           <t>
             <figure>
               <artwork><![CDATA[
@@ -1030,6 +1030,13 @@ INSERT_TEXT_FROM_FILE(ietf-restconf-server@YYYY-MM-DD.yang)
             </list>
           </t>
         </section>
+        <section title="30 to 31">
+          <t>  
+            <list style="symbols">
+              <t>Addresses AD review by Rob Wilton.</t>
+            </list>
+          </t> 
+        </section>
     </section>
 
     <section title="Acknowledgements" numbered="no">
@@ -1045,12 +1052,14 @@ INSERT_TEXT_FROM_FILE(ietf-restconf-server@YYYY-MM-DD.yang)
       Juergen Schoenwaelder,
       Ladislav Lhotka,
       Martin Björklund,
+      Qiufang Ma,
       Mehmet Ersue,
       Michal Vaško,
       Phil Shafer,
       Qiufang Ma,
       Radek Krejci,
       Ramkumar Dhanapal,
+      Rob Wilton,
       Sean Turner,
       and Tom Petch.</t>
     </section>
