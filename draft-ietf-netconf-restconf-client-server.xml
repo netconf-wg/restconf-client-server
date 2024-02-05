@@ -575,7 +575,9 @@ INSERT_TEXT_FROM_FILE(ietf-restconf-server@YYYY-MM-DD.yang)
 
       <section title="Security Considerations">
 
-        <section title="The &quot;ietf-restconf-client&quot; YANG Module">
+        <section title="Template for the &quot;ietf-restconf-client&quot; YANG Module">
+          <t>This section follows the template defined in <xref section="3.7.1" target="RFC8407"/>.</t>
+
           <t>The "ietf-restconf-client" YANG module defines data nodes
             that are designed to be accessed via YANG based management
             protocols, such as NETCONF <xref target="RFC6241"/> and RESTCONF
@@ -613,7 +615,9 @@ INSERT_TEXT_FROM_FILE(ietf-restconf-server@YYYY-MM-DD.yang)
             and "default-deny-write" extensions.</t>
         </section>
 
-        <section title="The &quot;ietf-restconf-server&quot; YANG Module">
+        <section title="Template for the &quot;ietf-restconf-server&quot; YANG Module">
+          <t>This section follows the template defined in <xref section="3.7.1" target="RFC8407"/>.</t>
+
           <t>The "ietf-restconf-server" YANG module defines data nodes
             that are designed to be accessed via YANG based management
             protocols, such as NETCONF <xref target="RFC6241"/> and RESTCONF
@@ -720,6 +724,7 @@ INSERT_TEXT_FROM_FILE(ietf-restconf-server@YYYY-MM-DD.yang)
       <?rfc include="reference.RFC.8340.xml"?>
       <?rfc include="reference.RFC.8341.xml"?>
       <?rfc include="reference.RFC.8342.xml"?>
+        <?rfc include="reference.RFC.8407.xml"?>
       <?rfc include="reference.RFC.8446.xml"?>
       <xi:include href="https://datatracker.ietf.org/doc/bibxml3/reference.I-D.ietf-netconf-ssh-client-server.xml"/>
       <xi:include href="https://datatracker.ietf.org/doc/bibxml3/reference.I-D.ietf-netconf-crypto-types.xml"/>
@@ -1037,6 +1042,13 @@ INSERT_TEXT_FROM_FILE(ietf-restconf-server@YYYY-MM-DD.yang)
             </list>
           </t> 
         </section>
+        <section title="31 to 32">
+          <t>  
+            <list style="symbols">
+              <t>Addresses 1st-round of IESG reviews.</t>
+            </list>
+          </t> 
+        </section>
     </section>
 
     <section title="Acknowledgements" numbered="no">
@@ -1049,7 +1061,7 @@ INSERT_TEXT_FROM_FILE(ietf-restconf-server@YYYY-MM-DD.yang)
       Benoit Claise,
       Bert Wijnen
       David Lamparter,
-      Juergen Schoenwaelder,
+      Jürgen Schönwälder,
       Ladislav Lhotka,
       Martin Björklund,
       Qiufang Ma,
