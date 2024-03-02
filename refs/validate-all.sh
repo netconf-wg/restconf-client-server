@@ -30,21 +30,21 @@ run_unix_cmd $LINENO "$command" 0
 printf "okay.\n"
 
 printf "Testing ietf-restconf-client\@*.yang (yanglint)..."
-command="yanglint -p ../ ../ietf-restconf-client\@*.yang"
+command="yanglint -t config -p ../ ../ietf-restconf-client\@*.yang"
 run_unix_cmd $LINENO "$command" 0
 printf "okay.\n"
 
 printf "Testing ietf-restconf-server\@*.yang (yanglint)..."
-command="yanglint -p ../ ../ietf-restconf-server\@*.yang"
+command="yanglint -t config -p ../ ../ietf-restconf-server\@*.yang"
 run_unix_cmd $LINENO "$command" 0
 printf "okay.\n"
 
 printf "Testing ex-restconf-client.xml..."
-command="yanglint -ii -m ../ietf-*\@*.yang ietf-origin.yang ex-restconf-client.xml ../../trust-anchors/refs/ex-truststore.xml ../../keystore/refs/ex-keystore.xml"
+command="yanglint -t config -ii -m ../ietf-*\@*.yang ietf-origin.yang ex-restconf-client.xml ../../trust-anchors/refs/ex-truststore.xml ../../keystore/refs/ex-keystore.xml"
 run_unix_cmd $LINENO "$command" 0
 printf "okay.\n"
 
 printf "Testing ex-restconf-server.xml..."
-command="yanglint -ii -m ../ietf-*\@*.yang ietf-origin.yang ietf-x509-cert-to-name@2014-12-10.yang ex-restconf-server.xml ../../trust-anchors/refs/ex-truststore.xml ../../keystore/refs/ex-keystore.xml"
+command="yanglint -t config -ii -m ../ietf-*\@*.yang ietf-origin.yang ietf-x509-cert-to-name@2014-12-10.yang ex-restconf-server.xml ../../trust-anchors/refs/ex-truststore.xml ../../keystore/refs/ex-keystore.xml"
 run_unix_cmd $LINENO "$command" 0
 printf "okay.\n"
