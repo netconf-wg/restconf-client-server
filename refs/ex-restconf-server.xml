@@ -9,7 +9,9 @@
         <name>restconf/https</name>
         <https>
           <tcp-server-parameters>
-            <local-address>192.0.2.2</local-address>
+            <local-bind>
+              <local-address>192.0.2.2</local-address>
+            </local-bind>
           </tcp-server-parameters>
           <tls-server-parameters>
             <server-identity>
