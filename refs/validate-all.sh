@@ -20,31 +20,31 @@ run_unix_cmd() {
 }
 
 printf "Testing ietf-restconf-client\@*.yang (pyang)..."
-command="pyang -Werror --ietf --max-line-length=69 -p ../ ../ietf-restconf-client\@*.yang"
+command="pyang -Werror --ietf --max-line-length=69 ietf-restconf-client\@*.yang"
 run_unix_cmd $LINENO "$command" 0
 printf "okay.\n"
 
 printf "Testing ietf-restconf-server\@*.yang (pyang)..."
-command="pyang -Werror --ietf --max-line-length=69 -p ../ ../ietf-restconf-server\@*.yang"
+command="pyang -Werror --ietf --max-line-length=69 ietf-restconf-server\@*.yang"
 run_unix_cmd $LINENO "$command" 0
 printf "okay.\n"
 
 printf "Testing ietf-restconf-client\@*.yang (yanglint)..."
-command="yanglint -t config -p ../ ../ietf-restconf-client\@*.yang"
+command="yanglint -t config --features=ietf-http-client:http1-supported ietf-restconf-client\@*.yang"
 run_unix_cmd $LINENO "$command" 0
 printf "okay.\n"
 
 printf "Testing ietf-restconf-server\@*.yang (yanglint)..."
-command="yanglint -t config -p ../ ../ietf-restconf-server\@*.yang"
+command="yanglint -t config ietf-restconf-server\@*.yang"
 run_unix_cmd $LINENO "$command" 0
 printf "okay.\n"
 
 printf "Testing ex-restconf-client.xml..."
-command="yanglint -t config -ii -m ../ietf-*\@*.yang ietf-origin.yang ex-restconf-client.xml ../../trust-anchors/refs/ex-truststore.xml ../../keystore/refs/ex-keystore.xml"
+command="yanglint -t config -ii -m ietf-restconf-client\@*.yang ex-restconf-client.xml ../../trust-anchors/refs/ex-truststore.xml ../../keystore/refs/ex-keystore.xml"
 run_unix_cmd $LINENO "$command" 0
 printf "okay.\n"
 
 printf "Testing ex-restconf-server.xml..."
-command="yanglint -t config -ii -m ../ietf-*\@*.yang ietf-origin.yang ietf-x509-cert-to-name@2014-12-10.yang ex-restconf-server.xml ../../trust-anchors/refs/ex-truststore.xml ../../keystore/refs/ex-keystore.xml"
+command="yanglint -t config -ii -m ietf-restconf-server\@*.yang ex-restconf-server.xml ../../trust-anchors/refs/ex-truststore.xml ../../keystore/refs/ex-keystore.xml"
 run_unix_cmd $LINENO "$command" 0
 printf "okay.\n"

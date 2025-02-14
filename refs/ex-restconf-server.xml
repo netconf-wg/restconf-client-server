@@ -6,8 +6,8 @@
   <listen>
     <endpoints>
       <endpoint>
-        <name>restconf/https</name>
-        <https>
+        <name>http-over-tls</name>
+        <http-over-tls>
           <tcp-server-parameters>
             <local-bind>
               <local-address>192.0.2.2</local-address>
@@ -45,13 +45,61 @@
                 <map-type>x509c2n:specified</map-type>
                 <name>scooby-doo</name>
               </cert-to-name>
-                <cert-to-name>
+              <cert-to-name>
                 <id>2</id>
                 <map-type>x509c2n:san-any</map-type>
               </cert-to-name>
             </client-identity-mappings>
           </restconf-server-parameters>
-        </https>
+        </http-over-tls>
+      </endpoint>
+      <endpoint>
+        <name>http-over-quic</name>
+        <http-over-quic>
+          <udp-server-parameters>
+            <local-bind>
+              <local-address>192.0.2.2</local-address>
+            </local-bind>
+          </udp-server-parameters>
+          <tls-server-parameters>
+            <server-identity>
+              <certificate>
+                <central-keystore-reference>
+                  <asymmetric-key>rsa-asymmetric-key</asymmetric-key>
+                  <certificate>ex-rsa-cert</certificate>
+                </central-keystore-reference>
+              </certificate>
+            </server-identity>
+            <client-authentication>
+              <ca-certs>
+                <central-truststore-reference>trusted-client-ca-certs</central-truststore-reference>
+              </ca-certs>
+              <ee-certs>
+                <central-truststore-reference>trusted-client-ee-certs</central-truststore-reference>
+              </ee-certs>
+            </client-authentication>
+            <keepalives>
+              <peer-allowed-to-send/>
+            </keepalives>
+          </tls-server-parameters>
+          <http-server-parameters>
+            <server-name>foo.example.com</server-name>
+          </http-server-parameters>
+          <restconf-server-parameters>
+            <client-identity-mappings>
+              <cert-to-name>
+                <id>1</id>
+                <fingerprint>11:0A:05:11:00</fingerprint>
+                <map-type>x509c2n:specified</map-type>
+                <name>scooby-doo</name>
+              </cert-to-name>
+              <cert-to-name>
+                <id>2</id>
+                <map-type>x509c2n:san-any</map-type>
+              </cert-to-name>
+            </client-identity-mappings>
+          </restconf-server-parameters>
+        </http-over-quic>
       </endpoint>
     </endpoints>
   </listen>
@@ -63,7 +111,7 @@
       <endpoints>
         <endpoint>
           <name>east-data-center</name>
-          <https>
+          <http-over-tls>
             <tcp-client-parameters>
               <remote-address>east.example.com</remote-address>
               <keepalives>
@@ -113,11 +161,11 @@
                 </cert-to-name>
               </client-identity-mappings>
             </restconf-server-parameters>
-          </https>
+          </http-over-tls>
         </endpoint>
         <endpoint>
           <name>west-data-center</name>
-          <https>
+          <http-over-tls>
             <tcp-client-parameters>
               <remote-address>west.example.com</remote-address>
               <keepalives>
@@ -167,7 +215,7 @@
                 </cert-to-name>
               </client-identity-mappings>
             </restconf-server-parameters>
-          </https>
+          </http-over-tls>
         </endpoint>
       </endpoints>
       <connection-type>

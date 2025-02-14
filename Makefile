@@ -40,8 +40,6 @@ clean:
 	-rm -f $(draft)-[0-9][0-9].v2v3.xml
 	-rm -f $(draft)-[0-9][0-9].txt
 	-rm -f $(draft)-[0-9][0-9].html
-	-rm -f ietf-*\@20*.yang
-	-rm -f iana-*\@20*.yang
 	-rm -f metadata.min.js
 ifeq (md,$(draft_type))
 	-rm -f $(draft).xml
@@ -52,23 +50,9 @@ endif
 
 $(next).xml: $(draft).xml ietf-restconf-client.yang ietf-restconf-server.yang
 	sed -e"s/$(basename $<)-latest/$(basename $@)/" -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" $< > $@
-	sed -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" ../crypto-types/ietf-crypto-types.yang > ietf-crypto-types\@$(shell date +%Y-%m-%d).yang
-	sed -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" ../trust-anchors/ietf-truststore.yang > ietf-truststore\@$(shell date +%Y-%m-%d).yang
-	sed -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" ../keystore/ietf-keystore.yang > ietf-keystore\@$(shell date +%Y-%m-%d).yang
-	sed -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" ../tcp-client-server/ietf-tcp-common.yang > ietf-tcp-common\@$(shell date +%Y-%m-%d).yang
-	sed -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" ../tcp-client-server/ietf-tcp-client.yang > ietf-tcp-client\@$(shell date +%Y-%m-%d).yang
-	sed -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" ../tcp-client-server/ietf-tcp-server.yang > ietf-tcp-server\@$(shell date +%Y-%m-%d).yang
-	sed -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" ../tls-client-server/iana-tls-cipher-suite-algs.yang > iana-tls-cipher-suite-algs\@$(shell date +%Y-%m-%d).yang
-	sed -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" ../tls-client-server/ietf-tls-common.yang > ietf-tls-common\@$(shell date +%Y-%m-%d).yang
-	sed -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" ../tls-client-server/ietf-tls-client.yang > ietf-tls-client\@$(shell date +%Y-%m-%d).yang
-	sed -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" ../tls-client-server/ietf-tls-server.yang > ietf-tls-server\@$(shell date +%Y-%m-%d).yang
-	sed -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" ../http-client-server/ietf-http-client.yang > ietf-http-client\@$(shell date +%Y-%m-%d).yang
-	sed -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" ../http-client-server/ietf-http-server.yang > ietf-http-server\@$(shell date +%Y-%m-%d).yang
-	sed -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" ietf-restconf-client.yang > ietf-restconf-client\@$(shell date +%Y-%m-%d).yang
-	sed -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" ietf-restconf-server.yang > ietf-restconf-server\@$(shell date +%Y-%m-%d).yang
-	cd refs && ./validate-all.sh && ./gen-trees.sh && cd ..
+	cd refs && ./init-yang-files.sh && ./validate-all.sh && ./gen-trees.sh && cd ..
 	./.insert-figures.sh $@ > tmp && mv tmp $@
-	rm refs/*-tree*.txt refs/tree-*.txt
+	rm refs/*-tree*.txt refs/tree-*.txt refs/*.yang
 	xml2rfc --v2v3 $@
 
 

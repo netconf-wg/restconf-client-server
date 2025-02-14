@@ -8,7 +8,12 @@
         <endpoint>
           <name>corp-fw1.example.com</name>
           <http-client-parameters>
-            <uri>https://corp-fw1.example.com</uri>
+            <uri>
+              <scheme>https</scheme>
+              <authority>
+                <host>corp-fw1.example.com</host>
+              </authority>
+            </uri>
             <tls-client-parameters>
               <client-identity>
                 <certificate>
@@ -38,7 +43,12 @@
         <endpoint>
           <name>corp-fw2.example.com</name>
           <http-client-parameters>
-            <uri>https://corp-fw2.example.com</uri>
+            <uri>
+              <scheme>https</scheme>
+              <authority>
+                <host>corp-fw2.example.com</host>
+              </authority>
+            </uri>
             <tls-client-parameters>
               <client-identity>
                 <certificate>
@@ -77,14 +87,19 @@
     <endpoints>
       <endpoint>
         <name>Intranet-facing listener</name>
-        <https>
+        <tcp>
           <tcp-server-parameters>
             <local-bind>
               <local-address>192.0.2.2</local-address>
             </local-bind>
           </tcp-server-parameters>
           <http-client-parameters>
-            <uri>https://corp-fw1.example.com</uri>
+            <uri>
+              <scheme>https</scheme>
+              <authority>
+                <host>corp-fw1.example.com</host>
+              </authority>
+            </uri>
             <tls-client-parameters>
               <client-identity>
                 <certificate>
@@ -107,7 +122,7 @@
               </keepalives>
             </tls-client-parameters>
           </http-client-parameters>
-        </https>
+        </tcp>
       </endpoint>
     </endpoints>
   </listen>
