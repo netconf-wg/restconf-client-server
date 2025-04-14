@@ -101,16 +101,8 @@ module ietf-restconf-server {
       "RFC 8040: RESTCONF Protocol";
   }
 
-  feature callhome {
-    description
-      "The 'callhome' feature indicates that the RESTCONF server
-       supports initiating 'call home' connections to RESTCONF
-       clients.";
-    reference
-      "RFC 8071: NETCONF Call Home and RESTCONF Call Home";
-  }
-
   feature tcp-listen {
+    if-feature listen;
     description
       "The 'tcp-listen' feature indicates that the RESTCONF server
        supports opening a port to listen for incoming RESTCONF over
@@ -121,6 +113,7 @@ module ietf-restconf-server {
   }
 
   feature tls-listen {
+    if-feature listen;
     description
       "The 'tls-listen' feature indicates that the RESTCONF server
        supports opening a port to listen for incoming RESTCONF over
@@ -131,6 +124,7 @@ module ietf-restconf-server {
   }
 
   feature quic-listen {
+    if-feature listen;
     description
       "The 'quic-listen' feature indicates that the RESTCONF server
        supports opening a port to listen for incoming RESTCONF over
@@ -139,7 +133,17 @@ module ietf-restconf-server {
       "RFC 8040: RESTCONF Protocol";
   }
 
+  feature callhome {
+    description
+      "The 'callhome' feature indicates that the RESTCONF server
+       supports initiating 'call home' connections to RESTCONF
+       clients.";
+    reference
+      "RFC 8071: NETCONF Call Home and RESTCONF Call Home";
+  }
+
   feature tls-callhome {
+    if-feature callhome;
     description
       "The 'tls-callhome' feature indicates that the RESTCONF server
        supports initiating 'call home' connections to RESTCONF
@@ -241,7 +245,7 @@ module ietf-restconf-server {
                 "The IP address or hostname of the external
                  system that terminates incoming RESTCONF
                  client connections before forwarding them
-                 to this server.";
+                 to this RESTCONF server.";
             }
             leaf port {
               type inet:port-number;
@@ -249,9 +253,18 @@ module ietf-restconf-server {
               description
                 "The port number that the external system listens
                  on for incoming RESTCONF client connections that
-                 are forwarded to this server.  The default HTTPS
-                 port (443) is used, as expected for a RESTCONF
-                 connection.";
+                 are forwarded to this RESTCONF server.  The
+                 IANA-assigned well-known port value for 'https'
+                 (443) is used if no value is specified.";
+            }
+            leaf client-cert-var {
+              type string;
+              description
+                "The HTTP header variable used by the external
+                 TLS-terminator to relay client certificates
+                 to this RESTCONF server.  This field is not
+                 mandatory as RESTCONF client authentication
+                 does not require client certificates.";
             }
           }
           container tcp-server-parameters {

@@ -32,10 +32,14 @@
       <area>Operations</area>
       <workgroup>NETCONF Working Group</workgroup>
       <abstract>
-        <t>This document presents two YANG modules,
-          one module to configure a RESTCONF client and the other module to
-          configure a RESTCONF server.  Both modules support the TLS transport
-          protocol with both standard RESTCONF and RESTCONF Call Home connections.</t>
+        <t>This document presents two YANG modules, one module to configure a
+          RESTCONF client and the other module to configure a RESTCONF server.
+          These modules support both standard and call home RESTCONF connections.
+
+          For initiating connections, both modules configure HTTPS.  For
+          listening for connections, both modules configure HTTPS and HTTP.
+          Whilst RESTCONF supports only HTTPS, HTTP may be configured for
+          when a TLS-terminator is deployed in front of the listener.</t>
       </abstract>
       <note title="Editorial Note (To be removed by RFC Editor)">
         <t>This draft contains placeholder values that need to be replaced
@@ -91,10 +95,15 @@
 
         <t>This document presents two YANG <xref target="RFC7950"/> modules,
           one module to configure a RESTCONF client and the other module to
-          configure a RESTCONF server <xref target="RFC8040"/>.
-          Both modules support the TLS <xref target="RFC8446"/> transport
-          protocol with both standard RESTCONF and RESTCONF Call Home connections
-          <xref target="RFC8071"/>.</t>
+          configure a RESTCONF server.  These modules support both standard
+          <xref target="RFC8040"/> and Call Home <xref target="RFC8071"/>
+            RESTCONF connections.</t>
+
+        <t>For initiating connections, both modules configure HTTPS, whether by
+          using TLS <xref target="RFC8446"/> or QUIC <xref target="RFC9000"/>.
+          For when listening for connections, both modules configure HTTPS and
+          HTTP, where HTTP is used when a TLS-terminator is deployed in front
+          of the listener.</t>
 
 INSERT_TEXT_FROM_FILE(../common-intro-snippet.xml,150)
 
@@ -231,10 +240,12 @@ INSERT_TEXT_FROM_FILE(refs/tree-restconf-client-listen-stack-grouping.no-expand.
                   connections from RESTCONF servers.</li>
                 <li>The "transport" choice node enables either the HTTP or
                   HTTPS transports to be configured, with each option
-                  enabled by a "feature" statement.  Note that RESTCONF
+                  enabled by a "feature" statement.  Whilst RESTCONF <xref target="RFC8040"/> 
                   requires HTTPS, the HTTP option is provided to support
                   cases where a TLS-terminator is deployed in front of
-                  the RESTCONF-client.</li>
+                  the RESTCONF-client. In such a case, the security boundary
+                  extends to the TLS-terminator, and the network between the
+                  TLS-terminator and the RESTCONF client must be secure.</li>
                 <li>For the referenced grouping statement(s):
                   <ul spacing="compact">
                     <li>The "tcp-server-grouping" grouping is discussed in
@@ -434,7 +445,9 @@ INSERT_TEXT_FROM_FILE(refs/tree-restconf-server-listen-stack-grouping.no-expand.
                   transports to be configured, with each option enabled by a
                   "feature" statement. The HTTP option is provided to support
                   cases where a TLS-terminator is deployed in front of
-                  the RESTCONF-server.</li>
+                  the RESTCONF-server.  In such a case, the security boundary
+                  extends to the TLS-terminator, and the network between the
+                  TLS-terminator and the RESTCONF server must be secure.</li>
                 <li>For the referenced grouping statement(s):
                   <ul spacing="compact">
                     <li>The "tcp-server-grouping" grouping is discussed in
@@ -593,13 +606,17 @@ INSERT_TEXT_FROM_FILE(refs/ietf-restconf-server@YYYY-MM-DD.yang)
             pre-configured subset of all available protocol operations and
             content.</t>
 
-          <t>Please be aware that this YANG module uses groupings from
+          <t>This YANG module uses groupings from
             other YANG modules that define nodes that may be considered
             sensitive or vulnerable in network environments.  Please
             review the Security Considerations for dependent YANG modules
             for information as to which nodes may be considered sensitive
             or vulnerable in network environments.</t>
  
+          <t>This module uses groupings defined in
+            other RFCs that define data nodes that do set the NACM "default-deny-all"
+            and "default-deny-write" extensions.</t>
+
           <t>None of the readable data nodes in this YANG module are
             considered sensitive or vulnerable in network environments.
             The NACM "default-deny-all" extension has not been set for
@@ -613,9 +630,14 @@ INSERT_TEXT_FROM_FILE(refs/ietf-restconf-server@YYYY-MM-DD.yang)
           <t>This module does not define any RPCs, actions, or notifications,
             and thus the security consideration for such is not provided here.</t>
 
-          <t>Please be aware that this module uses groupings defined in
-            other RFCs that define data nodes that do set the NACM "default-deny-all"
-            and "default-deny-write" extensions.</t>
+          <t>This YANG module enables the possibility for a RESTCONF client to open
+            a port to listen for non-TLS-based RESTCONF Call Home connections
+            <xref target="RFC8071"/>.  Whilst RESTCONF <xref target="RFC8040"/>
+            requires HTTPS, this configuration is provided to support deploying a
+            TLS-terminator (e.g., a load balancer) in front of the TLS client.
+            In such a case, the RESTCONF client needs to be configured to accept
+            HTTP connections.</t>
+
         </section>
 
         <section title="Considerations for the &quot;ietf-restconf-server&quot; YANG Module">
@@ -634,13 +656,17 @@ INSERT_TEXT_FROM_FILE(refs/ietf-restconf-server@YYYY-MM-DD.yang)
             pre-configured subset of all available protocol operations and
             content.</t>
   
-          <t>Please be aware that this YANG module uses groupings from
+          <t>This YANG module uses groupings from
             other YANG modules that define nodes that may be considered
             sensitive or vulnerable in network environments.  Please
             review the Security Considerations for dependent YANG modules
             for information as to which nodes may be considered sensitive
             or vulnerable in network environments.</t>
  
+          <t>This module uses groupings defined in
+            other RFCs that define data nodes that do set the NACM "default-deny-all"
+            and "default-deny-write" extensions.</t>
+
           <t>None of the readable data nodes in this YANG module are
             considered sensitive or vulnerable in network environments.
             The NACM "default-deny-all" extension has not been set for
@@ -654,9 +680,13 @@ INSERT_TEXT_FROM_FILE(refs/ietf-restconf-server@YYYY-MM-DD.yang)
           <t>This module does not define any RPCs, actions, or notifications,
             and thus the security consideration for such is not provided here.</t>
 
-          <t>Please be aware that this module uses groupings defined in
-            other RFCs that define data nodes that do set the NACM "default-deny-all"
-            and "default-deny-write" extensions.</t>
+          <t>This YANG module enables the possibility for a RESTCONF server to open
+            a port to listen for non-TLS-based RESTCONF connections.  Whilst RESTCONF
+            <xref target="RFC8040"/> requires HTTPS, this configuration is provided 
+            to support deploying a TLS-terminator (e.g., a load balancer) in front
+            of the TLS server.  In such a case, the RESTCONF server needs to be
+            configured to accept HTTP connections.</t>
+
         </section>
       </section>
 
@@ -1088,6 +1118,29 @@ INSERT_TEXT_FROM_FILE(refs/ietf-restconf-server@YYYY-MM-DD.yang)
             </list>
           </t>
         </section>
+        <section title="40 to 41">
+          <t>
+            <list style="symbols">
+              <t>In both the client and server YANG modules, added "if-feature" statements
+                to dependant features.  This oversight was identified by a WG member.</t>
+              <t>In the server YANG module, added "leaf client-cert-var" to the "external-endpoint"
+                container to enable the HTTP header variable used by an external TLS terminator
+                to be configured.  The need for this was identified by an ISP deploying a
+                RESTCONF server behind an AWS ALB (application load balancer) that hardcodes
+                an Amazon-specific variable name.</t>
+            </list>
+          </t>
+        </section>
+        <section title="41 to 42">
+          <t>
+            <list style="symbols">
+              <t>Updated Security Considerations section per Mike Bishop's review.  Now more
+                prominently calls out how HTTP (w/o TLS) may be configured, despite being
+                required by RESTCONF [RFC 8040], to support external TLS-terminators (e.g.,
+                load balancers).</t>
+            </list>
+          </t>
+        </section>
     </section>
 
     <section title="Acknowledgements" numbered="no">
@@ -1106,6 +1159,7 @@ INSERT_TEXT_FROM_FILE(refs/ietf-restconf-server@YYYY-MM-DD.yang)
       Qiufang Ma,
       Mehmet Ersue,
       Michal Vaško,
+      Mike Bishop,
       Phil Shafer,
       Qiufang Ma,
       Radek Krejci,

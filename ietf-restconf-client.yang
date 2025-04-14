@@ -82,6 +82,7 @@ module ietf-restconf-client {
   }
 
   feature tcp-listen {
+    if-feature listen;
     description
       "The 'tcp-listen' feature indicates that the RESTCONF client
        supports listening for incoming RESTCONF server call-home
