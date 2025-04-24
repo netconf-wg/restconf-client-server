@@ -63,7 +63,7 @@ module ietf-restconf-server {
     "This module contains a collection of YANG definitions
      for configuring RESTCONF servers.
 
-     Copyright (c) 2024 IETF Trust and the persons identified
+     Copyright (c) 2025 IETF Trust and the persons identified
      as authors of the code. All rights reserved.
 
      Redistribution and use in source and binary forms, with
@@ -88,7 +88,7 @@ module ietf-restconf-server {
     description
       "Initial version";
     reference
-      "RFC IIII: RESTCONF Client and Server Models";
+      "RFC IIII: A YANG Data Model for RESTCONF Clients and Server";
   }
 
   // Features
@@ -198,7 +198,7 @@ module ietf-restconf-server {
              when the 'cert-to-name' mapping is independent of
              fingerprint matching.  A 'cert-to-name' having no
              fingerprint value will match any client certificate
-             and therefore should only be present at the end of
+             and therefore SHOULD only be present at the end of
              the user-ordered 'cert-to-name' list.";
         }
       }
@@ -218,12 +218,7 @@ module ietf-restconf-server {
         container http-over-tcp {
           description
             "Configures RESTCONF server stack assuming that
-             TLS-termination is handled externally.
-
-             How a RESTCONF-server identifies RESTCONF-clients
-             authenticating using a TLS-level client-certificate
-             with external TLS termination is out of scope of
-             this document.";
+             TLS-termination is handled externally.";
           container external-endpoint {
             presence
               "Identifies that an external endpoint has been
@@ -231,39 +226,45 @@ module ietf-restconf-server {
                mandatory descendant nodes do not imply that
                this node must be configured.";
             description
-              "Identifies contact information for the external
-               system that terminates connections before passing
-               them to this server (e.g., a network address
-               translator or a load balancer).  These values have
-               no effect on the local operation of this server,
-               but may be used by applications when needing to
-               inform other systems how to contact the server.";
+              "Provides information for the external endpoint.";
             leaf address {
               type inet:host;
               mandatory true;
               description
                 "The IP address or hostname of the external
-                 system that terminates incoming RESTCONF
-                 client connections before forwarding them
-                 to this RESTCONF server.";
+                 endpoint clients connect to.  This value may
+                 be used in server-generated messages sent to
+                 clients.";
             }
             leaf port {
               type inet:port-number;
               default "443";
               description
-                "The port number that the external system listens
-                 on for incoming RESTCONF client connections that
-                 are forwarded to this RESTCONF server.  The
-                 IANA-assigned well-known port value for 'https'
-                 (443) is used if no value is specified.";
+                "The port number on the external system clients
+                 connect to. This value may be used in server 
+                 generated messages sent to clients. If no value
+                 is specified, the IANA-assigned well-known port
+                 value for 'https' (443) is assumed.";
+            }
+            leaf trusted-proxy-count {
+              type uint8 {
+                range "1..max"; // non-zero
+              }
+              default 1;
+              description
+                "The number of proxies in front of the RESTCONF
+                 server, including the external endpoint.  This
+                 value may be used to assist parsing proxy-sensitive
+                 HTTP header fields.  If no value is specified, the
+                 value '1' is assumed.";
             }
             leaf client-cert-var {
               type string;
               description
                 "The HTTP header variable used by the external
-                 TLS-terminator to relay client certificates
-                 to this RESTCONF server.  This field is not
-                 mandatory as RESTCONF client authentication
+                 TLS-terminator to relay client certificates to this
+                 RESTCONF server (e.g., 'X-Client-Cert').  This field
+                 is not mandatory as RESTCONF client authentication
                  does not require client certificates.";
             }
           }
@@ -566,7 +567,7 @@ module ietf-restconf-server {
                      multiple interval from the anchor time.
 
                      If an 'anchor-time' is not provided, then the
-                     server may implicitly set it to the time when
+                     server MAY implicitly set it to the time when
                      this configuraton is applied (e.g., on boot).
 
                      For example, for an anchor time is 15 minutes
