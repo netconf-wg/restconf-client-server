@@ -70,6 +70,8 @@ set_local_modules() {
     modules=(
         ../ietf-restconf-client
         ../ietf-restconf-server
+        ../../http-client-server/iana-http-versions
+        ../../http-client-server/ietf-uri
         ../../http-client-server/ietf-http-client
         ../../http-client-server/ietf-http-server
     )

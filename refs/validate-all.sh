@@ -30,7 +30,7 @@ run_unix_cmd $LINENO "$command" 0
 printf "okay.\n"
 
 printf "Testing ietf-restconf-client\@*.yang (yanglint)..."
-command="yanglint -t config --features=ietf-http-client:http1-supported ietf-restconf-client\@*.yang"
+command="yanglint -t config ietf-restconf-client\@*.yang"
 run_unix_cmd $LINENO "$command" 0
 printf "okay.\n"
 
